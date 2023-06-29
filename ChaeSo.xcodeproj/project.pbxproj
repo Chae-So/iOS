@@ -27,7 +27,6 @@
 		317ED7EC2A49D67B00006F7B /* AccountInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EB2A49D67B00006F7B /* AccountInfoViewModel.swift */; };
 		317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */; };
 		317ED7F02A4D69CF00006F7B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EF2A4D69CF00006F7B /* Validator.swift */; };
-		317ED7F22A4DB6FD00006F7B /* gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 317ED7F12A4DB6FD00006F7B /* gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +49,6 @@
 		317ED7EB2A49D67B00006F7B /* AccountInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewModel.swift; sourceTree = "<group>"; };
 		317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		317ED7EF2A4D69CF00006F7B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
-		317ED7F12A4DB6FD00006F7B /* gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +100,6 @@
 				317ED7BA2A49467800006F7B /* Info.plist */,
 				317ED7D82A498DBE00006F7B /* TextFieldExtension.swift */,
 				317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */,
-				317ED7F12A4DB6FD00006F7B /* gitignore */,
 			);
 			path = ChaeSo;
 			sourceTree = "<group>";
@@ -195,7 +192,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				317ED7C42A49521000006F7B /* Barriecito-Regular.ttf in Resources */,
-				317ED7F22A4DB6FD00006F7B /* gitignore in Resources */,
 				317ED7B92A49467800006F7B /* LaunchScreen.storyboard in Resources */,
 				317ED7E52A49976200006F7B /* Pretendard-Regular.otf in Resources */,
 				317ED7E62A49976200006F7B /* Pretendard-SemiBold.otf in Resources */,
