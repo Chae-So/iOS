@@ -5,13 +5,19 @@ import RxSwift
 
 class AccountInfoViewController: UIViewController {
     
+    var disposeBag = DisposeBag()
+    var viewModel: AccountInfoViewModel!
+    
     private lazy var imageView = UIImageView()
     private lazy var whiteView = UIView()
-    private let emailLabel = UILabel()
-    private lazy var emailTextField = UITextField()
-    private let passwordLabel = UILabel()
-    private lazy var passwordTextField = UITextField()
-    private lazy var rePasswordTextField = UITextField()
+    private let idLabel = UILabel()
+    private lazy var idTextField = UITextField()
+    private lazy var isValidIdLabel = UILabel()
+    private let pwLabel = UILabel()
+    private lazy var pwTextField = UITextField()
+    private lazy var isValidPwLabel = UILabel()
+    private lazy var pwConfirmTextField = UITextField()
+    private lazy var isValidPwConfirmLabel = UILabel()
     
     private let orLabel = UILabel()
     private let appleLoginButton = UIButton()
@@ -23,20 +29,70 @@ class AccountInfoViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
+        bind()
         attribute()
         layout()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    func bind(_ viewModel: AccountInfoViewModel){
+    func bind(){
+        
+        idTextField.rx.text.orEmpty
+            .bind(to: viewModel.idInput)
+            .disposed(by: disposeBag)
+        
+        pwTextField.rx.text.orEmpty
+            .bind(to: viewModel.pwInput)
+            .disposed(by: disposeBag)
+        
+        pwConfirmTextField.rx.text.orEmpty
+            .bind(to: viewModel.pwConfirmInput)
+            .disposed(by: disposeBag)
+        
+        viewModel.idValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? "" : "조건에 맞지 않는 형식입니다." }
+            .drive(isValidIdLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.idValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? .black : .red }
+            .drive(isValidIdLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.pwValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? "" : "조건에 맞지 않는 형식입니다." }
+            .drive(isValidPwLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.pwValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? .black : .red }
+            .drive(isValidPwLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        viewModel.pwConfirmValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? "" : "비밀번호가 다릅니다." }
+            .drive(isValidPwConfirmLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.pwConfirmValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? .black : .red }
+            .drive(isValidPwConfirmLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        // Bind view model output to button state
+        viewModel.allValid.asDriver(onErrorJustReturn: false)
+            .drive(nextButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        // Bind view model output to button background color and border color
+        viewModel.allValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor.green : UIColor.clear }
+            .drive(nextButton.rx.backgroundColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.allValid.asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor.green.cgColor : UIColor.green.cgColor }
+            .drive(nextButton.rx.layerBorderColor)
+            .disposed(by: disposeBag)
+        
         
     }
     
@@ -52,38 +108,39 @@ class AccountInfoViewController: UIViewController {
         whiteView.layer.cornerRadius = 16
         
         //MARK: emailLabel attribute
-        emailLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        emailLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        emailLabel.textAlignment = .center
-        emailLabel.text = "E-mail"
+        idLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        idLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
+        idLabel.textAlignment = .center
+        idLabel.text = "E-mail"
         
         
         //MARK: emailTextField attribute
-        emailTextField.alpha = 0.56
-        emailTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        emailTextField.layer.cornerRadius = 8
-        emailTextField.addLeftPadding()
-        emailTextField.placeholder = "이메일을 입력해 주세요."
+        idTextField.alpha = 0.56
+        idTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
+        idTextField.layer.cornerRadius = 8
+        idTextField.addLeftPadding()
+        idTextField.placeholder = "이메일을 입력해 주세요."
+        idTextField.keyboardType = .emailAddress
         
         //MARK: passwordLabel attribute
-        passwordLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        passwordLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        passwordLabel.text = "password"
+        pwLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        pwLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
+        pwLabel.text = "password"
         
         
         //MARK: passwordTextField attribute
-        passwordTextField.alpha = 0.56
-        passwordTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        passwordTextField.layer.cornerRadius = 8
-        passwordTextField.addLeftPadding()
-        passwordTextField.placeholder = "비밀번호를 입력해 주세요."
+        pwTextField.alpha = 0.56
+        pwTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
+        pwTextField.layer.cornerRadius = 8
+        pwTextField.addLeftPadding()
+        pwTextField.placeholder = "비밀번호를 입력해 주세요."
         
         //MARK: rePasswordTextField attribute
-        passwordTextField.alpha = 0.56
-        passwordTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        passwordTextField.layer.cornerRadius = 8
-        passwordTextField.addLeftPadding()
-        passwordTextField.placeholder = "비밀번호를 다시 입력해 주세요."
+        pwTextField.alpha = 0.56
+        pwTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
+        pwTextField.layer.cornerRadius = 8
+        pwTextField.addLeftPadding()
+        pwTextField.placeholder = "비밀번호를 다시 입력해 주세요."
         
         //MARK: orLabel attribute
         orLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -109,7 +166,7 @@ class AccountInfoViewController: UIViewController {
             make.top.equalToSuperview().offset(97)
         }
         
-        [whiteView,emailLabel,emailTextField,passwordLabel,passwordTextField,rePasswordTextField,orLabel,appleLoginButton,cacaoLoginButton,nextButton]
+        [whiteView,idLabel,idTextField,pwLabel,pwTextField,pwConfirmTextField,orLabel,appleLoginButton,cacaoLoginButton,nextButton]
             .forEach {
                 view.addSubview($0)
             }
@@ -121,20 +178,20 @@ class AccountInfoViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
         
-        emailLabel.snp.makeConstraints { make in
+        idLabel.snp.makeConstraints { make in
             make.width.equalTo(46)
             make.height.equalTo(19)
             make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(271)
         }
 
-        emailTextField.snp.makeConstraints { make in
+        idTextField.snp.makeConstraints { make in
             make.width.equalTo(343)
             make.height.equalTo(56)
             make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(306)
         }
-        passwordLabel.snp.makeConstraints { make in
+        pwLabel.snp.makeConstraints { make in
             make.width.equalTo(72)
             make.height.equalTo(19)
             make.leading.equalToSuperview().offset(16)
@@ -144,32 +201,11 @@ class AccountInfoViewController: UIViewController {
     }
 }
 
-#if DEBUG
-import SwiftUI
-struct Preview: UIViewControllerRepresentable {
-
-    // 여기 ViewController를 변경해주세요
-    func makeUIViewController(context: Context) -> UIViewController {
-        StartViewController()
-    }
-
-    func updateUIViewController(_ uiView: UIViewController,context: Context) {
-        // leave this empty
+extension Reactive where Base: UIButton {
+    // Bindable sink for layer border color
+    var layerBorderColor: Binder<CGColor> {
+        return Binder(self.base) { button, color in
+            button.layer.borderColor = color
+        }
     }
 }
-
-struct ViewController_PreviewProvider: PreviewProvider {
-    static var previews: some View {
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
-
-    }
-}
-#endif

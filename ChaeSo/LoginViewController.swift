@@ -20,26 +20,13 @@ class LoginViewController: UIViewController {
     private let signupButton = UIButton()
     private let nextButton = UIButton()
 
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        navigationItem.hidesBackButton = true
-//        //bind(ViewModel())
-//        attribute()
-//        layout()
-//    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.hidesBackButton = true
         //bind(ViewModel())
         attribute()
         layout()
     }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     
     func bind(_ viewModel: ViewModel){
         signupButton.rx.tap
