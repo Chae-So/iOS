@@ -23,13 +23,16 @@
 		317ED7E52A49976200006F7B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 317ED7E22A49976200006F7B /* Pretendard-Regular.otf */; };
 		317ED7E62A49976200006F7B /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 317ED7E32A49976200006F7B /* Pretendard-SemiBold.otf */; };
 		317ED7E82A499CFC00006F7B /* AccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7E72A499CFC00006F7B /* AccountInfoViewController.swift */; };
-		317ED7EA2A49CF1200006F7B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7E92A49CF1200006F7B /* ViewModel.swift */; };
+		317ED7EA2A49CF1200006F7B /* StartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7E92A49CF1200006F7B /* StartViewModel.swift */; };
 		317ED7EC2A49D67B00006F7B /* AccountInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EB2A49D67B00006F7B /* AccountInfoViewModel.swift */; };
 		317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */; };
 		317ED7F02A4D69CF00006F7B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EF2A4D69CF00006F7B /* Validator.swift */; };
+		9DD1241800024D2E325F256A /* Pods_ChaeSo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChaeSo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AF2B425CBDE89AC53475E8C /* Pods-ChaeSo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.release.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.release.xcconfig"; sourceTree = "<group>"; };
 		317ED7A92A49467700006F7B /* ChaeSo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChaeSo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317ED7AC2A49467700006F7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317ED7AE2A49467700006F7B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,10 +48,11 @@
 		317ED7E22A49976200006F7B /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		317ED7E32A49976200006F7B /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		317ED7E72A499CFC00006F7B /* AccountInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewController.swift; sourceTree = "<group>"; };
-		317ED7E92A49CF1200006F7B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		317ED7E92A49CF1200006F7B /* StartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewModel.swift; sourceTree = "<group>"; };
 		317ED7EB2A49D67B00006F7B /* AccountInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewModel.swift; sourceTree = "<group>"; };
 		317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		317ED7EF2A4D69CF00006F7B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.debug.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 				317ED7C22A4946A700006F7B /* SnapKit in Frameworks */,
 				317ED7D02A49567900006F7B /* RxSwift in Frameworks */,
 				317ED7CE2A49567900006F7B /* RxRelay in Frameworks */,
+				9DD1241800024D2E325F256A /* Pods_ChaeSo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +77,7 @@
 				317ED7AB2A49467700006F7B /* ChaeSo */,
 				317ED7AA2A49467700006F7B /* Products */,
 				317ED7D52A4976C400006F7B /* Frameworks */,
+				7DD07D34F486E0D597426205 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,7 +96,7 @@
 				317ED7AC2A49467700006F7B /* AppDelegate.swift */,
 				317ED7AE2A49467700006F7B /* SceneDelegate.swift */,
 				317ED7B02A49467700006F7B /* StartViewController.swift */,
-				317ED7E92A49CF1200006F7B /* ViewModel.swift */,
+				317ED7E92A49CF1200006F7B /* StartViewModel.swift */,
 				317ED7C52A4954F700006F7B /* LoginViewController.swift */,
 				317ED7E72A499CFC00006F7B /* AccountInfoViewController.swift */,
 				317ED7EB2A49D67B00006F7B /* AccountInfoViewModel.swift */,
@@ -119,8 +125,18 @@
 			isa = PBXGroup;
 			children = (
 				317ED7D62A4976C400006F7B /* XCTest.framework */,
+				260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7DD07D34F486E0D597426205 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */,
+				2AF2B425CBDE89AC53475E8C /* Pods-ChaeSo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,9 +146,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 317ED7BD2A49467800006F7B /* Build configuration list for PBXNativeTarget "ChaeSo" */;
 			buildPhases = (
+				53A58AC57A6131B67390AA89 /* [CP] Check Pods Manifest.lock */,
 				317ED7A52A49467700006F7B /* Sources */,
 				317ED7A62A49467700006F7B /* Frameworks */,
 				317ED7A72A49467700006F7B /* Resources */,
+				BE1DBF4FD471699385D4402C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,6 +220,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		53A58AC57A6131B67390AA89 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChaeSo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE1DBF4FD471699385D4402C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChaeSo/Pods-ChaeSo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChaeSo/Pods-ChaeSo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChaeSo/Pods-ChaeSo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		317ED7A52A49467700006F7B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -215,7 +275,7 @@
 				317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */,
 				317ED7C62A4954F700006F7B /* LoginViewController.swift in Sources */,
 				317ED7AF2A49467700006F7B /* SceneDelegate.swift in Sources */,
-				317ED7EA2A49CF1200006F7B /* ViewModel.swift in Sources */,
+				317ED7EA2A49CF1200006F7B /* StartViewModel.swift in Sources */,
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +410,7 @@
 		};
 		317ED7BE2A49467800006F7B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -377,6 +438,7 @@
 		};
 		317ED7BF2A49467800006F7B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2AF2B425CBDE89AC53475E8C /* Pods-ChaeSo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

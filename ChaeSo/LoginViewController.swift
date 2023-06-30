@@ -28,7 +28,7 @@ class LoginViewController: UIViewController {
         layout()
     }
     
-    func bind(_ viewModel: ViewModel){
+    func bind(_ viewModel: LoginViewModel){
         signupButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
