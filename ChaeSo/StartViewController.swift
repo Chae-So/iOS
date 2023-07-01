@@ -4,10 +4,11 @@ import RxSwift
 import RxCocoa
 import DropDown
 
+var aa = ""
+
 class StartViewController: UIViewController {
     private let disposeBag = DisposeBag()
-    //var startViewModel: StartViewModel!
-    var loginViewModel: LoginViewModel!
+    let viewModel = StartViewModel()
     
     private lazy var imageView = UIImageView()
     private let chaesoLabel = UILabel()
@@ -26,21 +27,46 @@ class StartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bind()
+        //bind(viewModel)
         attribute()
         layout()
     }
     
-    func bind(){
+    private func changeLanguage(to languageCode: String) {
+        LanguageManager.shared.setLanguage(languageCode)
+        Bundle.setLanguage(languageCode)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LanguageDidChangeNotification"), object: nil)
+    }
+    
+    func bind(_ startViewModel: StartViewModel){
+        
+        startViewModel.languageSubject
+            .subscribe(onNext: { [weak self] _ in
+                let path = Bundle.main.path(forResource: aa, ofType: "lproj")
+                let bundle = Bundle(path: path!)
+                
+                self?.title = bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil)
+                //self?.title = NSLocalizedString("Sign_Up", comment: "")
+            })
+            .disposed(by: disposeBag)
+        
         
         dropDown.rx.itemSelected
             .asDriver(onErrorDriveWith: .empty())
-            .
-            .subscribe(onNext: { [weak self] index, item in
+            .drive(onNext: { [weak self] index, item in
                 // 선택된 언어 처리
-                self?.languageButton.setTitle(item, for: .normal)
                 
-                // 선택된 언어를 다른 곳에서 사용하려면 여기에 추가 코드 작성
+                print(index,item)
+                self?.languageButton.setTitle(item, for: .normal)
+                if(index == 0){
+                    self?.changeLanguage(to: "ko")
+                    aa = "ko"
+                }
+                else{
+                    self?.changeLanguage(to: "en")
+                    aa = "en"
+                }
+                
             })
             .disposed(by: disposeBag)
         
@@ -55,7 +81,7 @@ class StartViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 let loginViewController = LoginViewController()
-                loginViewController.bind(self.loginViewModel)
+                loginViewController.bind(self.viewModel)
                 self.navigationController?.pushViewController(loginViewController, animated: true)
             })
             .disposed(by: disposeBag)
@@ -133,8 +159,9 @@ class StartViewController: UIViewController {
             make.leading.equalToSuperview().offset(16*standardWidth)
             make.top.equalToSuperview().offset(721*standardHeight)
         }
-        
     }
+    
+    
 }
 
 extension Reactive where Base: DropDown {

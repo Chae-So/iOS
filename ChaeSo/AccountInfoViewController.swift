@@ -6,7 +6,7 @@ import RxSwift
 class AccountInfoViewController: UIViewController {
     
     var disposeBag = DisposeBag()
-    var viewModel: AccountInfoViewModel!
+    var viewModel = AccountInfoViewModel()
     
     private lazy var imageView = UIImageView()
     private lazy var whiteView = UIView()
@@ -27,9 +27,9 @@ class AccountInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.hidesBackButton = true
+        //navigationItem.hidesBackButton = true
         
-        bind()
+        //bind()
         attribute()
         layout()
     }

@@ -5,6 +5,8 @@ import RxCocoa
 
 class LoginViewController: UIViewController {
     private let disposeBag = DisposeBag()
+    let viewModel = StartViewModel()
+
     
     private lazy var imageView = UIImageView()
     private let emailLabel = UILabel()
@@ -22,13 +24,32 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.hidesBackButton = true
-        //bind(ViewModel())
+        //navigationItem.hidesBackButton = true
+        //bind(viewModel)
+        let path = Bundle.main.path(forResource: aa, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        
+        self.title = bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil)
+        self.isFirstVisitLabel.text = bundle?.localizedString(forKey: "Is_this_your_first_visit_to_CHAESO?", value: nil, table: nil)
+        self.signupButton.setTitle(bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil), for: .normal)
         attribute()
         layout()
     }
     
-    func bind(_ viewModel: LoginViewModel){
+    func bind(_ viewModel: StartViewModel){
+//        viewModel.languageSubject
+//            .subscribe(onNext: { [weak self] _ in
+//                let path = Bundle.main.path(forResource: aa, ofType: "lproj")
+//                let bundle = Bundle(path: path!)
+//
+//                self?.title = bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil)
+//                self?.isFirstVisitLabel.text = bundle?.localizedString(forKey: "Is_this_your_first_visit_to_CHAESO?", value: nil, table: nil)
+//                self?.signupButton.setTitle(bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil), for: .normal)
+//                //self?.updateLocalizedTexts()
+//                //self?.title = NSLocalizedString("Sign_Up", comment: "")
+//            })
+//            .disposed(by: disposeBag)
+        
         signupButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -38,6 +59,15 @@ class LoginViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    private func updateLocalizedTexts() {
+        DispatchQueue.main.async {
+            self.isFirstVisitLabel.text = NSLocalizedString("Is_this_your_first_visit_to_CHAESO?", comment: "")
+            self.signupButton.setTitle(NSLocalizedString("Sign_Up", comment: ""), for: .normal)
+            
+        }
+//        isFirstVisitLabel.text = NSLocalizedString("Is_this_your_first_visit_to_CHAESO?", comment: "")
+//        signupButton.setTitle(NSLocalizedString("Sign_Up", comment: ""), for: .normal)
+    }
     
     func attribute(){
         //MARK: 바탕색
@@ -83,13 +113,14 @@ class LoginViewController: UIViewController {
         isFirstVisitLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         isFirstVisitLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
         isFirstVisitLabel.textAlignment = .center
-        isFirstVisitLabel.text = "채소에 첫 방문이신가요?"
+        //isFirstVisitLabel.text = NSLocalizedString("Is_this_your_first_visit_to_CHAESO?", comment: "")
+        
         
         //MARK: signupButton attribute
         signupButton.titleLabel?.textAlignment = .center
         signupButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         signupButton.setTitleColor(UIColor(named: "prColor"), for: .normal)
-        signupButton.setTitle("회원가입하기", for: .normal)
+        //signupButton.setTitle(NSLocalizedString("Sign_Up", comment: ""), for: .normal)
         signupButton.layer.cornerRadius = 8
         signupButton.layer.borderWidth = 1
         signupButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
@@ -158,9 +189,9 @@ class LoginViewController: UIViewController {
         }
         
         isFirstVisitLabel.snp.makeConstraints { make in
-            make.width.equalTo(155)
+            //make.width.equalTo(155)
             make.height.equalTo(19)
-            make.centerX.equalToSuperview().offset(-91)
+            make.leading.equalToSuperview().offset(17)
             make.top.equalToSuperview().offset(608)
         }
         
