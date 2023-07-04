@@ -5,109 +5,75 @@ import RxCocoa
 
 class LoginViewController: UIViewController {
     private let disposeBag = DisposeBag()
-    let viewModel = StartViewModel()
+    var loginViewModel: LoginViewModel!
 
     
     private lazy var imageView = UIImageView()
-    private let emailLabel = UILabel()
-    private lazy var emailTextField = UITextField()
-    private let passwordLabel = UILabel()
-    private lazy var passwordTextField = UITextField()
     
-    private let orLabel = UILabel()
     private let appleLoginButton = UIButton()
     private let cacaoLoginButton = UIButton()
-    
+    private let lineView = UIView()
     private let isFirstVisitLabel = UILabel()
     private let signupButton = UIButton()
-    private let nextButton = UIButton()
+    
+    private let mainWidth = UIScreen.main.bounds.size.width
+    private let mainHeight = UIScreen.main.bounds.size.height
+    
+    private let standardWidth = UIScreen.main.bounds.size.width / 375.0
+    private let standardHeight = UIScreen.main.bounds.size.height / 812.0
+    
+    init(loginViewModel: LoginViewModel!) {
+        super.init(nibName: nil, bundle: nil)
+        self.loginViewModel = loginViewModel
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.hidesBackButton = true
-        //bind(viewModel)
-        let path = Bundle.main.path(forResource: aa, ofType: "lproj")
-        let bundle = Bundle(path: path!)
         
-        self.title = bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil)
-        self.isFirstVisitLabel.text = bundle?.localizedString(forKey: "Is_this_your_first_visit_to_CHAESO?", value: nil, table: nil)
-        self.signupButton.setTitle(bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil), for: .normal)
+        bind()
         attribute()
         layout()
     }
     
-    func bind(_ viewModel: StartViewModel){
-//        viewModel.languageSubject
-//            .subscribe(onNext: { [weak self] _ in
-//                let path = Bundle.main.path(forResource: aa, ofType: "lproj")
-//                let bundle = Bundle(path: path!)
-//
-//                self?.title = bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil)
-//                self?.isFirstVisitLabel.text = bundle?.localizedString(forKey: "Is_this_your_first_visit_to_CHAESO?", value: nil, table: nil)
-//                self?.signupButton.setTitle(bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil), for: .normal)
-//                //self?.updateLocalizedTexts()
-//                //self?.title = NSLocalizedString("Sign_Up", comment: "")
-//            })
-//            .disposed(by: disposeBag)
+    func bind(){
+        loginViewModel.isFirstVisitLabelText
+            .asObservable()
+            .bind(to: isFirstVisitLabel.rx.text) // isFirstVisitLabel의 text에 값을 바인딩
+            .disposed(by: disposeBag)
         
+        loginViewModel.signupButtonText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(signupButton.rx.title())
+            .disposed(by: disposeBag)
+
         signupButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                let accountInfoViewController = AccountInfoViewController()
-                self.navigationController?.pushViewController(accountInfoViewController, animated: true)
+                let signUpViewModel = SignUpViewModel()
+                let signUpViewController = SignUpViewController(signUpViewModel: signUpViewModel)
+                self.navigationController?.pushViewController(signUpViewController, animated: true)
             })
             .disposed(by: disposeBag)
     }
     
-    private func updateLocalizedTexts() {
-        DispatchQueue.main.async {
-            self.isFirstVisitLabel.text = NSLocalizedString("Is_this_your_first_visit_to_CHAESO?", comment: "")
-            self.signupButton.setTitle(NSLocalizedString("Sign_Up", comment: ""), for: .normal)
-            
-        }
-//        isFirstVisitLabel.text = NSLocalizedString("Is_this_your_first_visit_to_CHAESO?", comment: "")
-//        signupButton.setTitle(NSLocalizedString("Sign_Up", comment: ""), for: .normal)
-    }
+
     
     func attribute(){
         //MARK: 바탕색
+        self.title = "로그인"
+        
         self.view.backgroundColor = UIColor(named: "bgColor")
         
         //MARK: imageView attribute
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
         
-        //MARK: emailLabel attribute
-        emailLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        emailLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        emailLabel.textAlignment = .center
-        emailLabel.text = "E-mail"
-        
-        
-        //MARK: emailTextField attribute
-        emailTextField.alpha = 0.56
-        emailTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        emailTextField.layer.cornerRadius = 8
-        emailTextField.addLeftPadding()
-        emailTextField.placeholder = "이메일을 입력해 주세요."
-        
-        //MARK: passwordLabel attribute
-        passwordLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        passwordLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        passwordLabel.text = "password"
-        
-        
-        //MARK: passwordTextField attribute
-        passwordTextField.alpha = 0.56
-        passwordTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        passwordTextField.layer.cornerRadius = 8
-        passwordTextField.addLeftPadding()
-        passwordTextField.placeholder = "비밀번호를 입력해 주세요."
-        
-        //MARK: orLabel attribute
-        orLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        orLabel.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        orLabel.text = "or"
+        lineView.backgroundColor = UIColor(hexCode: "#DEDEDE")
         
         //MARK: isFirstVisitLabel attribute
         isFirstVisitLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -124,93 +90,82 @@ class LoginViewController: UIViewController {
         signupButton.layer.cornerRadius = 8
         signupButton.layer.borderWidth = 1
         signupButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
-        
+
         //MARK: nextButton attribute
-        nextButton.titleLabel?.textAlignment = .center
-        nextButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        nextButton.setTitleColor(UIColor.white, for: .normal)
-        nextButton.setTitle("next", for: .normal)
-        nextButton.backgroundColor = UIColor(named: "prColor")
-        nextButton.layer.cornerRadius = 8
+//        nextButton.titleLabel?.textAlignment = .center
+//        nextButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+//        nextButton.setTitleColor(UIColor.white, for: .normal)
+//        nextButton.setTitle("next", for: .normal)
+//        nextButton.backgroundColor = UIColor(named: "prColor")
+//        nextButton.layer.cornerRadius = 8
                 
     }
     
     func layout(){
-        [imageView,emailLabel,emailTextField,passwordLabel,passwordTextField]
+        [imageView,appleLoginButton,cacaoLoginButton,lineView,isFirstVisitLabel,signupButton]
             .forEach {
                 view.addSubview($0)
             }
         
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(100)
-            make.height.equalTo(96.41)
-            make.centerX.equalToSuperview().offset(0.5)
-            make.top.equalToSuperview().offset(97)
+            make.width.equalTo(100*Constants.standardWidth)
+            make.height.equalTo(96.41*Constants.standardHeight)
+            make.centerX.equalToSuperview().offset(0.5*Constants.standardWidth)
+            make.top.equalToSuperview().offset(160*Constants.standardHeight)
         }
         
-        emailLabel.snp.makeConstraints { make in
-            make.width.equalTo(46)
-            make.height.equalTo(19)
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(250)
+        lineView.snp.makeConstraints { make in
+            make.width.equalTo(341*Constants.standardWidth)
+            make.height.equalTo(1*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(17*Constants.standardWidth)
+            make.top.equalToSuperview().offset(662*Constants.standardHeight)
         }
         
-        emailTextField.snp.makeConstraints { make in
-            make.width.equalTo(343)
-            make.height.equalTo(56)
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(285)
-        }
-        
-        passwordLabel.snp.makeConstraints { make in
-            make.width.equalTo(72)
-            make.height.equalTo(19)
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(365)
-        }
-        
-        passwordTextField.snp.makeConstraints { make in
-            make.width.equalTo(343)
-            make.height.equalTo(56)
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(400)
-        }
-        
-        [orLabel,appleLoginButton,cacaoLoginButton,isFirstVisitLabel,signupButton,nextButton]
-            .forEach {
-                view.addSubview($0)
-            }
-        
-        orLabel.snp.makeConstraints { make in
-            make.width.equalTo(16)
-            make.height.equalTo(19)
-            make.centerX.equalToSuperview().offset(0.5)
-            make.top.equalToSuperview().offset(478)
-        }
         
         isFirstVisitLabel.snp.makeConstraints { make in
-            //make.width.equalTo(155)
-            make.height.equalTo(19)
-            make.leading.equalToSuperview().offset(17)
-            make.top.equalToSuperview().offset(608)
+            //make.width.equalTo(155*standardWidth)
+            make.height.equalTo(19*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(17*Constants.standardWidth)
+            make.top.equalToSuperview().offset(686*Constants.standardHeight)
         }
         
         signupButton.snp.makeConstraints { make in
-            make.width.equalTo(343)
-            make.height.equalTo(57)
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(643)
+            make.width.equalTo(343*Constants.standardWidth)
+            make.height.equalTo(57*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview().offset(721*Constants.standardHeight)
         }
-        
-        nextButton.snp.makeConstraints { make in
-            make.width.equalTo(343)
-            make.height.equalTo(57)
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(720)
-        }
-        
         
     }
 
 }
 
+//#if DEBUG
+//import SwiftUI
+//struct Preview: UIViewControllerRepresentable {
+//
+//    // 여기 ViewController를 변경해주세요
+//    func makeUIViewController(context: Context) -> UIViewController {
+//        LoginViewController(loginViewModel: LoginViewModel())
+//    }
+//
+//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+//        // leave this empty
+//    }
+//}
+//
+//struct ViewController_PreviewProvider: PreviewProvider {
+//    static var previews: some View {
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+//
+//    }
+//}
+//#endif

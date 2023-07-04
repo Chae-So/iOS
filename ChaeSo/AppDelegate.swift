@@ -10,20 +10,13 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var rootViewModel = StartViewModel()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }
     
-    func restartApp() {
-        if let window = UIApplication.shared.keyWindow {
-            let rootViewController = StartViewController()
-            rootViewController.bind(rootViewModel)
-            window.rootViewController = UINavigationController(rootViewController: rootViewController)
-        }
-    }
+    
 
     // MARK: UISceneSession Lifecycle
 

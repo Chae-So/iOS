@@ -3,13 +3,12 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
-class AccountInfoViewController: UIViewController {
+class SignUpViewController: UIViewController {
     
     var disposeBag = DisposeBag()
-    var viewModel = AccountInfoViewModel()
+    var signUpViewModel: SignUpViewModel!
     
     private lazy var imageView = UIImageView()
-    private lazy var whiteView = UIView()
     private let idLabel = UILabel()
     private lazy var idTextField = UITextField()
     private lazy var isValidIdLabel = UILabel()
@@ -19,17 +18,30 @@ class AccountInfoViewController: UIViewController {
     private lazy var pwConfirmTextField = UITextField()
     private lazy var isValidPwConfirmLabel = UILabel()
     
-    private let orLabel = UILabel()
-    private let appleLoginButton = UIButton()
-    private let cacaoLoginButton = UIButton()
     
     private let nextButton = UIButton()
+    
+    private let mainWidth = UIScreen.main.bounds.size.width
+    private let mainHeight = UIScreen.main.bounds.size.height
+    
+    private let standardWidth = UIScreen.main.bounds.size.width / 375.0
+    private let standardHeight = UIScreen.main.bounds.size.height / 812.0
+    
+    init(signUpViewModel: SignUpViewModel!) {
+        self.signUpViewModel = signUpViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.hidesBackButton = true
         
-        //bind()
+        bind()
         attribute()
         layout()
     }
@@ -38,57 +50,57 @@ class AccountInfoViewController: UIViewController {
     func bind(){
         
         idTextField.rx.text.orEmpty
-            .bind(to: viewModel.idInput)
+            .bind(to: signUpViewModel.idInput)
             .disposed(by: disposeBag)
         
         pwTextField.rx.text.orEmpty
-            .bind(to: viewModel.pwInput)
+            .bind(to: signUpViewModel.pwInput)
             .disposed(by: disposeBag)
         
         pwConfirmTextField.rx.text.orEmpty
-            .bind(to: viewModel.pwConfirmInput)
+            .bind(to: signUpViewModel.pwConfirmInput)
             .disposed(by: disposeBag)
         
-        viewModel.idValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.idValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? "" : "조건에 맞지 않는 형식입니다." }
             .drive(isValidIdLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.idValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.idValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? .black : .red }
             .drive(isValidIdLabel.rx.textColor)
             .disposed(by: disposeBag)
         
-        viewModel.pwValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.pwValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? "" : "조건에 맞지 않는 형식입니다." }
             .drive(isValidPwLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.pwValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.pwValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? .black : .red }
             .drive(isValidPwLabel.rx.textColor)
             .disposed(by: disposeBag)
-        viewModel.pwConfirmValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.pwConfirmValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? "" : "비밀번호가 다릅니다." }
             .drive(isValidPwConfirmLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.pwConfirmValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.pwConfirmValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? .black : .red }
             .drive(isValidPwConfirmLabel.rx.textColor)
             .disposed(by: disposeBag)
         
         // Bind view model output to button state
-        viewModel.allValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.allValid.asDriver(onErrorJustReturn: false)
             .drive(nextButton.rx.isEnabled)
             .disposed(by: disposeBag)
         // Bind view model output to button background color and border color
-        viewModel.allValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.allValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor.green : UIColor.clear }
             .drive(nextButton.rx.backgroundColor)
             .disposed(by: disposeBag)
         
-        viewModel.allValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.allValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor.green.cgColor : UIColor.green.cgColor }
             .drive(nextButton.rx.layerBorderColor)
             .disposed(by: disposeBag)
@@ -103,18 +115,14 @@ class AccountInfoViewController: UIViewController {
         //MARK: imageView attribute
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        //MARK: whiteView attribute
-        whiteView.backgroundColor = .white
-        whiteView.layer.cornerRadius = 16
-        
-        //MARK: emailLabel attribute
+        //MARK: idlLabel attribute
         idLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         idLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
         idLabel.textAlignment = .center
         idLabel.text = "E-mail"
         
         
-        //MARK: emailTextField attribute
+        //MARK: idTextField attribute
         idTextField.alpha = 0.56
         idTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
         idTextField.layer.cornerRadius = 8
@@ -142,10 +150,7 @@ class AccountInfoViewController: UIViewController {
         pwTextField.addLeftPadding()
         pwTextField.placeholder = "비밀번호를 다시 입력해 주세요."
         
-        //MARK: orLabel attribute
-        orLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        orLabel.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        orLabel.text = "or"
+        
         
         //MARK: nextButton attribute
         nextButton.titleLabel?.textAlignment = .center
@@ -166,17 +171,12 @@ class AccountInfoViewController: UIViewController {
             make.top.equalToSuperview().offset(97)
         }
         
-        [whiteView,idLabel,idTextField,pwLabel,pwTextField,pwConfirmTextField,orLabel,appleLoginButton,cacaoLoginButton,nextButton]
+        [idLabel,idTextField,pwLabel,pwTextField,pwConfirmTextField,nextButton]
             .forEach {
                 view.addSubview($0)
             }
         
-        whiteView.snp.makeConstraints { make in
-            make.width.equalTo(375)
-            make.height.equalTo(565)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        
         
         idLabel.snp.makeConstraints { make in
             make.width.equalTo(46)
@@ -209,3 +209,4 @@ extension Reactive where Base: UIButton {
         }
     }
 }
+

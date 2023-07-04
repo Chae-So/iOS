@@ -4,11 +4,10 @@ import RxSwift
 import RxCocoa
 import DropDown
 
-var aa = ""
 
 class StartViewController: UIViewController {
     private let disposeBag = DisposeBag()
-    let viewModel = StartViewModel()
+    var startViewModel: StartViewModel!
     
     private lazy var imageView = UIImageView()
     private let chaesoLabel = UILabel()
@@ -18,55 +17,35 @@ class StartViewController: UIViewController {
     let languages = ["한국어", "English"]
     let dropDown = DropDown()
     
-    private let mainWidth = UIScreen.main.bounds.size.width
-    private let mainHeight = UIScreen.main.bounds.size.height
     
-    private let standardWidth = UIScreen.main.bounds.size.width / 375.0
-    private let standardHeight = UIScreen.main.bounds.size.height / 812.0
+    
+    init(startViewModel: StartViewModel!) {
+        super.init(nibName: nil, bundle: nil)
+        self.startViewModel = startViewModel
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //bind(viewModel)
+        bind()
         attribute()
         layout()
     }
     
-    private func changeLanguage(to languageCode: String) {
-        LanguageManager.shared.setLanguage(languageCode)
-        Bundle.setLanguage(languageCode)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LanguageDidChangeNotification"), object: nil)
-    }
     
-    func bind(_ startViewModel: StartViewModel){
-        
-        startViewModel.languageSubject
-            .subscribe(onNext: { [weak self] _ in
-                let path = Bundle.main.path(forResource: aa, ofType: "lproj")
-                let bundle = Bundle(path: path!)
-                
-                self?.title = bundle?.localizedString(forKey: "Sign_Up", value: nil, table: nil)
-                //self?.title = NSLocalizedString("Sign_Up", comment: "")
-            })
-            .disposed(by: disposeBag)
-        
+    
+    func bind(){
         
         dropDown.rx.itemSelected
             .asDriver(onErrorDriveWith: .empty())
             .drive(onNext: { [weak self] index, item in
-                // 선택된 언어 처리
-                
-                print(index,item)
                 self?.languageButton.setTitle(item, for: .normal)
-                if(index == 0){
-                    self?.changeLanguage(to: "ko")
-                    aa = "ko"
-                }
-                else{
-                    self?.changeLanguage(to: "en")
-                    aa = "en"
-                }
-                
+                self?.startViewModel.languageSelected.onNext(item)
             })
             .disposed(by: disposeBag)
         
@@ -80,8 +59,9 @@ class StartViewController: UIViewController {
         startButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                let loginViewController = LoginViewController()
-                loginViewController.bind(self.viewModel)
+                
+                let loginViewModel = LoginViewModel(localizationManager: LocalizationManager.shared)
+                let loginViewController = LoginViewController(loginViewModel: loginViewModel)
                 self.navigationController?.pushViewController(loginViewController, animated: true)
             })
             .disposed(by: disposeBag)
@@ -94,7 +74,7 @@ class StartViewController: UIViewController {
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
         chaesoLabel.textColor = .black
-        chaesoLabel.font = UIFont(name: "Barriecito-Regular", size: 40*standardWidth)
+        chaesoLabel.font = UIFont(name: "Barriecito-Regular", size: 40*Constants.standardWidth)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1
         let attributedText = NSMutableAttributedString(string: "CHAESO", attributes: [NSAttributedString.Key.kern: 4, NSAttributedString.Key.paragraphStyle: paragraphStyle])
@@ -111,7 +91,7 @@ class StartViewController: UIViewController {
         
         dropDown.anchorView = languageButton
         dropDown.dataSource = languages
-        dropDown.bottomOffset = CGPoint(x: 0, y: 58 * standardHeight)
+        dropDown.bottomOffset = CGPoint(x: 0, y: 58 * Constants.standardHeight)
         dropDown.cornerRadius = 8
         dropDown.shadowColor = .clear
         dropDown.backgroundColor = UIColor.white
@@ -130,34 +110,35 @@ class StartViewController: UIViewController {
         }
         
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(251*standardWidth)
-            make.height.equalTo(242*standardHeight)
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(230*standardHeight)
+            make.width.equalTo(251*Constants.standardWidth)
+            make.height.equalTo(242*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(62*Constants.standardWidth)
+            make.top.equalToSuperview().offset(230*Constants.standardHeight)
             
         }
         
         chaesoLabel.snp.makeConstraints { make in
-            make.width.equalTo(161*standardWidth)
-            make.height.equalTo(48*standardHeight)
-            make.leading.equalToSuperview().offset(112*standardWidth)
-            make.top.equalToSuperview().offset(486*standardHeight)
+            make.width.equalTo(161*Constants.standardWidth)
+            make.height.equalTo(48*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(112*Constants.standardWidth)
+            //make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(486*Constants.standardHeight)
         }
         
         languageButton.snp.makeConstraints { make in
-            make.width.equalTo(342*standardWidth)
-            make.height.equalTo(48*standardHeight)
-            make.leading.equalToSuperview().offset(16*standardWidth)
-            make.top.equalToSuperview().offset(548*standardHeight)
+            make.width.equalTo(342*Constants.standardWidth)
+            make.height.equalTo(48*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview().offset(548*Constants.standardHeight)
         }
         
         
         
         startButton.snp.makeConstraints { make in
-            make.width.equalTo(343*standardWidth)
-            make.height.equalTo(56*standardHeight)
-            make.leading.equalToSuperview().offset(16*standardWidth)
-            make.top.equalToSuperview().offset(721*standardHeight)
+            make.width.equalTo(343*Constants.standardWidth)
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview().offset(721*Constants.standardHeight)
         }
     }
     
@@ -191,33 +172,33 @@ extension Reactive where Base: DropDown {
 
 
 
-#if DEBUG
-import SwiftUI
-struct Preview: UIViewControllerRepresentable {
-
-    // 여기 ViewController를 변경해주세요
-    func makeUIViewController(context: Context) -> UIViewController {
-        StartViewController()
-    }
-
-    func updateUIViewController(_ uiView: UIViewController,context: Context) {
-        // leave this empty
-    }
-}
-
-struct ViewController_PreviewProvider: PreviewProvider {
-    static var previews: some View {
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
-
-    }
-}
-#endif
+//#if DEBUG
+//import SwiftUI
+//struct Preview: UIViewControllerRepresentable {
+//
+//    // 여기 ViewController를 변경해주세요
+//    func makeUIViewController(context: Context) -> UIViewController {
+//        StartViewController(startViewModel: StartViewModel())
+//    }
+//
+//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+//        // leave this empty
+//    }
+//}
+//
+//struct ViewController_PreviewProvider: PreviewProvider {
+//    static var previews: some View {
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+//
+//    }
+//}
+//#endif
 

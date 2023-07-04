@@ -10,13 +10,12 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var rootViewModel = StartViewModel()
+    var rootViewModel = StartViewModel(localizationManager: LocalizationManager.shared)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let rootViewController = StartViewController()
-        rootViewController.bind(rootViewModel)
+        let rootViewController = StartViewController(startViewModel: rootViewModel)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
     }

@@ -1,28 +1,35 @@
-//
-//  ViewModel.swift
-//  ChaeSo
-//
-//  Created by 박중선 on 2023/06/26.
-//
-
 import UIKit
 import RxSwift
+import RxCocoa
 
 class StartViewModel {
-    let languageSubject = BehaviorSubject<String>(value: LanguageManager.shared.currentLanguage)
+    let disposeBag = DisposeBag()
     
-    init() {
-        // 언어 설정 변경을 감지하여 subject에 새로운 언어 코드를 전달
-        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: NSNotification.Name(rawValue: "LanguageDidChangeNotification"), object: nil)
+    
+    var localizationManager: LocalizationManager
+    
+    // Input
+    let languageSelected = PublishSubject<String>()
+    
+    // Output
+    let titleText = BehaviorRelay<String>(value: "")
+    
+    init(localizationManager: LocalizationManager) {
+        self.localizationManager = localizationManager
+        print(localizationManager.language,5555)
+        languageSelected
+            .subscribe(onNext: { [weak self] language in
+                if(language == "한국어"){
+                    self?.localizationManager.language = "ko"
+                }
+                else{
+                    self?.localizationManager.language = "en"
+                }
+                self?.updateLocalization()
+            })
+            .disposed(by: disposeBag)
     }
-    
-    @objc private func languageDidChange() {
-        let language = LanguageManager.shared.currentLanguage
-        languageSubject.onNext(language)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    private func updateLocalization() {
+        titleText.accept(localizationManager.localizedString(forKey: "Sign_Up"))
     }
 }
-

@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class AccountInfoViewModel{
+class SignUpViewModel{
     
     let validator:Validator = Validator()
     
