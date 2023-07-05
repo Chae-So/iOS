@@ -1,3 +1,8 @@
 // 로그인
-"Is_this_your_first_visit_to_CHAESO?" = "Is this your first visit to CHAESO?";
-"Sign_Up" = "Sign Up";
+"Login" = "Login";
+"Sign in with Apple" = "Sign in with Apple";
+"Sign in with Google" = "Sign in with Google";
+"Sign in with Kakao" = "Sign in with Kakao";
+"Login in with ID" = "Login in with ID";
+"Is this your first visit to CHAESO?" = "Is this your first visit to CHAESO?";
+"Sign Up" = "Sign Up";

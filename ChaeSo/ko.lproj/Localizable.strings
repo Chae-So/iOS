@@ -1,4 +1,8 @@
-
 //로그인
-"Is_this_your_first_visit_to_CHAESO?" = "채소에 첫 방문이신가요?";
-"Sign_Up" = "회원가입";
+"Login" = "로그인";
+"Sign in with Apple" = "애플로 로그인";
+"Sign in with Google" = "구글로 로그인";
+"Sign in with Kakao" = "카카오로 로그인";
+"Login in with ID" = "아이디로 로그인";
+"Is this your first visit to CHAESO?" = "채소에 첫 방문이신가요?";
+"Sign Up" = "회원가입";

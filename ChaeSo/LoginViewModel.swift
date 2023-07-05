@@ -9,6 +9,11 @@ class LoginViewModel{
     var localizationManager: LocalizationManager
     
     // Input
+    let loginText = BehaviorRelay<String>(value: "")
+    let appleLoginButtonText = BehaviorRelay<String>(value: "")
+    let googleLoginButtonText = BehaviorRelay<String>(value: "")
+    let kakaoLoginButtonText = BehaviorRelay<String>(value: "")
+    let tomatoLoginButtonText = BehaviorRelay<String>(value: "")
     let isFirstVisitLabelText = BehaviorRelay<String>(value: "")
     let signupButtonText = BehaviorRelay<String>(value: "")
     
@@ -24,7 +29,14 @@ class LoginViewModel{
     }
     
     private func updateLocalization() {
-        isFirstVisitLabelText.accept(localizationManager.localizedString(forKey: "Is_this_your_first_visit_to_CHAESO?"))
-        signupButtonText.accept(localizationManager.localizedString(forKey: "Sign_Up"))
+        loginText.accept(localizationManager.localizedString(forKey: "Login"))
+        appleLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Apple"))
+        googleLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Google"))
+        kakaoLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Kakao"))
+        tomatoLoginButtonText.accept(localizationManager.localizedString(forKey: "Login in with ID"))
+
+        isFirstVisitLabelText.accept(localizationManager.localizedString(forKey: "Is this your first visit to CHAESO?"))
+        signupButtonText.accept(localizationManager.localizedString(forKey: "Sign Up"))
     }
 }
+
