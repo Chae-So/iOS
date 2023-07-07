@@ -1,4 +1,4 @@
-//로그인
+//MARK: LoginPage
 "Login" = "로그인";
 "Sign in with Apple" = "애플로 로그인";
 "Sign in with Google" = "구글로 로그인";
@@ -6,3 +6,20 @@
 "Login in with ID" = "아이디로 로그인";
 "Is this your first visit to CHAESO?" = "채소에 첫 방문이신가요?";
 "Sign Up" = "회원가입";
+
+//MARK: SignUpPage
+"ID" = "아이디";
+"Please enter your ID" = "아이디를 입력해 주세요";
+"duplicate check" = "중복확인";
+"Please enter 5-12 letters" = "5~12글자로 입력해주세요";
+"Use only English and number" = "영문/숫자를 모두 사용하여 구성해주세요";
+"Please click Duplicate Check" = "아이디 중복확인을 눌러주세요";
+
+"Password" = "비밀번호";
+"Please enter your password" = "비밀번호를 입력해 주세요";
+"Please enter 8-15 characters" = "8~15글자로 입력해주세요";
+"Use only English, number and special characters" = "영문/숫자/특수문자를 모두 사용하여 구성해주세요";
+
+"Confirm Password" = "비밀번호 확인";
+"Please enter your password again" = "비밀번호를 다시 한 번 입력해 주세요";
+"Please enter the same password" = "동일한 비밀번호를 입력해주세요";

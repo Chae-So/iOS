@@ -4,8 +4,6 @@ import RxSwift
 
 class LoginViewModel{
     let disposeBag = DisposeBag()
-    
-    
     var localizationManager: LocalizationManager
     
     // Input
@@ -22,7 +20,6 @@ class LoginViewModel{
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
-        print(localizationManager.language,345)
         self.updateLocalization()
 
         

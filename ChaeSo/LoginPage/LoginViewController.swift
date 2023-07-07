@@ -7,21 +7,15 @@ class LoginViewController: UIViewController {
     private let disposeBag = DisposeBag()
     var loginViewModel: LoginViewModel!
 
-    private let loginLabel = UILabel()
+    private lazy var loginLabel = UILabel()
     private lazy var imageView = UIImageView()
-    private let appleLoginButton = UIButton()
-    private let googleLoginButton = UIButton()
-    private let kakaoLoginButton = UIButton()
-    private let tomatoLoginButton = UIButton()
-    private let lineView = UIView()
-    private let isFirstVisitLabel = UILabel()
-    private let signupButton = UIButton()
-    
-    private let mainWidth = UIScreen.main.bounds.size.width
-    private let mainHeight = UIScreen.main.bounds.size.height
-    
-    private let standardWidth = UIScreen.main.bounds.size.width / 375.0
-    private let standardHeight = UIScreen.main.bounds.size.height / 812.0
+    private lazy var appleLoginButton = UIButton()
+    private lazy var googleLoginButton = UIButton()
+    private lazy var kakaoLoginButton = UIButton()
+    private lazy var tomatoLoginButton = UIButton()
+    private lazy var lineView = UIView()
+    private lazy var isFirstVisitLabel = UILabel()
+    private lazy var signupButton = UIButton()
     
     init(loginViewModel: LoginViewModel!) {
         super.init(nibName: nil, bundle: nil)
@@ -80,7 +74,7 @@ class LoginViewController: UIViewController {
         signupButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                let signUpViewModel = SignUpViewModel()
+                let signUpViewModel = SignUpViewModel(localizationManager: LocalizationManager.shared)
                 let signUpViewController = SignUpViewController(signUpViewModel: signUpViewModel)
                 self.navigationController?.pushViewController(signUpViewController, animated: true)
             })
@@ -283,32 +277,32 @@ class LoginViewController: UIViewController {
 
 }
 
-#if DEBUG
-import SwiftUI
-struct Preview: UIViewControllerRepresentable {
-
-    // 여기 ViewController를 변경해주세요
-    func makeUIViewController(context: Context) -> UIViewController {
-        LoginViewController(loginViewModel: LoginViewModel(localizationManager: LocalizationManager.shared))
-    }
-
-    func updateUIViewController(_ uiView: UIViewController,context: Context) {
-        // leave this empty
-    }
-}
-
-struct ViewController_PreviewProvider: PreviewProvider {
-    static var previews: some View {
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
-
-    }
-}
-#endif
+//#if DEBUG
+//import SwiftUI
+//struct Preview: UIViewControllerRepresentable {
+//
+//    // 여기 ViewController를 변경해주세요
+//    func makeUIViewController(context: Context) -> UIViewController {
+//        LoginViewController(loginViewModel: LoginViewModel(localizationManager: LocalizationManager.shared))
+//    }
+//
+//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+//        // leave this empty
+//    }
+//}
+//
+//struct ViewController_PreviewProvider: PreviewProvider {
+//    static var previews: some View {
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+//
+//    }
+//}
+//#endif

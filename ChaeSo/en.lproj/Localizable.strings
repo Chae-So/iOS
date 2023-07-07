@@ -1,4 +1,5 @@
-// 로그인
+//MARK: LoginPage
+
 "Login" = "Login";
 "Sign in with Apple" = "Sign in with Apple";
 "Sign in with Google" = "Sign in with Google";
@@ -6,3 +7,22 @@
 "Login in with ID" = "Login in with ID";
 "Is this your first visit to CHAESO?" = "Is this your first visit to CHAESO?";
 "Sign Up" = "Sign Up";
+
+//MARK: SignUpPage
+"ID" = "ID";
+"Please enter your ID" = "Please enter your ID";
+"duplicate check" = "duplicate check";
+"Please enter 5-12 letters" = "Please enter 5-12 letters";
+"Use only English and number" = "Use only English and number";
+"Please click Duplicate Check" = "Please click Duplicate Check";
+
+"Password" = "Password";
+"Please enter your password" = "Please enter your password";
+"Please enter 8-15 characters" = "Please enter 8-15 characters";
+"Use only English, number and special characters" = "Use only English, number and special characters";
+
+"Confirm Password" = "Confirm Password";
+"Please enter your password again" = "Please enter your password again";
+"Please enter the same password" = "Please enter the same password";
+
+

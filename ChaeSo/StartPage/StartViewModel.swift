@@ -16,7 +16,6 @@ class StartViewModel {
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
-        print(localizationManager.language,5555)
         languageSelected
             .subscribe(onNext: { [weak self] language in
                 if(language == "한국어"){

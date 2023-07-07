@@ -26,10 +26,25 @@
 		317ED7E62A49976200006F7B /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 317ED7E32A49976200006F7B /* Pretendard-SemiBold.otf */; };
 		317ED7E82A499CFC00006F7B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7E72A499CFC00006F7B /* SignUpViewController.swift */; };
 		317ED7EA2A49CF1200006F7B /* StartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7E92A49CF1200006F7B /* StartViewModel.swift */; };
-		317ED7EC2A49D67B00006F7B /* SginUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EB2A49D67B00006F7B /* SginUpViewModel.swift */; };
+		317ED7EC2A49D67B00006F7B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EB2A49D67B00006F7B /* SignUpViewModel.swift */; };
 		317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */; };
 		317ED7F02A4D69CF00006F7B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EF2A4D69CF00006F7B /* Validator.swift */; };
 		31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1ED2A54115000BABD62 /* Constants.swift */; };
+		31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */; };
+		31C4B1F32A55520000BABD62 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F22A55520000BABD62 /* TabBarViewModel.swift */; };
+		31C4B1F52A55520D00BABD62 /* TabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F42A55520D00BABD62 /* TabBarModel.swift */; };
+		31C4B1F92A55526C00BABD62 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F82A55526C00BABD62 /* CommunityViewController.swift */; };
+		31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1FA2A55527D00BABD62 /* MapViewController.swift */; };
+		31C4B1FD2A55529B00BABD62 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1FC2A55529B00BABD62 /* MyPageViewController.swift */; };
+		31C4B1FF2A55531800BABD62 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1FE2A55531800BABD62 /* CommunityViewModel.swift */; };
+		31C4B2012A55532300BABD62 /* CommunityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2002A55532300BABD62 /* CommunityModel.swift */; };
+		31C4B2032A55533500BABD62 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2022A55533500BABD62 /* MapViewModel.swift */; };
+		31C4B2052A55534200BABD62 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2042A55534200BABD62 /* MapModel.swift */; };
+		31C4B2072A55535800BABD62 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2062A55535800BABD62 /* MyPageViewModel.swift */; };
+		31C4B2092A55536200BABD62 /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2082A55536200BABD62 /* MyPageModel.swift */; };
+		31C4B2122A56FC7000BABD62 /* TosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2112A56FC7000BABD62 /* TosViewController.swift */; };
+		31C4B2152A56FCC700BABD62 /* TosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2142A56FCC700BABD62 /* TosViewModel.swift */; };
+		31C4B2192A57EB2F00BABD62 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 31C4B2182A57EB2F00BABD62 /* Pretendard-Bold.otf */; };
 		9DD1241800024D2E325F256A /* Pods_ChaeSo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,10 +71,25 @@
 		317ED7E32A49976200006F7B /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		317ED7E72A499CFC00006F7B /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		317ED7E92A49CF1200006F7B /* StartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewModel.swift; sourceTree = "<group>"; };
-		317ED7EB2A49D67B00006F7B /* SginUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SginUpViewModel.swift; sourceTree = "<group>"; };
+		317ED7EB2A49D67B00006F7B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		317ED7EF2A4D69CF00006F7B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		31C4B1ED2A54115000BABD62 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		31C4B1F22A55520000BABD62 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		31C4B1F42A55520D00BABD62 /* TabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModel.swift; sourceTree = "<group>"; };
+		31C4B1F82A55526C00BABD62 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		31C4B1FA2A55527D00BABD62 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		31C4B1FC2A55529B00BABD62 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		31C4B1FE2A55531800BABD62 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
+		31C4B2002A55532300BABD62 /* CommunityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityModel.swift; sourceTree = "<group>"; };
+		31C4B2022A55533500BABD62 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		31C4B2042A55534200BABD62 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
+		31C4B2062A55535800BABD62 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		31C4B2082A55536200BABD62 /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
+		31C4B2112A56FC7000BABD62 /* TosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TosViewController.swift; sourceTree = "<group>"; };
+		31C4B2142A56FCC700BABD62 /* TosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TosViewModel.swift; sourceTree = "<group>"; };
+		31C4B2182A57EB2F00BABD62 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../../../../Downloads/Pretendard-1.3.7/public/static/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.debug.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,12 +142,14 @@
 				317ED7C72A49550100006F7B /* FontStyle */,
 				317ED7AC2A49467700006F7B /* AppDelegate.swift */,
 				317ED7AE2A49467700006F7B /* SceneDelegate.swift */,
-				317ED7B02A49467700006F7B /* StartViewController.swift */,
-				317ED7E92A49CF1200006F7B /* StartViewModel.swift */,
-				317ED7C52A4954F700006F7B /* LoginViewController.swift */,
-				317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */,
-				317ED7E72A499CFC00006F7B /* SignUpViewController.swift */,
-				317ED7EB2A49D67B00006F7B /* SginUpViewModel.swift */,
+				31C4B20A2A55586E00BABD62 /* StartPage */,
+				31C4B20B2A55588700BABD62 /* LoginPage */,
+				31C4B20C2A55589C00BABD62 /* SignUpPage */,
+				31C4B2132A56FCAE00BABD62 /* TosPage */,
+				31C4B20D2A5558B000BABD62 /* TabBar */,
+				31C4B20E2A5558E300BABD62 /* CommunityPage */,
+				31C4B20F2A5558F500BABD62 /* MapPage */,
+				31C4B2102A55590700BABD62 /* MyPage */,
 				31C4B1EF2A54115500BABD62 /* Utility */,
 				317CDD832A5130EE00F9320B /* Model */,
 				317ED7B52A49467800006F7B /* Assets.xcassets */,
@@ -131,6 +163,7 @@
 		317ED7C72A49550100006F7B /* FontStyle */ = {
 			isa = PBXGroup;
 			children = (
+				31C4B2182A57EB2F00BABD62 /* Pretendard-Bold.otf */,
 				317ED7E12A49976200006F7B /* Pretendard-Medium.otf */,
 				317ED7E22A49976200006F7B /* Pretendard-Regular.otf */,
 				317ED7E32A49976200006F7B /* Pretendard-SemiBold.otf */,
@@ -155,6 +188,82 @@
 				317ED7D82A498DBE00006F7B /* Extensions.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		31C4B20A2A55586E00BABD62 /* StartPage */ = {
+			isa = PBXGroup;
+			children = (
+				317ED7B02A49467700006F7B /* StartViewController.swift */,
+				317ED7E92A49CF1200006F7B /* StartViewModel.swift */,
+			);
+			path = StartPage;
+			sourceTree = "<group>";
+		};
+		31C4B20B2A55588700BABD62 /* LoginPage */ = {
+			isa = PBXGroup;
+			children = (
+				317ED7C52A4954F700006F7B /* LoginViewController.swift */,
+				317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */,
+			);
+			path = LoginPage;
+			sourceTree = "<group>";
+		};
+		31C4B20C2A55589C00BABD62 /* SignUpPage */ = {
+			isa = PBXGroup;
+			children = (
+				317ED7E72A499CFC00006F7B /* SignUpViewController.swift */,
+				317ED7EB2A49D67B00006F7B /* SignUpViewModel.swift */,
+			);
+			path = SignUpPage;
+			sourceTree = "<group>";
+		};
+		31C4B20D2A5558B000BABD62 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */,
+				31C4B1F22A55520000BABD62 /* TabBarViewModel.swift */,
+				31C4B1F42A55520D00BABD62 /* TabBarModel.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		31C4B20E2A5558E300BABD62 /* CommunityPage */ = {
+			isa = PBXGroup;
+			children = (
+				31C4B1F82A55526C00BABD62 /* CommunityViewController.swift */,
+				31C4B1FE2A55531800BABD62 /* CommunityViewModel.swift */,
+				31C4B2002A55532300BABD62 /* CommunityModel.swift */,
+			);
+			path = CommunityPage;
+			sourceTree = "<group>";
+		};
+		31C4B20F2A5558F500BABD62 /* MapPage */ = {
+			isa = PBXGroup;
+			children = (
+				31C4B1FA2A55527D00BABD62 /* MapViewController.swift */,
+				31C4B2022A55533500BABD62 /* MapViewModel.swift */,
+				31C4B2042A55534200BABD62 /* MapModel.swift */,
+			);
+			path = MapPage;
+			sourceTree = "<group>";
+		};
+		31C4B2102A55590700BABD62 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				31C4B1FC2A55529B00BABD62 /* MyPageViewController.swift */,
+				31C4B2062A55535800BABD62 /* MyPageViewModel.swift */,
+				31C4B2082A55536200BABD62 /* MyPageModel.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		31C4B2132A56FCAE00BABD62 /* TosPage */ = {
+			isa = PBXGroup;
+			children = (
+				31C4B2112A56FC7000BABD62 /* TosViewController.swift */,
+				31C4B2142A56FCC700BABD62 /* TosViewModel.swift */,
+			);
+			path = TosPage;
 			sourceTree = "<group>";
 		};
 		7DD07D34F486E0D597426205 /* Pods */ = {
@@ -238,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				317ED7C42A49521000006F7B /* Barriecito-Regular.ttf in Resources */,
+				31C4B2192A57EB2F00BABD62 /* Pretendard-Bold.otf in Resources */,
 				317ED7B92A49467800006F7B /* LaunchScreen.storyboard in Resources */,
 				317ED7E52A49976200006F7B /* Pretendard-Regular.otf in Resources */,
 				317CDD7D2A4FF6E700F9320B /* Localizable.strings in Resources */,
@@ -297,17 +407,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				317ED7D92A498DBE00006F7B /* Extensions.swift in Sources */,
+				31C4B2122A56FC7000BABD62 /* TosViewController.swift in Sources */,
+				31C4B1FD2A55529B00BABD62 /* MyPageViewController.swift in Sources */,
 				317ED7B12A49467700006F7B /* StartViewController.swift in Sources */,
 				317ED7F02A4D69CF00006F7B /* Validator.swift in Sources */,
-				317ED7EC2A49D67B00006F7B /* SginUpViewModel.swift in Sources */,
+				317ED7EC2A49D67B00006F7B /* SignUpViewModel.swift in Sources */,
 				317ED7E82A499CFC00006F7B /* SignUpViewController.swift in Sources */,
+				31C4B2052A55534200BABD62 /* MapModel.swift in Sources */,
 				317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */,
+				31C4B2092A55536200BABD62 /* MyPageModel.swift in Sources */,
+				31C4B2072A55535800BABD62 /* MyPageViewModel.swift in Sources */,
 				317ED7C62A4954F700006F7B /* LoginViewController.swift in Sources */,
 				317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */,
 				317ED7AF2A49467700006F7B /* SceneDelegate.swift in Sources */,
+				31C4B1F52A55520D00BABD62 /* TabBarModel.swift in Sources */,
+				31C4B2032A55533500BABD62 /* MapViewModel.swift in Sources */,
+				31C4B1FF2A55531800BABD62 /* CommunityViewModel.swift in Sources */,
 				317ED7EA2A49CF1200006F7B /* StartViewModel.swift in Sources */,
+				31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */,
+				31C4B1F92A55526C00BABD62 /* CommunityViewController.swift in Sources */,
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
+				31C4B1F32A55520000BABD62 /* TabBarViewModel.swift in Sources */,
+				31C4B2012A55532300BABD62 /* CommunityModel.swift in Sources */,
+				31C4B2152A56FCC700BABD62 /* TosViewModel.swift in Sources */,
 				31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */,
+				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

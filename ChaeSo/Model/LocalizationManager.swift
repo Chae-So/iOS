@@ -12,7 +12,6 @@ class LocalizationManager {
     }
     
     func localizedString(forKey key: String) -> String {
-        print(language,"LocalizationManager")
         let path = Bundle.main.path(forResource: language, ofType: "lproj")
         let bundle = Bundle(path: path!)
         return bundle?.localizedString(forKey: key, value: nil, table: nil) ?? ""

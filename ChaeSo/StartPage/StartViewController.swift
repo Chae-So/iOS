@@ -10,9 +10,9 @@ class StartViewController: UIViewController {
     var startViewModel: StartViewModel!
     
     private lazy var imageView = UIImageView()
-    private let chaesoLabel = UILabel()
+    private lazy var chaesoLabel = UILabel()
     private lazy var languageButton = UIButton()
-    private let startButton = UIButton()
+    private lazy var startButton = UIButton()
     
     let languages = ["한국어", "English"]
     let dropDown = DropDown()
