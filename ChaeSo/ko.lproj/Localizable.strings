@@ -23,3 +23,10 @@
 "Confirm Password" = "비밀번호 확인";
 "Please enter your password again" = "비밀번호를 다시 한 번 입력해 주세요";
 "Please enter the same password" = "동일한 비밀번호를 입력해주세요";
+
+//MARK: TosPage
+"Nice to meet you" = "만나서 반가워요";
+"Please accept the ToS for using the service" = "서비스 이용을 위해 약관에 동의해 주세요";
+"To select all" = "전체 선택하기";
+"Agree to use the service (required)" = "서비스 이용 동의 (필수)";
+"Agree with privacy policy (required)" = "개인정보처리방침 동의 (필수)";

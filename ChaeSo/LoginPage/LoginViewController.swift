@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
                 
         loginViewModel.isFirstVisitLabelText
             .asObservable()
-            .bind(to: isFirstVisitLabel.rx.text) // isFirstVisitLabel의 text에 값을 바인딩
+            .bind(to: isFirstVisitLabel.rx.text)
             .disposed(by: disposeBag)
         
         loginViewModel.signupButtonText

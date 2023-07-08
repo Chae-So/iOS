@@ -25,4 +25,9 @@
 "Please enter your password again" = "Please enter your password again";
 "Please enter the same password" = "Please enter the same password";
 
-
+//MARK: TosPage
+"Nice to meet you" = "Nice to meet you";
+"Please accept the ToS for using the service" = "Please accept the ToS for using the service";
+"To select all" = "To select all";
+"Agree to use the service (required)" = "Agree to use the service (required)";
+"Agree with privacy policy (required)" = "Agree with privacy policy (required)";
