@@ -190,12 +190,11 @@ class SignUpViewController: UIViewController {
             .drive(pwConfirmTextField.rx.borderColor)
             .disposed(by: disposeBag)
         
-        // Bind view model output to button state
         signUpViewModel.allValid
             .asDriver(onErrorJustReturn: false)
             .drive(nextButton.rx.isEnabled)
             .disposed(by: disposeBag)
-        // Bind view model output to button background color and border color
+
         signUpViewModel.allValid
             .asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor(named: "prColor") : UIColor(named: "bgColor") }
@@ -440,7 +439,7 @@ extension Reactive where Base: UITextField {
     }
 }
 
-//
+
 //#if DEBUG
 //import SwiftUI
 //struct Preview: UIViewControllerRepresentable {

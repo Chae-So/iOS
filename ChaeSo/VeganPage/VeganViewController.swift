@@ -2,16 +2,17 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Lottie
 
-class NicknameViewController: UIViewController {
+class VeganViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    var nicknameViewModel: NicknameViewModel!
+    var veganViewModel: VeganViewModel!
     
     
-    init(nicknameViewModel: NicknameViewModel!) {
+    init(veganViewModel: VeganViewModel!) {
         super.init(nibName: nil, bundle: nil)
-        self.nicknameViewModel = nicknameViewModel
+        self.veganViewModel = veganViewModel
     }
 
     required init?(coder: NSCoder) {

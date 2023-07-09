@@ -12,13 +12,13 @@
 "ID" = "ID";
 "Please enter your ID" = "Please enter your ID";
 "duplicate check" = "duplicate check";
-"Please enter 5-12 letters" = "Please enter 5-12 letters";
+"Please enter 5~12 letters" = "Please enter 5~12 letters";
 "Use only English and number" = "Use only English and number";
 "Please click Duplicate Check" = "Please click Duplicate Check";
 
 "Password" = "Password";
 "Please enter your password" = "Please enter your password";
-"Please enter 8-15 characters" = "Please enter 8-15 characters";
+"Please enter 8~15 characters" = "Please enter 8~15 characters";
 "Use only English, number and special characters" = "Use only English, number and special characters";
 
 "Confirm Password" = "Confirm Password";
@@ -31,3 +31,9 @@
 "To select all" = "To select all";
 "Agree to use the service (required)" = "Agree to use the service (required)";
 "Agree with privacy policy (required)" = "Agree with privacy policy (required)";
+
+//MARK: NicknamePage
+"Nickname" = "Nickname";
+"Please enter your nickname" = "Please enter your nickname";
+"Please enter 2~10 letters" = "Please enter 2~10 letters";
+"Please click Duplicate Check" = "Please click Duplicate Check";

@@ -11,13 +11,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     //var rootViewModel = StartViewModel(localizationManager: LocalizationManager.shared)
-    var rootViewModel = TosViewModel(localizationManager: LocalizationManager.shared)
+    var rootViewModel = NicknameViewModel(localizationManager: LocalizationManager.shared)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         //let rootViewController = StartViewController(startViewModel: rootViewModel)
-        let rootViewController = TosViewController(tosViewModel: rootViewModel)
+        let rootViewController = NicknameViewController(nicknameViewModel: rootViewModel)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
     }

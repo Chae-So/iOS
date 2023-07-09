@@ -78,7 +78,8 @@ class SignUpViewModel{
             .map { $0 == $1 && $0 != "" }
         
         allValid = Observable.combineLatest(idIsValid, pwIsValid, pwConfirmValid)
-            .map { $0 && $1 && $2}
+            .map { print($0,$1,$2)
+                return $0 && $1 && $2}
             
 
             

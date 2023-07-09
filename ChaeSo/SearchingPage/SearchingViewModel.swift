@@ -2,7 +2,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class NicknameViewModel{
+class SearchingViewModel{
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
     

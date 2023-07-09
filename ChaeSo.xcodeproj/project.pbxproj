@@ -47,6 +47,12 @@
 		31C4B2192A57EB2F00BABD62 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 31C4B2182A57EB2F00BABD62 /* Pretendard-Bold.otf */; };
 		31C4B21B2A5AA69E00BABD62 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B21A2A5AA69E00BABD62 /* NicknameViewController.swift */; };
 		31C4B21D2A5AA6EB00BABD62 /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B21C2A5AA6EB00BABD62 /* NicknameViewModel.swift */; };
+		31C4B2202A5AC26200BABD62 /* SearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B21F2A5AC26200BABD62 /* SearchingViewController.swift */; };
+		31C4B2222A5AC26F00BABD62 /* SearchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B2212A5AC26F00BABD62 /* SearchingViewModel.swift */; };
+		31CF471F2A5AC5C400A83671 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 31CF471E2A5AC5C400A83671 /* Alamofire */; };
+		31CF47222A5AC6F000A83671 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 31CF47212A5AC6F000A83671 /* Lottie */; };
+		31CF47272A5AF65400A83671 /* VeganViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF47262A5AF65400A83671 /* VeganViewController.swift */; };
+		31CF47292A5AF66100A83671 /* VeganViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF47282A5AF66100A83671 /* VeganViewModel.swift */; };
 		9DD1241800024D2E325F256A /* Pods_ChaeSo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +100,11 @@
 		31C4B2182A57EB2F00BABD62 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../../../../Downloads/Pretendard-1.3.7/public/static/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		31C4B21A2A5AA69E00BABD62 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		31C4B21C2A5AA6EB00BABD62 /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
+		31C4B21F2A5AC26200BABD62 /* SearchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingViewController.swift; sourceTree = "<group>"; };
+		31C4B2212A5AC26F00BABD62 /* SearchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingViewModel.swift; sourceTree = "<group>"; };
+		31CF47262A5AF65400A83671 /* VeganViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganViewController.swift; sourceTree = "<group>"; };
+		31CF47282A5AF66100A83671 /* VeganViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganViewModel.swift; sourceTree = "<group>"; };
+		31CF472A2A5AF67A00A83671 /* FlowTomato.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FlowTomato.json; sourceTree = "<group>"; };
 		EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.debug.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,8 +114,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				317ED7CC2A49567900006F7B /* RxCocoa in Frameworks */,
+				31CF47222A5AC6F000A83671 /* Lottie in Frameworks */,
 				317ED7C22A4946A700006F7B /* SnapKit in Frameworks */,
 				317ED7D02A49567900006F7B /* RxSwift in Frameworks */,
+				31CF471F2A5AC5C400A83671 /* Alamofire in Frameworks */,
 				317ED7CE2A49567900006F7B /* RxRelay in Frameworks */,
 				9DD1241800024D2E325F256A /* Pods_ChaeSo.framework in Frameworks */,
 			);
@@ -150,6 +163,9 @@
 				31C4B20B2A55588700BABD62 /* LoginPage */,
 				31C4B20C2A55589C00BABD62 /* SignUpPage */,
 				31C4B2132A56FCAE00BABD62 /* TosPage */,
+				31C4B21E2A5AC22D00BABD62 /* NicknamePage */,
+				31CF472B2A5AF6AE00A83671 /* VeganPage */,
+				31CF47252A5AF62000A83671 /* SearchingPage */,
 				31C4B20D2A5558B000BABD62 /* TabBar */,
 				31C4B20E2A5558E300BABD62 /* CommunityPage */,
 				31C4B20F2A5558F500BABD62 /* MapPage */,
@@ -160,8 +176,6 @@
 				317ED7B72A49467800006F7B /* LaunchScreen.storyboard */,
 				317ED7BA2A49467800006F7B /* Info.plist */,
 				317CDD7F2A4FF6E700F9320B /* Localizable.strings */,
-				31C4B21A2A5AA69E00BABD62 /* NicknameViewController.swift */,
-				31C4B21C2A5AA6EB00BABD62 /* NicknameViewModel.swift */,
 			);
 			path = ChaeSo;
 			sourceTree = "<group>";
@@ -272,6 +286,34 @@
 			path = TosPage;
 			sourceTree = "<group>";
 		};
+		31C4B21E2A5AC22D00BABD62 /* NicknamePage */ = {
+			isa = PBXGroup;
+			children = (
+				31C4B21A2A5AA69E00BABD62 /* NicknameViewController.swift */,
+				31C4B21C2A5AA6EB00BABD62 /* NicknameViewModel.swift */,
+			);
+			path = NicknamePage;
+			sourceTree = "<group>";
+		};
+		31CF47252A5AF62000A83671 /* SearchingPage */ = {
+			isa = PBXGroup;
+			children = (
+				31C4B21F2A5AC26200BABD62 /* SearchingViewController.swift */,
+				31C4B2212A5AC26F00BABD62 /* SearchingViewModel.swift */,
+				31CF472A2A5AF67A00A83671 /* FlowTomato.json */,
+			);
+			path = SearchingPage;
+			sourceTree = "<group>";
+		};
+		31CF472B2A5AF6AE00A83671 /* VeganPage */ = {
+			isa = PBXGroup;
+			children = (
+				31CF47262A5AF65400A83671 /* VeganViewController.swift */,
+				31CF47282A5AF66100A83671 /* VeganViewModel.swift */,
+			);
+			path = VeganPage;
+			sourceTree = "<group>";
+		};
 		7DD07D34F486E0D597426205 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +346,8 @@
 				317ED7CB2A49567900006F7B /* RxCocoa */,
 				317ED7CD2A49567900006F7B /* RxRelay */,
 				317ED7CF2A49567900006F7B /* RxSwift */,
+				31CF471E2A5AC5C400A83671 /* Alamofire */,
+				31CF47212A5AC6F000A83671 /* Lottie */,
 			);
 			productName = ChaeSo;
 			productReference = 317ED7A92A49467700006F7B /* ChaeSo.app */;
@@ -337,6 +381,8 @@
 			packageReferences = (
 				317ED7C02A4946A700006F7B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				317ED7C82A49567900006F7B /* XCRemoteSwiftPackageReference "RxSwift" */,
+				31CF471D2A5AC5C400A83671 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				31CF47202A5AC6F000A83671 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 317ED7AA2A49467700006F7B /* Products */;
 			projectDirPath = "";
@@ -421,15 +467,19 @@
 				317ED7E82A499CFC00006F7B /* SignUpViewController.swift in Sources */,
 				31C4B2052A55534200BABD62 /* MapModel.swift in Sources */,
 				317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */,
+				31C4B2202A5AC26200BABD62 /* SearchingViewController.swift in Sources */,
 				31C4B2092A55536200BABD62 /* MyPageModel.swift in Sources */,
 				31C4B2072A55535800BABD62 /* MyPageViewModel.swift in Sources */,
+				31CF47292A5AF66100A83671 /* VeganViewModel.swift in Sources */,
 				317ED7C62A4954F700006F7B /* LoginViewController.swift in Sources */,
 				317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */,
 				317ED7AF2A49467700006F7B /* SceneDelegate.swift in Sources */,
 				31C4B1F52A55520D00BABD62 /* TabBarModel.swift in Sources */,
+				31CF47272A5AF65400A83671 /* VeganViewController.swift in Sources */,
 				31C4B2032A55533500BABD62 /* MapViewModel.swift in Sources */,
 				31C4B1FF2A55531800BABD62 /* CommunityViewModel.swift in Sources */,
 				317ED7EA2A49CF1200006F7B /* StartViewModel.swift in Sources */,
+				31C4B2222A5AC26F00BABD62 /* SearchingViewModel.swift in Sources */,
 				31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */,
 				31C4B1F92A55526C00BABD62 /* CommunityViewController.swift in Sources */,
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
@@ -679,6 +729,22 @@
 				minimumVersion = 6.6.0;
 			};
 		};
+		31CF471D2A5AC5C400A83671 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.4;
+			};
+		};
+		31CF47202A5AC6F000A83671 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -701,6 +767,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 317ED7C82A49567900006F7B /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		31CF471E2A5AC5C400A83671 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31CF471D2A5AC5C400A83671 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		31CF47212A5AC6F000A83671 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31CF47202A5AC6F000A83671 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

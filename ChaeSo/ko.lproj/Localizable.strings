@@ -11,13 +11,13 @@
 "ID" = "아이디";
 "Please enter your ID" = "아이디를 입력해 주세요";
 "duplicate check" = "중복확인";
-"Please enter 5-12 letters" = "5~12글자로 입력해주세요";
+"Please enter 5~12 letters" = "5~12글자로 입력해주세요";
 "Use only English and number" = "영문/숫자를 모두 사용하여 구성해주세요";
 "Please click Duplicate Check" = "아이디 중복확인을 눌러주세요";
 
 "Password" = "비밀번호";
 "Please enter your password" = "비밀번호를 입력해 주세요";
-"Please enter 8-15 characters" = "8~15글자로 입력해주세요";
+"Please enter 8~15 characters" = "8~15글자로 입력해주세요";
 "Use only English, number and special characters" = "영문/숫자/특수문자를 모두 사용하여 구성해주세요";
 
 "Confirm Password" = "비밀번호 확인";
@@ -30,3 +30,9 @@
 "To select all" = "전체 선택하기";
 "Agree to use the service (required)" = "서비스 이용 동의 (필수)";
 "Agree with privacy policy (required)" = "개인정보처리방침 동의 (필수)";
+
+//MARK: NicknamePage
+"Nickname" = "닉네임";
+"Please enter your nickname" = "닉네임을 입력해 주세요";
+"Please enter 2~10 letters" = "2~10글자로 입력해주세요";
+"Please click Duplicate Check" = "중복확인을 눌러주세요";
