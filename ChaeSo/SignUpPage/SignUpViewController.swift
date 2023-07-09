@@ -212,8 +212,8 @@ class SignUpViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 let tosViewModel = TosViewModel(localizationManager: LocalizationManager.shared)
-                let toSViewController = ToSViewController(tosViewModel: tosViewModel)
-                self.navigationController?.pushViewController(toSViewController, animated: true)
+                let tosViewController = TosViewController(tosViewModel: tosViewModel)
+                self.navigationController?.pushViewController(tosViewController, animated: true)
             })
             .disposed(by: disposeBag)
         

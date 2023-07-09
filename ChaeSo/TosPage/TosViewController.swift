@@ -3,7 +3,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class ToSViewController: UIViewController {
+class TosViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     var tosViewModel: TosViewModel!
@@ -73,14 +73,7 @@ class ToSViewController: UIViewController {
             .asDriver(onErrorDriveWith: .empty())
             .drive(allSelectButton.rx.isSelected)
             .disposed(by: disposeBag)
-        
-//        tosViewModel.toggleAll
-//            .asDriver(onErrorDriveWith: .empty())
-//            .filter { $0 }
-//            .map { _ in .scaleToFill }
-//            .drive(infoTosButton.rx.imageViewContentMode)
-//            .disposed(by: disposeBag)
-        
+   
         serviceTosButton.rx.tap
             .bind(to: tosViewModel.serviceTosButtonTapped)
             .disposed(by: disposeBag)
@@ -89,13 +82,6 @@ class ToSViewController: UIViewController {
             .asDriver(onErrorDriveWith: .empty())
             .drive(serviceTosButton.rx.isSelected)
             .disposed(by: disposeBag)
-        
-//        tosViewModel.toggleInfo
-//            .asDriver(onErrorDriveWith: .empty())
-//            .filter { $0 }
-//            .map { _ in .scaleAspectFill }
-//            .drive(infoTosButton.rx.imageViewContentMode)
-//            .disposed(by: disposeBag)
         
         infoTosButton.rx.tap
             .bind(to: tosViewModel.infoTosButtonTapped)
@@ -106,24 +92,36 @@ class ToSViewController: UIViewController {
             .drive(infoTosButton.rx.isSelected)
             .disposed(by: disposeBag)
         
+        tosViewModel.allCheck
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(nextButton.rx.isEnabled)
+            .disposed(by: disposeBag)
         
-            
+        tosViewModel.allCheck
+            .asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor(named: "prColor") : UIColor(named: "bgColor") }
+            .drive(nextButton.rx.backgroundColor)
+            .disposed(by: disposeBag)
         
-//        tosViewModel.toggleInfo
-//            .filter { $0 }
-//            .map { _ in .scaleAspectFill }
-//            .bind(to: infoTosButton.rx.imageViewContentMode)
-//            .disposed(by: disposeBag)
-
-
+        tosViewModel.allCheck
+            .asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor.white : UIColor(named: "prColor")! }
+            .drive(nextButton.rx.titleColor(for: .normal))
+            .disposed(by: disposeBag)
         
-        
-        
-
+        nextButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let nicknameViewModel = NicknameViewModel(localizationManager: LocalizationManager.shared)
+                let nicknameViewController = NicknameViewController(nicknameViewModel: nicknameViewModel)
+                self.navigationController?.pushViewController(nicknameViewController, animated: true)
+            })
+            .disposed(by: disposeBag)
 
     }
     
     func attribute(){
+        
         //MARK: 바탕색
         self.view.backgroundColor = UIColor(named: "bgColor")
         
@@ -155,32 +153,38 @@ class ToSViewController: UIViewController {
         infoTosLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
         infoTosLabel.textAlignment = .left
         
+        
         //MARK: allSelectButton Attribute
+        let checkmarkSymbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .heavy)
+        let checkmarkImage = UIImage(systemName: "checkmark", withConfiguration: checkmarkSymbolConfig)
+        
         allSelectButton.layer.cornerRadius = 2
         allSelectButton.layer.borderWidth = 2
         allSelectButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
-        let checkmarkSymbolConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .heavy)
-        let checkmarkImage = UIImage(systemName: "checkmark", withConfiguration: checkmarkSymbolConfig)
-
-        // 버튼에 체크마크 이미지 설정
         allSelectButton.setImage(checkmarkImage, for: .selected)
-        allSelectButton.imageView!.contentMode = .scaleAspectFit
+        allSelectButton.imageView?.tintColor = .white
+        allSelectButton.imageView?.backgroundColor = UIColor(named: "prColor")
+        allSelectButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
 
+        
         //MARK: serviceTosButton Attribute
         serviceTosButton.layer.cornerRadius = 2
         serviceTosButton.layer.borderWidth = 2
         serviceTosButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
-      
-        // 버튼에 체크마크 이미지 설정
         serviceTosButton.setImage(checkmarkImage, for: .selected)
-
+        serviceTosButton.imageView?.tintColor = .white
+        serviceTosButton.imageView?.backgroundColor = UIColor(named: "prColor")
+        serviceTosButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        
         //MARK: infoTosButton Attribute
         infoTosButton.layer.cornerRadius = 2
         infoTosButton.layer.borderWidth = 2
         infoTosButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
         infoTosButton.setImage(checkmarkImage, for: .selected)
-        
-        
+        infoTosButton.imageView?.tintColor = .white
+        infoTosButton.imageView?.backgroundColor = UIColor(named: "prColor")
+        infoTosButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+
         //MARK: nextButton attribute
         nextButton.titleLabel?.textAlignment = .center
         nextButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
@@ -222,6 +226,7 @@ class ToSViewController: UIViewController {
             .forEach { UIView in
                 view.addSubview(UIView)
             }
+
         
         allSelectLabel.snp.makeConstraints { make in
             make.height.equalTo(19*Constants.standardHeight)

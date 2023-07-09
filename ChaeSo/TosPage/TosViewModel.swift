@@ -20,10 +20,11 @@ class TosViewModel{
     let infoTosButtonTapped = PublishRelay<Void>()
     
     // MARK: - Output
-    var toggleAll = PublishRelay<Bool>()
-    var toggleService = PublishRelay<Bool>()
-    var toggleInfo = PublishRelay<Bool>()
+    var toggleAll = BehaviorRelay<Bool>(value: false)
+    var toggleService = BehaviorRelay<Bool>(value: false)
+    var toggleInfo = BehaviorRelay<Bool>(value: false)
     
+    var allCheck = Observable<Bool>.just(false)
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
@@ -35,41 +36,44 @@ class TosViewModel{
         serviceTosLabelText.accept(localizationManager.localizedString(forKey: "Agree to use the service (required)"))
         infoTosLabelText.accept(localizationManager.localizedString(forKey: "Agree with privacy policy (required)"))
         
-        allSelectButtonTapped
-            .scan(false){ lastState, newValue in
-                !lastState
-            }
-            .bind(to: toggleAll)
-            .disposed(by: disposeBag)
-
-        
-        serviceTosButtonTapped
-            .scan(false){ lastState, newValue in
-                !lastState
-            }
-            .bind(to: toggleService)
-            .disposed(by: disposeBag)
-
-        
-        infoTosButtonTapped
-            .scan(false){ lastState, newValue in
-                print(!lastState)
-                return !lastState
-            }
-            .bind(to: toggleInfo)
-            .disposed(by: disposeBag)
-
-        
-        toggleAll.subscribe(onNext: { [weak self] state in
+        allSelectButtonTapped.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            self.toggleService.accept(state)
-            self.toggleInfo.accept(state)
-        })
+            if(!self.toggleAll.value){
+                self.toggleAll.accept(true)
+                if(!self.toggleService.value){
+                    self.toggleService.accept(true)
+                }
+                if(!self.toggleInfo.value){
+                    self.toggleInfo.accept(true)
+                }
+            }
+            else{
+                self.toggleAll.accept(false)
+                self.toggleService.accept(false)
+                self.toggleInfo.accept(false)
+            }
+        }).disposed(by: disposeBag)
         
         
+        serviceTosButtonTapped.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.toggleService.accept(!self.toggleService.value)
+            if(self.toggleService.value && self.toggleInfo.value){
+                self.toggleAll.accept(true)
+            }
+        }).disposed(by: disposeBag)
+        
+        infoTosButtonTapped.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.toggleInfo.accept(!self.toggleInfo.value)
+            if(self.toggleService.value && self.toggleInfo.value){
+                self.toggleAll.accept(true)
+            }
+        }).disposed(by: disposeBag)
+        
+        allCheck = Observable.combineLatest(toggleAll,toggleService,toggleInfo) { $0 && $1 && $2 }
         
     }
-    
     
 }
 
