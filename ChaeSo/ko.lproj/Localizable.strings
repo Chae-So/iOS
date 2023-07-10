@@ -36,3 +36,9 @@
 "Please enter your nickname" = "닉네임을 입력해 주세요";
 "Please enter 2~10 letters" = "2~10글자로 입력해주세요";
 "Please click Duplicate Check" = "중복확인을 눌러주세요";
+
+//MARK: VeganPage
+
+
+//MARK: SearchingPage
+"Looking for a good restaurant near you" = "주변의 맛있는 식당을 찾고 있어요";
