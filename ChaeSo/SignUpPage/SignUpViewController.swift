@@ -12,6 +12,7 @@ class SignUpViewController: UIViewController {
     private lazy var imageView = UIImageView()
     
     private lazy var idLabel = UILabel()
+    private lazy var checkButton = UIButton()
     private lazy var idTextField = UITextField()
     private lazy var isValidIdFirstLabel = UILabel()
     private lazy var isValidIdSecondLabel = UILabel()
@@ -58,6 +59,11 @@ class SignUpViewController: UIViewController {
         signUpViewModel.idText
             .asDriver(onErrorDriveWith: .empty())
             .drive(idLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        signUpViewModel.checkText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(checkButton.rx.title())
             .disposed(by: disposeBag)
     
         signUpViewModel.pwText
@@ -235,6 +241,14 @@ class SignUpViewController: UIViewController {
         idLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
         idLabel.textAlignment = .center
         
+        //MARK: checkButton attribute
+        checkButton.titleLabel?.textAlignment = .center
+        checkButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        checkButton.tintColor = .white
+        checkButton.backgroundColor = UIColor(named: "prColor")
+        checkButton.layer.cornerRadius = 8
+        
+        
         //MARK: idTextField attribute
         idTextField.alpha = 0.56
         idTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
@@ -326,12 +340,10 @@ class SignUpViewController: UIViewController {
             make.top.equalToSuperview().offset(97*Constants.standardHeight)
         }
         
-        [idLabel,idTextField,isValidIdFirstLabel,isValidIdSecondLabel,isValidIdThirdLabel]
+        [idLabel,idTextField,checkButton,isValidIdFirstLabel,isValidIdSecondLabel,isValidIdThirdLabel]
             .forEach {
                 view.addSubview($0)
             }
-        
-        
         
         idLabel.snp.makeConstraints { make in
             make.height.equalTo(19*Constants.standardHeight)
@@ -340,10 +352,17 @@ class SignUpViewController: UIViewController {
         }
 
         idTextField.snp.makeConstraints { make in
-            make.width.equalTo(343*Constants.standardWidth)
+            make.width.equalTo(223*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(idLabel.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        checkButton.snp.makeConstraints { make in
+            make.width.equalTo(112*Constants.standardWidth)
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalTo(idTextField.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(idTextField.snp.top)
         }
         
         isValidIdFirstLabel.snp.makeConstraints { make in
@@ -423,21 +442,6 @@ class SignUpViewController: UIViewController {
     }
 }
 
-extension Reactive where Base: UIButton {
-    func titleColor(for state: UIControl.State) -> Binder<UIColor> {
-        return Binder(self.base) { button, color in
-            button.setTitleColor(color, for: state)
-        }
-    }
-}
-
-extension Reactive where Base: UITextField {
-    var borderColor: Binder<UIColor> {
-        return Binder(self.base) { textField, color in
-            textField.layer.borderColor = color.cgColor
-        }
-    }
-}
 
 
 //#if DEBUG

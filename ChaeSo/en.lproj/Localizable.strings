@@ -10,6 +10,7 @@
 
 //MARK: SignUpPage
 "ID" = "ID";
+"Check" = "Check";
 "Please enter your ID" = "Please enter your ID";
 "duplicate check" = "duplicate check";
 "Please enter 5~12 letters" = "Please enter 5~12 letters";
@@ -44,3 +45,12 @@
 
 //MARK: SearchingPage
 "Looking for a good restaurant near you" = "Looking for a good restaurant near you";
+"Vegan" = "Vegan";
+"Lacto" = "Lacto";
+"Ovo" = "Ovo";
+"Pollo" = "Pollo";
+"Pesco" = "Pesco";
+"I don't eat all animal ingredients" = "I don't eat all animal ingredients";
+"I eat dairy products among animal ingredients" = "I eat dairy products among animal ingredients";
+"I eat eggs from animal ingredients" = "I eat eggs from animal ingredients";
+"I eat seafood" = "I eat seafood";

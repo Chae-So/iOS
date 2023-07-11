@@ -18,6 +18,7 @@ class SignUpViewModel{
     //MARK: - Input
     let signUpText = BehaviorRelay<String>(value: "")
     let idText = BehaviorRelay<String>(value: "")
+    let checkText = BehaviorRelay<String>(value: "")
     let idTextFieldPlaceholder = BehaviorRelay<String>(value: "")
     let pwText = BehaviorRelay<String>(value: "")
     let pwTextFieldPlaceholder = BehaviorRelay<String>(value: "")
@@ -89,6 +90,7 @@ class SignUpViewModel{
         signUpText.accept(localizationManager.localizedString(forKey: "Sign Up"))
         
         idText.accept(localizationManager.localizedString(forKey: "ID"))
+        checkText.accept(localizationManager.localizedString(forKey: "Check"))
         idTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your ID"))
         idLengthValidText.accept(localizationManager.localizedString(forKey: "Please enter 5-12 letters"))
         idValidText.accept(localizationManager.localizedString(forKey: "Use only English and number"))

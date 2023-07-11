@@ -280,13 +280,6 @@ class TosViewController: UIViewController {
 
 }
 
-extension Reactive where Base: UIButton {
-    var imageViewContentMode: Binder<UIView.ContentMode> {
-        return Binder(self.base) { button, contentMode in
-            button.imageView?.contentMode = contentMode
-        }
-    }
-}
 
 
 

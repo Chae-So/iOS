@@ -7,11 +7,11 @@ class VeganViewModel{
     var localizationManager: LocalizationManager
     
     // Input
-    let loginText = BehaviorRelay<String>(value: "")
-    let appleLoginButtonText = BehaviorRelay<String>(value: "")
-    let googleLoginButtonText = BehaviorRelay<String>(value: "")
-    let kakaoLoginButtonText = BehaviorRelay<String>(value: "")
-    let tomatoLoginButtonText = BehaviorRelay<String>(value: "")
+    let veganText = BehaviorRelay<String>(value: "")
+    let LactoText = BehaviorRelay<String>(value: "")
+    let OvoText = BehaviorRelay<String>(value: "")
+    let PolloText = BehaviorRelay<String>(value: "")
+    let PescoText = BehaviorRelay<String>(value: "")
     let isFirstVisitLabelText = BehaviorRelay<String>(value: "")
     let signupButtonText = BehaviorRelay<String>(value: "")
     
@@ -21,19 +21,17 @@ class VeganViewModel{
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
         self.updateLocalization()
-
         
     }
     
     private func updateLocalization() {
-        loginText.accept(localizationManager.localizedString(forKey: "Login"))
-        appleLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Apple"))
-        googleLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Google"))
-        kakaoLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Kakao"))
-        tomatoLoginButtonText.accept(localizationManager.localizedString(forKey: "Login in with ID"))
+        veganText.accept(localizationManager.localizedString(forKey: "Vegan"))
+        LactoText.accept(localizationManager.localizedString(forKey: "Lacto"))
+        OvoText.accept(localizationManager.localizedString(forKey: "Ovo"))
+        PolloText.accept(localizationManager.localizedString(forKey: "Pollo"))
+        PescoText.accept(localizationManager.localizedString(forKey: "Pesco"))
 
-        isFirstVisitLabelText.accept(localizationManager.localizedString(forKey: "Is this your first visit to CHAESO?"))
-        signupButtonText.accept(localizationManager.localizedString(forKey: "Sign Up"))
     }
 }
+
 

@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import DropDown
 
 extension UITextField {
     func addLeftPadding() {
@@ -38,4 +41,48 @@ extension UIColor {
     }
 }
 
+extension Reactive where Base: DropDown {
+    var itemSelected: ControlEvent<(Int, String)> {
+        let source = Observable<(Int, String)>.create { [weak base] observer in
+            guard let base = base else {
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            
+            base.selectionAction = { index, item in
+                observer.onNext((index, item))
+            }
+            
+            return Disposables.create {
+                // Optional: Dispose 처리를 위해 Dropdown에서 selectionAction을 해제
+                base.selectionAction = nil
+            }
+        }
+        
+        return ControlEvent(events: source)
+    }
+}
 
+extension Reactive where Base: UIButton {
+    func titleColor(for state: UIControl.State) -> Binder<UIColor> {
+        return Binder(self.base) { button, color in
+            button.setTitleColor(color, for: state)
+        }
+    }
+}
+
+extension Reactive where Base: UITextField {
+    var borderColor: Binder<UIColor> {
+        return Binder(self.base) { textField, color in
+            textField.layer.borderColor = color.cgColor
+        }
+    }
+}
+
+extension Reactive where Base: UIButton {
+    var imageViewContentMode: Binder<UIView.ContentMode> {
+        return Binder(self.base) { button, contentMode in
+            button.imageView?.contentMode = contentMode
+        }
+    }
+}

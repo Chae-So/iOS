@@ -53,6 +53,7 @@
 		31CF47222A5AC6F000A83671 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 31CF47212A5AC6F000A83671 /* Lottie */; };
 		31CF47272A5AF65400A83671 /* VeganViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF47262A5AF65400A83671 /* VeganViewController.swift */; };
 		31CF47292A5AF66100A83671 /* VeganViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF47282A5AF66100A83671 /* VeganViewModel.swift */; };
+		31CF472D2A5BEED300A83671 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF472C2A5BEED300A83671 /* UserInfo.swift */; };
 		9DD1241800024D2E325F256A /* Pods_ChaeSo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		31CF47262A5AF65400A83671 /* VeganViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganViewController.swift; sourceTree = "<group>"; };
 		31CF47282A5AF66100A83671 /* VeganViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganViewModel.swift; sourceTree = "<group>"; };
 		31CF472A2A5AF67A00A83671 /* FlowTomato.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FlowTomato.json; sourceTree = "<group>"; };
+		31CF472C2A5BEED300A83671 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.debug.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				317CDD812A50338100F9320B /* LocalizationManager.swift */,
+				31CF472C2A5BEED300A83671 /* UserInfo.swift */,
 				317ED7EF2A4D69CF00006F7B /* Validator.swift */,
 			);
 			path = Model;
@@ -490,6 +493,7 @@
 				31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */,
 				31C4B21B2A5AA69E00BABD62 /* NicknameViewController.swift in Sources */,
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
+				31CF472D2A5BEED300A83671 /* UserInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

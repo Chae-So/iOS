@@ -9,6 +9,7 @@
 
 //MARK: SignUpPage
 "ID" = "아이디";
+"Check" = "중복확인";
 "Please enter your ID" = "아이디를 입력해 주세요";
 "duplicate check" = "중복확인";
 "Please enter 5~12 letters" = "5~12글자로 입력해주세요";
@@ -42,3 +43,8 @@
 
 //MARK: SearchingPage
 "Looking for a good restaurant near you" = "주변의 맛있는 식당을 찾고 있어요";
+"Vegan" = "비건";
+"Lacto" = "락토";
+"Ovo" = "오보";
+"Pollo" = "폴로";
+"Pesco" = "페스코";

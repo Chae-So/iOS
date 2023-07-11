@@ -145,27 +145,7 @@ class StartViewController: UIViewController {
     
 }
 
-extension Reactive where Base: DropDown {
-    var itemSelected: ControlEvent<(Int, String)> {
-        let source = Observable<(Int, String)>.create { [weak base] observer in
-            guard let base = base else {
-                observer.onCompleted()
-                return Disposables.create()
-            }
-            
-            base.selectionAction = { index, item in
-                observer.onNext((index, item))
-            }
-            
-            return Disposables.create {
-                // Optional: Dispose 처리를 위해 Dropdown에서 selectionAction을 해제
-                base.selectionAction = nil
-            }
-        }
-        
-        return ControlEvent(events: source)
-    }
-}
+
 
 
 

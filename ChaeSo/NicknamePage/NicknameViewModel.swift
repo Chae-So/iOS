@@ -8,6 +8,7 @@ class NicknameViewModel{
     
     // Input
     let NkText = BehaviorRelay<String>(value: "")
+    let checkText = BehaviorRelay<String>(value: "")
     let NkTextFieldPlaceholder = BehaviorRelay<String>(value: "")
     let NkValidFirstText = BehaviorRelay<String>(value: "")
     let NkValidSecondText = BehaviorRelay<String>(value: "")
@@ -29,6 +30,7 @@ class NicknameViewModel{
     
     private func updateLocalization() {
         NkText.accept(localizationManager.localizedString(forKey: "Nickname"))
+        checkText.accept(localizationManager.localizedString(forKey: "Check"))
         NkTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your nickname"))
         NkValidFirstText.accept(localizationManager.localizedString(forKey: "Please enter 2~10 letters"))
         NkValidSecondText.accept(localizationManager.localizedString(forKey: "Please click Duplicate Check"))

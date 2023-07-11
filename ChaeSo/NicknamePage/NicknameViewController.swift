@@ -10,6 +10,7 @@ class NicknameViewController: UIViewController {
     
     private lazy var imageButton = UIButton()
     private lazy var nicknameLabel = UILabel()
+    private lazy var checkButton = UIButton()
     private lazy var nicknameTextField = UITextField()
     private lazy var isValidNkFirstLabel = UILabel()
     private lazy var isValidNkSecondLabel = UILabel()
@@ -37,6 +38,11 @@ class NicknameViewController: UIViewController {
         nicknameViewModel.NkText
             .asDriver(onErrorDriveWith: .empty())
             .drive(nicknameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        nicknameViewModel.checkText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(checkButton.rx.title())
             .disposed(by: disposeBag)
         
         nicknameViewModel.NkValidFirstText
@@ -117,6 +123,12 @@ class NicknameViewController: UIViewController {
         nicknameTextField.layer.borderColor = UIColor.clear.cgColor
         nicknameTextField.addLeftPadding()
         
+        //MARK: checkButton attribute
+        checkButton.titleLabel?.textAlignment = .center
+        checkButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        checkButton.tintColor = .white
+        checkButton.backgroundColor = UIColor(named: "prColor")
+        checkButton.layer.cornerRadius = 8
         
         //MARK: isValidNkFirstLabel attribute
         isValidNkFirstLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
@@ -138,7 +150,7 @@ class NicknameViewController: UIViewController {
     }
     
     func layout(){
-        [imageButton,nicknameLabel,nicknameTextField,isValidNkFirstLabel,isValidNkSecondLabel,nextButton]
+        [imageButton,nicknameLabel,nicknameTextField,checkButton,isValidNkFirstLabel,isValidNkSecondLabel,nextButton]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
@@ -157,10 +169,17 @@ class NicknameViewController: UIViewController {
         }
 
         nicknameTextField.snp.makeConstraints { make in
-            make.width.equalTo(343*Constants.standardWidth)
+            make.width.equalTo(223*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(nicknameLabel.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        checkButton.snp.makeConstraints { make in
+            make.width.equalTo(112*Constants.standardWidth)
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalTo(nicknameTextField.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(nicknameTextField.snp.top)
         }
         
         isValidNkFirstLabel.snp.makeConstraints { make in
@@ -184,3 +203,33 @@ class NicknameViewController: UIViewController {
     }
 
 }
+
+//#if DEBUG
+//import SwiftUI
+//struct Preview: UIViewControllerRepresentable {
+//
+//    // 여기 ViewController를 변경해주세요
+//    func makeUIViewController(context: Context) -> UIViewController {
+//        NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
+//    }
+//
+//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+//        // leave this empty
+//    }
+//}
+//
+//struct ViewController_PreviewProvider: PreviewProvider {
+//    static var previews: some View {
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+//
+//    }
+//}
+//#endif
