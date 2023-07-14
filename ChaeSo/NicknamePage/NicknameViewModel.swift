@@ -14,10 +14,15 @@ class NicknameViewModel{
     let NkValidSecondText = BehaviorRelay<String>(value: "")
     
     let NkInput = BehaviorRelay<String>(value: "")
+    let nicknameButtonTapped = PublishSubject<Void>()
+    
     // Output
     var nkLengthValid = Observable<Bool>.just(false)
     var nkCheckValid = Observable<Bool>.just(true)
     var allValid = Observable<Bool>.just(false)
+    
+    var showImagePicker = Observable<Void>.just(())
+    let selectedImage = BehaviorRelay<UIImage?>(value: nil)
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
@@ -26,6 +31,7 @@ class NicknameViewModel{
         nkLengthValid = NkInput.map{ $0.count >= 2 && $0.count <= 10}
         
         allValid = Observable.combineLatest(nkLengthValid,nkCheckValid).map{ $0 && $1 }
+        showImagePicker = nicknameButtonTapped.asObservable()
     }
     
     private func updateLocalization() {

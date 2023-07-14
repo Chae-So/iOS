@@ -8,7 +8,8 @@ class NicknameViewController: UIViewController {
     private let disposeBag = DisposeBag()
     var nicknameViewModel: NicknameViewModel!
     
-    private lazy var imageButton = UIButton()
+    private lazy var nicknameButton = UIButton()
+    private lazy var plusButton = UIButton()
     private lazy var nicknameLabel = UILabel()
     private lazy var checkButton = UIButton()
     private lazy var nicknameTextField = UITextField()
@@ -59,8 +60,43 @@ class NicknameViewController: UIViewController {
             .bind(to: nicknameViewModel.NkInput)
             .disposed(by: disposeBag)
         
-        imageButton.rx.tap
-            .subscribe(onNext: {print(123)})
+        plusButton.rx.tap
+            .bind(to: nicknameViewModel.nicknameButtonTapped)
+            .disposed(by: disposeBag)
+        
+        nicknameButton.rx.tap
+            .bind(to: nicknameViewModel.nicknameButtonTapped)
+            .disposed(by: disposeBag)
+        
+        // Bind view model's image property to nickname button's image
+        nicknameViewModel.selectedImage
+            .bind(to: nicknameButton.rx.image())
+            .disposed(by: disposeBag)
+        
+        // Subscribe to view model's showImagePicker event to present image picker controller
+//        nicknameViewModel.showImagePicker
+//            .subscribe(onNext: { [weak self] in
+//                guard let self = self else { return }
+//                let imagePicker = UIImagePickerController()
+//                imagePicker.sourceType = .photoLibrary
+//                imagePicker.allowsEditing = false
+//
+//                // Subscribe to image picker's didFinishPickingMediaWithInfo event to get selected image
+//                imagePicker.rx.didFinishPickingMediaWithInfo
+//                    .subscribe(onNext: { [weak self] info in
+//                        guard let self = self else { return }
+//                        if let image = info[.originalImage] as? UIImage {
+//                            // Save selected image to view model's image property
+//                            self.viewModel.image.accept(image)
+//                        }
+//                        self.dismiss(animated: true, completion: nil)
+//                    })
+//                    .disposed(by: self.disposeBag)
+//
+//                self.present(imagePicker, animated: true, completion: nil)
+//            })
+//            .disposed(by: disposeBag)
+        
         
         nicknameViewModel.nkLengthValid
             .asDriver(onErrorDriveWith: .empty())
@@ -96,6 +132,7 @@ class NicknameViewController: UIViewController {
                 guard let self = self else { return }
                 let veganViewModel = VeganViewModel(localizationManager: LocalizationManager.shared)
                 let veganViewController = VeganViewController(veganViewModel: veganViewModel)
+                UserInfo.shared.nickname = self.nicknameTextField.text!
                 self.navigationController?.pushViewController(veganViewController, animated: true)
             })
             .disposed(by: disposeBag)
@@ -108,8 +145,18 @@ class NicknameViewController: UIViewController {
         self.view.backgroundColor = UIColor(named: "bgColor")
         
         //MARK: imageButton Attribute
-        imageButton.setImage(UIImage(named: "userImage"), for: .normal)
-        imageButton.adjustsImageWhenHighlighted = false
+        nicknameButton.setImage(UIImage(named: "userImage"), for: .normal)
+        //imageButton.contentMode = .scaleAspectFill
+        nicknameButton.backgroundColor = .white
+        nicknameButton.clipsToBounds = true
+        nicknameButton.layer.cornerRadius = 50*Constants.standardWidth //(imageButton.bounds.size.width*Constants.standardWidth) / 2
+        nicknameButton.adjustsImageWhenHighlighted = false
+        
+        //MARK: plusButton Attribute
+        plusButton.setImage(UIImage(named: "plusButton"), for: .normal)
+        plusButton.backgroundColor = UIColor(named: "gray10")
+        plusButton.layer.cornerRadius = 12*Constants.standardHeight //(plusButton.frame.height*Constants.standardHeight) / 2
+        plusButton.adjustsImageWhenHighlighted = false
         
         //MARK: nicknameLabel attribute
         nicknameLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -150,16 +197,23 @@ class NicknameViewController: UIViewController {
     }
     
     func layout(){
-        [imageButton,nicknameLabel,nicknameTextField,checkButton,isValidNkFirstLabel,isValidNkSecondLabel,nextButton]
+        [nicknameButton,plusButton,nicknameLabel,nicknameTextField,checkButton,isValidNkFirstLabel,isValidNkSecondLabel,nextButton]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
         
-        imageButton.snp.makeConstraints { make in
+        nicknameButton.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
             make.height.equalTo(100*Constants.standardHeight)
             make.leading.equalToSuperview().offset(138*Constants.standardWidth)
             make.top.equalToSuperview().offset(160*Constants.standardHeight)
+        }
+        
+        plusButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardWidth)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalTo(nicknameButton.snp.leading).offset(71*Constants.standardWidth)
+            make.top.equalTo(nicknameButton.snp.top).offset(76*Constants.standardHeight)
         }
         
         nicknameLabel.snp.makeConstraints { make in
@@ -204,32 +258,32 @@ class NicknameViewController: UIViewController {
 
 }
 
-//#if DEBUG
-//import SwiftUI
-//struct Preview: UIViewControllerRepresentable {
-//
-//    // 여기 ViewController를 변경해주세요
-//    func makeUIViewController(context: Context) -> UIViewController {
-//        NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
-//    }
-//
-//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
-//        // leave this empty
-//    }
-//}
-//
-//struct ViewController_PreviewProvider: PreviewProvider {
-//    static var previews: some View {
-//        Preview()
-//            .edgesIgnoringSafeArea(.all)
-//            .previewDisplayName("Preview")
-//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-//
-//        Preview()
-//            .edgesIgnoringSafeArea(.all)
-//            .previewDisplayName("Preview")
-//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
-//
-//    }
-//}
-//#endif
+#if DEBUG
+import SwiftUI
+struct Preview: UIViewControllerRepresentable {
+
+    // 여기 ViewController를 변경해주세요
+    func makeUIViewController(context: Context) -> UIViewController {
+        NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
+    }
+
+    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+        // leave this empty
+    }
+}
+
+struct ViewController_PreviewProvider: PreviewProvider {
+    static var previews: some View {
+        Preview()
+            .edgesIgnoringSafeArea(.all)
+            .previewDisplayName("Preview")
+            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+
+        Preview()
+            .edgesIgnoringSafeArea(.all)
+            .previewDisplayName("Preview")
+            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+
+    }
+}
+#endif

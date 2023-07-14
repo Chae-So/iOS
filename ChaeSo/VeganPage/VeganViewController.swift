@@ -9,7 +9,7 @@ class VeganViewController: UIViewController {
     private let disposeBag = DisposeBag()
     var veganViewModel: VeganViewModel!
     
-    let name = "시금치"
+    
     
     private lazy var selectVeganLabel = UILabel()
     private lazy var firstButton = UIButton()
@@ -35,6 +35,8 @@ class VeganViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.hidesBackButton = true
+        
+        print(UserInfo.shared.nickname)
         
         firstExplainLabel.text = "I eat dairy products\n among animal ingredients"
         firstExplainLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
@@ -176,52 +178,52 @@ class VeganViewController: UIViewController {
             make.width.equalTo(24*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(8*Constants.standardWidth)
-            make.trailing.equalTo(firstButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
+            //make.trailing.equalTo(firstButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalToSuperview().offset(8*Constants.standardHeight)
         }
-        
+
         secondButton.snp.makeConstraints { make in
             make.width.equalTo(99*Constants.standardWidth)
             make.height.equalTo(40*Constants.standardHeight)
             make.leading.equalTo(firstButton.snp.trailing).offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(308*Constants.standardHeight)
         }
-        
+
         secondButton.imageView!.snp.makeConstraints { make in
             make.width.equalTo(24*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(8*Constants.standardWidth)
-            make.trailing.equalTo(secondButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
+            //make.trailing.equalTo(secondButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalToSuperview().offset(8*Constants.standardHeight)
         }
-        
+
         thirdButton.snp.makeConstraints { make in
             make.width.equalTo(99*Constants.standardWidth)
             make.height.equalTo(40*Constants.standardHeight)
             make.leading.equalTo(secondButton.snp.trailing).offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(308*Constants.standardHeight)
         }
-        
+
         thirdButton.imageView!.snp.makeConstraints { make in
             make.width.equalTo(24*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(8*Constants.standardWidth)
-            make.trailing.equalTo(thirdButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
+            //make.trailing.equalTo(thirdButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalToSuperview().offset(8*Constants.standardHeight)
         }
-        
+
         fourthButton.snp.makeConstraints { make in
             make.width.equalTo(99*Constants.standardWidth)
             make.height.equalTo(40*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(364*Constants.standardHeight)
         }
-        
+
         fourthButton.imageView!.snp.makeConstraints { make in
             make.width.equalTo(24*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(8*Constants.standardWidth)
-            make.trailing.equalTo(fourthButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
+            //make.trailing.equalTo(fourthButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalToSuperview().offset(8*Constants.standardHeight)
         }
 
@@ -231,23 +233,23 @@ class VeganViewController: UIViewController {
             make.leading.equalTo(fourthButton.snp.trailing).offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(364*Constants.standardHeight)
         }
-        
+
         fifthButton.imageView!.snp.makeConstraints { make in
             make.width.equalTo(24*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(8*Constants.standardWidth)
-            make.trailing.equalTo(fifthButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
+            //make.trailing.equalTo(fifthButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalToSuperview().offset(8*Constants.standardHeight)
         }
         
-        
-        view.addSubview(firstExplainLabel)
-        firstExplainLabel.snp.makeConstraints { make in
-            //make.width.equalTo(99*Constants.standardWidth)
-            make.height.equalTo(70*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(100*Constants.standardWidth)
-            make.top.equalToSuperview().offset(480*Constants.standardHeight)
-        }
+
+//        view.addSubview(firstExplainLabel)
+//        firstExplainLabel.snp.makeConstraints { make in
+//            //make.width.equalTo(99*Constants.standardWidth)
+//            make.height.equalTo(70*Constants.standardHeight)
+//            make.leading.equalToSuperview().offset(100*Constants.standardWidth)
+//            make.top.equalToSuperview().offset(480*Constants.standardHeight)
+//        }
         
         
     }

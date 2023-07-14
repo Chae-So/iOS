@@ -103,6 +103,7 @@ class LoginViewController: UIViewController {
         appleLoginButton.layer.cornerRadius = 8
         appleLoginButton.backgroundColor = UIColor.black
         appleLoginButton.setImage(UIImage(named: "apple"), for: .normal)
+        appleLoginButton.adjustsImageWhenHighlighted = false
 
         //MARK: googleLoginButton Attribute
         googleLoginButton.titleLabel?.textAlignment = .center
@@ -111,6 +112,7 @@ class LoginViewController: UIViewController {
         googleLoginButton.layer.cornerRadius = 8
         googleLoginButton.backgroundColor = UIColor.white
         googleLoginButton.setImage(UIImage(named: "google"), for: .normal)
+        googleLoginButton.adjustsImageWhenHighlighted = false
         
         //MARK: kakaoLoginButton Attribute
         kakaoLoginButton.titleLabel?.textAlignment = .center
@@ -119,6 +121,7 @@ class LoginViewController: UIViewController {
         kakaoLoginButton.backgroundColor = UIColor(hexCode: "FEE500")
         kakaoLoginButton.layer.cornerRadius = 8
         kakaoLoginButton.setImage(UIImage(named: "kakao"), for: .normal)
+        kakaoLoginButton.adjustsImageWhenHighlighted = false
         
         //MARK: tomatoLoginButton Attribute
         tomatoLoginButton.titleLabel?.textAlignment = .center
@@ -127,6 +130,7 @@ class LoginViewController: UIViewController {
         tomatoLoginButton.layer.cornerRadius = 8
         tomatoLoginButton.backgroundColor = UIColor.white
         tomatoLoginButton.setImage(UIImage(named: "tomato"), for: .normal)
+        tomatoLoginButton.adjustsImageWhenHighlighted = false
         
         //MARK: lineView Attribute
         lineView.backgroundColor = UIColor(hexCode: "#DEDEDE")

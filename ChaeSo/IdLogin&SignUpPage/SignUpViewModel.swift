@@ -1,10 +1,3 @@
-//
-//  AccountInfoViewModel.swift
-//  ChaeSo
-//
-//  Created by 박중선 on 2023/06/26.
-//
-
 import UIKit
 import RxSwift
 import RxCocoa
@@ -16,6 +9,7 @@ class SignUpViewModel{
     let validator:Validator = Validator()
     
     //MARK: - Input
+    let loginText = BehaviorRelay<String>(value: "")
     let signUpText = BehaviorRelay<String>(value: "")
     let idText = BehaviorRelay<String>(value: "")
     let checkText = BehaviorRelay<String>(value: "")
@@ -28,6 +22,9 @@ class SignUpViewModel{
     let idInput = BehaviorRelay<String>(value: "")
     let pwInput = BehaviorRelay<String>(value: "")
     let pwConfirmInput = BehaviorRelay<String>(value: "")
+    
+    let loginIdInput = BehaviorRelay<String>(value: "")
+    let loginPwInput = BehaviorRelay<String>(value: "")
     
     let idLengthValidText = BehaviorRelay<String>(value: "")
     let idValidText = BehaviorRelay<String>(value: "")
@@ -48,6 +45,8 @@ class SignUpViewModel{
     
     var pwConfirmValid: Observable<Bool> = Observable.just(false)
     var allValid: Observable<Bool> = Observable.just(false)
+    
+    var loginValid: Observable<Bool> = Observable.just(false)
     
     // MARK: - Initializer
     init(localizationManager: LocalizationManager) {
@@ -79,14 +78,16 @@ class SignUpViewModel{
             .map { $0 == $1 && $0 != "" }
         
         allValid = Observable.combineLatest(idIsValid, pwIsValid, pwConfirmValid)
-            .map { print($0,$1,$2)
-                return $0 && $1 && $2}
+            .map { $0 && $1 && $2 }
             
-
+        
+        loginValid = Observable.combineLatest(loginIdInput,loginPwInput)
+            .map{ $0 != "" && $1 != "" }
             
     }
     
     private func updateLocalization() {
+        loginText.accept(localizationManager.localizedString(forKey: "Login"))
         signUpText.accept(localizationManager.localizedString(forKey: "Sign Up"))
         
         idText.accept(localizationManager.localizedString(forKey: "ID"))

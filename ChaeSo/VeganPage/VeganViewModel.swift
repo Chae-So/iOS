@@ -22,6 +22,8 @@ class VeganViewModel{
         self.localizationManager = localizationManager
         self.updateLocalization()
         
+        
+        
     }
     
     private func updateLocalization() {

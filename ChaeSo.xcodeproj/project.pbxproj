@@ -54,6 +54,7 @@
 		31CF47272A5AF65400A83671 /* VeganViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF47262A5AF65400A83671 /* VeganViewController.swift */; };
 		31CF47292A5AF66100A83671 /* VeganViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF47282A5AF66100A83671 /* VeganViewModel.swift */; };
 		31CF472D2A5BEED300A83671 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF472C2A5BEED300A83671 /* UserInfo.swift */; };
+		31CF47312A61088400A83671 /* IdLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF47302A61088400A83671 /* IdLoginViewController.swift */; };
 		9DD1241800024D2E325F256A /* Pods_ChaeSo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		31CF47282A5AF66100A83671 /* VeganViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganViewModel.swift; sourceTree = "<group>"; };
 		31CF472A2A5AF67A00A83671 /* FlowTomato.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FlowTomato.json; sourceTree = "<group>"; };
 		31CF472C2A5BEED300A83671 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		31CF47302A61088400A83671 /* IdLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewController.swift; sourceTree = "<group>"; };
 		EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.debug.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,7 +166,7 @@
 				317ED7AE2A49467700006F7B /* SceneDelegate.swift */,
 				31C4B20A2A55586E00BABD62 /* StartPage */,
 				31C4B20B2A55588700BABD62 /* LoginPage */,
-				31C4B20C2A55589C00BABD62 /* SignUpPage */,
+				31C4B20C2A55589C00BABD62 /* IdLogin&SignUpPage */,
 				31C4B2132A56FCAE00BABD62 /* TosPage */,
 				31C4B21E2A5AC22D00BABD62 /* NicknamePage */,
 				31CF472B2A5AF6AE00A83671 /* VeganPage */,
@@ -231,13 +233,14 @@
 			path = LoginPage;
 			sourceTree = "<group>";
 		};
-		31C4B20C2A55589C00BABD62 /* SignUpPage */ = {
+		31C4B20C2A55589C00BABD62 /* IdLogin&SignUpPage */ = {
 			isa = PBXGroup;
 			children = (
+				31CF47302A61088400A83671 /* IdLoginViewController.swift */,
 				317ED7E72A499CFC00006F7B /* SignUpViewController.swift */,
 				317ED7EB2A49D67B00006F7B /* SignUpViewModel.swift */,
 			);
-			path = SignUpPage;
+			path = "IdLogin&SignUpPage";
 			sourceTree = "<group>";
 		};
 		31C4B20D2A5558B000BABD62 /* TabBar */ = {
@@ -486,6 +489,7 @@
 				31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */,
 				31C4B1F92A55526C00BABD62 /* CommunityViewController.swift in Sources */,
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
+				31CF47312A61088400A83671 /* IdLoginViewController.swift in Sources */,
 				31C4B1F32A55520000BABD62 /* TabBarViewModel.swift in Sources */,
 				31C4B2012A55532300BABD62 /* CommunityModel.swift in Sources */,
 				31C4B2152A56FCC700BABD62 /* TosViewModel.swift in Sources */,
