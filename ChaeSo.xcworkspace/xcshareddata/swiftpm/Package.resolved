@@ -10,12 +10,84 @@
       }
     },
     {
+      "identity" : "appauth-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/openid/AppAuth-iOS.git",
+      "state" : {
+        "revision" : "71cde449f13d453227e687458144bde372d30fc7",
+        "version" : "1.6.2"
+      }
+    },
+    {
+      "identity" : "googlesignin-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/GoogleSignIn-iOS",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b0bc583eb31df0354addb1e0df651fa6da1d386e"
+      }
+    },
+    {
+      "identity" : "gtm-session-fetcher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/gtm-session-fetcher.git",
+      "state" : {
+        "revision" : "d415594121c9e8a4f9d79cecee0965cf35e74dbd",
+        "version" : "3.1.1"
+      }
+    },
+    {
+      "identity" : "gtmappauth",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/GTMAppAuth.git",
+      "state" : {
+        "revision" : "41aba100f28395ebe842cd66e5d371cdd46c6792",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "kakao-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk.git",
+      "state" : {
+        "revision" : "7047a84f416338badb0c0afc7209d01294adaf47",
+        "version" : "2.16.0"
+      }
+    },
+    {
+      "identity" : "kakao-ios-sdk-rx",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk-rx",
+      "state" : {
+        "branch" : "master",
+        "revision" : "ad98d38e6f53e1cf99f1f70cbb19f634be8ade91"
+      }
+    },
+    {
       "identity" : "lottie-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-spm.git",
       "state" : {
         "revision" : "60ea4f82fba8b4cb21a75665a889e86ed4d81c6e",
         "version" : "4.2.0"
+      }
+    },
+    {
+      "identity" : "ohhttpstubs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AliSoftware/OHHTTPStubs.git",
+      "state" : {
+        "revision" : "12f19662426d0434d6c330c6974d53e2eb10ecd9",
+        "version" : "9.1.0"
+      }
+    },
+    {
+      "identity" : "rxalamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RxSwiftCommunity/RxAlamofire.git",
+      "state" : {
+        "revision" : "9535b58695b91fb67f56d58d6fd0c76462d7743a",
+        "version" : "6.1.2"
       }
     },
     {

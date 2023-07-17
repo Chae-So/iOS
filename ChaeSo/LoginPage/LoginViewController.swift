@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     private let disposeBag = DisposeBag()
@@ -29,13 +30,14 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.hidesBackButton = true
-        
         bind()
         attribute()
         layout()
     }
     
     func bind(){
+        loginViewModel.navigationControllerSubject.onNext(self.navigationController)
+        
         loginViewModel.loginText
             .asDriver(onErrorDriveWith: .empty())
             .drive(loginLabel.rx.text)
@@ -70,13 +72,23 @@ class LoginViewController: UIViewController {
             .asDriver(onErrorDriveWith: .empty())
             .drive(signupButton.rx.title())
             .disposed(by: disposeBag)
+        
+        googleLoginButton.rx.tap
+            .bind(to: loginViewModel.googleButtonTapped)
+            .disposed(by: disposeBag)
+        
+        kakaoLoginButton.rx.tap
+            .bind(to: loginViewModel.kakaoButtonTapped)
+            .disposed(by: disposeBag)
 
         signupButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                let signUpViewModel = SignUpViewModel(localizationManager: LocalizationManager.shared)
-                let signUpViewController = SignUpViewController(signUpViewModel: signUpViewModel)
-                self.navigationController?.pushViewController(signUpViewController, animated: true)
+//                let signUpViewModel = SignUpViewModel(localizationManager: LocalizationManager.shared)
+//                let signUpViewController = SignUpViewController(signUpViewModel: signUpViewModel)
+//                self.navigationController?.pushViewController(signUpViewController, animated: true)
+                let testViewController = TestViewController()
+                self.navigationController?.pushViewController(testViewController, animated: true)
             })
             .disposed(by: disposeBag)
     }

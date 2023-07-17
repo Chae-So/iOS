@@ -28,13 +28,13 @@ class TabBarController: UITabBarController {
         // Set up the view controllers
         let communityVC = CommunityViewController(viewModel: viewModel.communityViewModel)
         let mapVC = MapViewController(viewModel: viewModel.mapViewModel)
-        let profileVC = MyPageViewController(viewModel: viewModel.myPageViewModel)
+        //let profileVC = MyPageViewController(viewModel: viewModel.myPageViewModel)
         
         communityVC.tabBarItem = UITabBarItem(title: "커뮤니티", image: UIImage(systemName: "house"), tag: 0)
         mapVC.tabBarItem = UITabBarItem(title: "지도", image: UIImage(systemName: "map"), tag: 1)
-        profileVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person"), tag: 2)
+        //profileVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person"), tag: 2)
         
-        viewControllers = [communityVC, mapVC, profileVC]
+        viewControllers = [communityVC, mapVC]
         
         // Bind the selected index to the view model
         rx.didSelect

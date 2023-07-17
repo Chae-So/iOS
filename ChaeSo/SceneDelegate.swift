@@ -6,21 +6,32 @@
 //
 
 import UIKit
+import RxKakaoSDKAuth
+import KakaoSDKAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    //var rootViewModel = StartViewModel(localizationManager: LocalizationManager.shared)
-    var rootViewModel = NicknameViewModel(localizationManager: LocalizationManager.shared)
+    var rootViewModel = StartViewModel(localizationManager: LocalizationManager.shared)
+    //var rootViewModel = NicknameViewModel(localizationManager: LocalizationManager.shared)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        //let rootViewController = StartViewController(startViewModel: rootViewModel)
-        let rootViewController = NicknameViewController(nicknameViewModel: rootViewModel)
+        let rootViewController = StartViewController(startViewModel: rootViewModel)
+        //let rootViewController = NicknameViewController(nicknameViewModel: rootViewModel)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
     }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+            if let url = URLContexts.first?.url {
+                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                    _ = AuthController.rx.handleOpenUrl(url: url)
+                }
+            }
+        }
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

@@ -3,7 +3,10 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import DropDown
-
+import KakaoSDKAuth
+import RxKakaoSDKAuth
+import KakaoSDKUser
+import RxKakaoSDKUser
 
 class StartViewController: UIViewController {
     private let disposeBag = DisposeBag()
@@ -32,6 +35,42 @@ class StartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        if (AuthApi.hasToken()) {
+//            UserApi.shared.rx.accessTokenInfo()
+//                .subscribe(onSuccess:{ (token) in
+//                    //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+//                    print("asdasd",token)
+//                }, onFailure: {error in
+////                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
+////                        //로그인 필요
+////                    }
+////                    else {
+////                        //기타 에러
+////                    }
+//                    print("토큰있고 에러있음",error)
+//                })
+//                .disposed(by: disposeBag)
+//        }
+//        else {
+//            print("토큰없음")
+//            //로그인 필요
+//        }
+//        UserApi.shared.rx.me()
+//            .subscribe (onSuccess:{ user in
+//                print("me() success.")
+//
+//                let nickname = user.kakaoAccount?.profile?.nickname
+//                let email = user.kakaoAccount?.email
+//
+//                print("nickname",nickname)
+//                print("email",email)
+//                print("useruseruser",user)
+//
+//            }, onFailure: {error in
+//                print(error)
+//            })
+//            .disposed(by: disposeBag)
+        
         bind()
         attribute()
         layout()
@@ -40,6 +79,7 @@ class StartViewController: UIViewController {
     
     
     func bind(){
+        
         
         dropDown.rx.itemSelected
             .asDriver(onErrorDriveWith: .empty())
