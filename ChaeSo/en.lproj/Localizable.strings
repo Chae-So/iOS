@@ -48,9 +48,7 @@
 "Vegan" = "Vegan";
 "Lacto" = "Lacto";
 "Ovo" = "Ovo";
-"Pollo" = "Pollo";
 "Pesco" = "Pesco";
-"I don't eat all animal ingredients" = "I don't eat all animal ingredients";
-"I eat dairy products among animal ingredients" = "I eat dairy products among animal ingredients";
-"I eat eggs from animal ingredients" = "I eat eggs from animal ingredients";
-"I eat seafood" = "I eat seafood";
+"Pollo" = "Pollo";
+
+

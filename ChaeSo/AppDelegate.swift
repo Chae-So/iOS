@@ -17,12 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance.restorePreviousSignIn { [self] user, error in
             if error != nil || user == nil {
                 // Show the app's signed-out state.
-                print(1)
                 
                 
             } else {
                 // Show the app's signed-in state.
-                print(2)
                 let loginViewController = TestViewController()
                 let navigationController = UINavigationController(rootViewController: loginViewController)
                 

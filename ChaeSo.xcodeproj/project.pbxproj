@@ -35,6 +35,9 @@
 		31C392102A62B992006C9FFE /* RxKakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 31C3920F2A62B992006C9FFE /* RxKakaoSDKUser */; };
 		31C392162A641009006C9FFE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 31C392152A641009006C9FFE /* GoogleSignIn */; };
 		31C392182A641009006C9FFE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31C392172A641009006C9FFE /* GoogleSignInSwift */; };
+		31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */; };
+		31C392202A658289006C9FFE /* PTCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */; };
+		31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */; };
 		31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1ED2A54115000BABD62 /* Constants.swift */; };
 		31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */; };
 		31C4B1F32A55520000BABD62 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F22A55520000BABD62 /* TabBarViewModel.swift */; };
@@ -92,6 +95,9 @@
 		317ED7EF2A4D69CF00006F7B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		31C392082A62B06A006C9FFE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		31C392112A62CD99006C9FFE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewController.swift; sourceTree = "<group>"; };
+		31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewModel.swift; sourceTree = "<group>"; };
+		31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewCell.swift; sourceTree = "<group>"; };
 		31C4B1ED2A54115000BABD62 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		31C4B1F22A55520000BABD62 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
@@ -196,6 +202,9 @@
 				317CDD7F2A4FF6E700F9320B /* Localizable.strings */,
 				31C392082A62B06A006C9FFE /* TestViewController.swift */,
 				31C392112A62CD99006C9FFE /* Config.xcconfig */,
+				31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */,
+				31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */,
+				31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */,
 			);
 			path = ChaeSo;
 			sourceTree = "<group>";
@@ -513,6 +522,7 @@
 				31C4B1F92A55526C00BABD62 /* CommunityViewController.swift in Sources */,
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
 				31CF47312A61088400A83671 /* IdLoginViewController.swift in Sources */,
+				31C392202A658289006C9FFE /* PTCollectionViewModel.swift in Sources */,
 				31C4B1F32A55520000BABD62 /* TabBarViewModel.swift in Sources */,
 				31C4B2012A55532300BABD62 /* CommunityModel.swift in Sources */,
 				31C4B2152A56FCC700BABD62 /* TosViewModel.swift in Sources */,
@@ -520,6 +530,8 @@
 				31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */,
 				31C4B21B2A5AA69E00BABD62 /* NicknameViewController.swift in Sources */,
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
+				31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */,
+				31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */,
 				31CF472D2A5BEED300A83671 /* UserInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -678,7 +690,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChaeSo/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "\"\"";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앨범 접근";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -708,7 +719,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChaeSo/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "\"\"";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앨범 접근";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

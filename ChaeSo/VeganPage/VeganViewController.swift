@@ -20,8 +20,14 @@ class VeganViewController: UIViewController {
     private lazy var startButton = UIButton()
     
     private lazy var whiteView = UIView()
-    private lazy var firstExplainLabel = UILabel()
-    private lazy var secondExplainLabel = UILabel()
+    private lazy var VeganLabel = UILabel()
+    private lazy var LactoLabel = UILabel()
+    private lazy var OvoLabel = UILabel()
+    private lazy var PescoLabel = UILabel()
+    private lazy var PolloLabel = UILabel()
+    
+    private lazy var firstStackView = UIStackView()
+    
     
     init(veganViewModel: VeganViewModel!) {
         super.init(nibName: nil, bundle: nil)
@@ -37,10 +43,6 @@ class VeganViewController: UIViewController {
         //navigationItem.hidesBackButton = true
         
         print(UserInfo.shared.nickname)
-        
-        firstExplainLabel.text = "I eat dairy products\n among animal ingredients"
-        firstExplainLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        firstExplainLabel.numberOfLines = 2
         
         bind()
         attribute()
@@ -241,15 +243,7 @@ class VeganViewController: UIViewController {
             //make.trailing.equalTo(fifthButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalToSuperview().offset(8*Constants.standardHeight)
         }
-        
-
-//        view.addSubview(firstExplainLabel)
-//        firstExplainLabel.snp.makeConstraints { make in
-//            //make.width.equalTo(99*Constants.standardWidth)
-//            make.height.equalTo(70*Constants.standardHeight)
-//            make.leading.equalToSuperview().offset(100*Constants.standardWidth)
-//            make.top.equalToSuperview().offset(480*Constants.standardHeight)
-//        }
+    
         
         
     }

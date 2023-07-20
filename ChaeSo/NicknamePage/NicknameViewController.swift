@@ -2,11 +2,13 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import PhotosUI
 
 class NicknameViewController: UIViewController {
-    
+
     private let disposeBag = DisposeBag()
     var nicknameViewModel: NicknameViewModel!
+    var ptCollectionViewModel: PTCollectionViewModel!
     
     private lazy var nicknameButton = UIButton()
     private lazy var plusButton = UIButton()
@@ -17,25 +19,93 @@ class NicknameViewController: UIViewController {
     private lazy var isValidNkSecondLabel = UILabel()
     private lazy var nextButton = UIButton()
     
-    init(nicknameViewModel: NicknameViewModel!) {
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    init(nicknameViewModel: NicknameViewModel!, ptCollectionViewModel: PTCollectionViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.nicknameViewModel = nicknameViewModel
-    }
+        self.ptCollectionViewModel = ptCollectionViewModel
 
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.hidesBackButton = true
-        
+
         bind()
         attribute()
         layout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        ptCollectionViewModel.selectedImageRelay
+//            .subscribe(onNext: { image in
+//                print("Image received from selectedImageRelay")
+//                print(image)
+//            })
+//            .disposed(by: disposeBag)
+    }
+
+    
+    private func showCollectionAlert() {
+        let collectionVC = PTCollectionViewController(ptCollectionViewModel: self.ptCollectionViewModel)
+        collectionVC.modalPresentationStyle = .overFullScreen
+        self.present(collectionVC, animated: true)
+    }
+    
     func bind(){
+        
+        
+        // Bind PHPicker result to update nickname button image
+        ptCollectionViewModel.pickerResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .single(let image):
+                    self.nicknameButton.setImage(image, for: .normal)
+                    self.nicknameButton.imageView?.contentMode = .scaleAspectFill
+                case .multiple:
+                    break // do nothing
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
+        // Bind alert action to show alert controller
+        ptCollectionViewModel.alertAction
+            .subscribe(onNext: { [weak self] action in
+                guard let self = self else { return }
+                switch action {
+                case .showCollectionAlert:
+                    self.showCollectionAlert()
+                case .showPickerAlert:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        // Bind picker configuration to present PHPicker
+        ptCollectionViewModel.pickerConfiguration
+            .subscribe(onNext: { [weak self] configuration in
+                guard let self = self else { return }
+                let picker = PHPickerViewController(configuration: configuration)
+                picker.delegate = self.ptCollectionViewModel!
+                self.present(picker, animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        
+        
+        ////////////
+        
         nicknameViewModel.NkText
             .asDriver(onErrorDriveWith: .empty())
             .drive(nicknameLabel.rx.text)
@@ -61,41 +131,17 @@ class NicknameViewController: UIViewController {
             .disposed(by: disposeBag)
         
         plusButton.rx.tap
-            .bind(to: nicknameViewModel.nicknameButtonTapped)
+            .bind(to: ptCollectionViewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
         
         nicknameButton.rx.tap
-            .bind(to: nicknameViewModel.nicknameButtonTapped)
+            .bind(to: ptCollectionViewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
         
-        // Bind view model's image property to nickname button's image
-        nicknameViewModel.selectedImage
-            .bind(to: nicknameButton.rx.image())
-            .disposed(by: disposeBag)
+//
         
-        // Subscribe to view model's showImagePicker event to present image picker controller
-//        nicknameViewModel.showImagePicker
-//            .subscribe(onNext: { [weak self] in
-//                guard let self = self else { return }
-//                let imagePicker = UIImagePickerController()
-//                imagePicker.sourceType = .photoLibrary
-//                imagePicker.allowsEditing = false
-//
-//                // Subscribe to image picker's didFinishPickingMediaWithInfo event to get selected image
-//                imagePicker.rx.didFinishPickingMediaWithInfo
-//                    .subscribe(onNext: { [weak self] info in
-//                        guard let self = self else { return }
-//                        if let image = info[.originalImage] as? UIImage {
-//                            // Save selected image to view model's image property
-//                            self.viewModel.image.accept(image)
-//                        }
-//                        self.dismiss(animated: true, completion: nil)
-//                    })
-//                    .disposed(by: self.disposeBag)
-//
-//                self.present(imagePicker, animated: true, completion: nil)
-//            })
-//            .disposed(by: disposeBag)
+        
+        
         
         
         nicknameViewModel.nkLengthValid
@@ -137,16 +183,27 @@ class NicknameViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        ptCollectionViewModel.selectedImageRelay
+            .observe(on: MainScheduler.instance)
+            .bind(to: nicknameButton.rx.image(for: .normal))
+            .disposed(by: disposeBag)
         
+        print("Starting to subscribe to selectedImageRelay")
+        ptCollectionViewModel.selectedImageRelay
+            .subscribe(onNext: {_ in
+                print("Image received from selectedImageRelay")
+            })
+            .disposed(by: disposeBag)
     }
     
     func attribute(){
+        
         //MARK: 바탕색
         self.view.backgroundColor = UIColor(named: "bgColor")
         
         //MARK: imageButton Attribute
         nicknameButton.setImage(UIImage(named: "userImage"), for: .normal)
-        //imageButton.contentMode = .scaleAspectFill
+        //nicknameButton.imageView!.contentMode = .scaleAspectFill
         nicknameButton.backgroundColor = .white
         nicknameButton.clipsToBounds = true
         nicknameButton.layer.cornerRadius = 50*Constants.standardWidth //(imageButton.bounds.size.width*Constants.standardWidth) / 2
@@ -254,36 +311,48 @@ class NicknameViewController: UIViewController {
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(720*Constants.standardHeight)
         }
+        
     }
 
 }
 
-#if DEBUG
-import SwiftUI
-struct Preview: UIViewControllerRepresentable {
+//extension ViewController: PHPickerViewControllerDelegate {
+//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//        // dismiss the picker
+//        picker.dismiss(animated: true)
+//        // trigger the view model input pickedImages event with the results
+//        viewModel.input.pickedImages.onNext(results)
+//    }
+//}
 
-    // 여기 ViewController를 변경해주세요
-    func makeUIViewController(context: Context) -> UIViewController {
-        NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
-    }
 
-    func updateUIViewController(_ uiView: UIViewController,context: Context) {
-        // leave this empty
-    }
-}
 
-struct ViewController_PreviewProvider: PreviewProvider {
-    static var previews: some View {
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
-
-    }
-}
-#endif
+//#if DEBUG
+//import SwiftUI
+//struct Preview: UIViewControllerRepresentable {
+//
+//    // 여기 ViewController를 변경해주세요
+//    func makeUIViewController(context: Context) -> UIViewController {
+//        NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
+//    }
+//
+//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+//        // leave this empty
+//    }
+//}
+//
+//struct ViewController_PreviewProvider: PreviewProvider {
+//    static var previews: some View {
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+//
+//    }
+//}
+//#endif

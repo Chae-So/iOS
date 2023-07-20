@@ -2,42 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>kakao${KAKAO_NATIVE_APP_KEY}</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>${REVERSE_GOOGLE_CLIENT_ID}</string>
 			</array>
 		</dict>
 	</array>
-    <key>GIDClientID</key>
-    <string>${GOOGLE_CLIENT_ID}</string>
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>${REVERSE_GOOGLE_CLIENT_ID}</string>
-        </array>
-      </dict>
-    </array>
-    <key>GOOGLE_CLIENT_ID</key>
-    <string>${GOOGLE_CLIENT_ID}</string>
-    <key>REVERSE_GOOGLE_CLIENT_ID</key>
-    <string>${REVERSE_GOOGLE_CLIENT_ID}</string>
+	<key>GIDClientID</key>
+	<string>${GOOGLE_CLIENT_ID}</string>
+	<key>GOOGLE_CLIENT_ID</key>
+	<string>${GOOGLE_CLIENT_ID}</string>
 	<key>KAKAO_NATIVE_APP_KEY</key>
 	<string>${KAKAO_NATIVE_APP_KEY}</string>
+	<key>REVERSE_GOOGLE_CLIENT_ID</key>
+	<string>${REVERSE_GOOGLE_CLIENT_ID}</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Barriecito-Regular.ttf</string>
