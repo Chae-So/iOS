@@ -49,3 +49,17 @@
 "Pesco" = "페스코";
 "Pollo" = "폴로";
 
+//MARK: MyPage
+"My Chaeso" = "나의 채소";
+"Post" = "게시물";
+"Following" = "팔로잉";
+"Follower" = "팔로워";
+"My Story" = "내가 쓴 글";
+"Bookmark" = "북마크";
+"Like" = "좋아요";
+"Announcement" = "공지사항";
+"Inquiry" = "문의하기";
+"Terms & Policy" = "약관 및 정책";
+"Setting" = "설정";
+"Log Out" = "로그아웃";
+"Withdrawal" = "회원탈퇴";

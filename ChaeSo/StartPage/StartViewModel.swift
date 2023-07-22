@@ -4,14 +4,10 @@ import RxCocoa
 
 class StartViewModel {
     let disposeBag = DisposeBag()
-    
-    
     var localizationManager: LocalizationManager
-    
-    // Input
+
     let languageSelected = PublishSubject<String>()
     
-    // Output
     let titleText = BehaviorRelay<String>(value: "")
     
     init(localizationManager: LocalizationManager) {

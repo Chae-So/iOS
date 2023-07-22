@@ -1,350 +1,299 @@
-//import UIKit
-//import RxSwift
-//import RxCocoa
-//import SnapKit
-//
-//class MyPageViewController: UIViewController {
-//
-//    // MARK: - Properties
-//
-//    let disposeBag = DisposeBag()
-//    var myPageviewModel: MyPageViewModel
-//
-//    // MARK: - UI Elements
-//
-//    let tableView = UITableView()
-//    let separatorView = UIView()
-//    let profileImageView = UIImageView()
-//    let nameLabel = UILabel()
-//    let emailLabel = UILabel()
-//    let logoutButton = UIButton()
-//
-//    // MARK: - Initializers
-//
-//    init(myPageviewModel: MyPageViewModel) {
-//        self.myPageviewModel = myPageviewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//    // MARK: - Life Cycle
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//    }
-//
-//
-//    func bind(){
-//
-//    }
-//
-//    func attribute(){
-//
-//        // 네비게이션 타이틀 설정
-//        self.title = "마이컬리"
-//
-//        // 테이블뷰 설정
-//        tableView.rx.setDelegate(self).disposed(by: disposeBag) // rx를 사용하여 델리게이트 설정
-//
-//        // 테이블뷰 셀 등록
-//        tableView.register(UserHeaderCell.self, forCellReuseIdentifier: "UserHeaderCell")
-//        tableView.register(VegetableCell.self, forCellReuseIdentifier: "VegetableCell")
-//        tableView.register(MyPostCell.self, forCellReuseIdentifier: "MyPostCell")
-//        tableView.register(SupportCell.self, forCellReuseIdentifier: "SupportCell")
-//        tableView.register(LogoutCell.self, forCellReuseIdentifier: "LogoutCell")
-//
-//        // 네비게이션 바 바로 밑에 검은색 구분선 추가 및 오토레이아웃 설정
-//        separatorView.backgroundColor = .black
-//
-//
-//    }
-//
-//    func layout(){
-//        [tableView,separatorView]
-//            .forEach { view.addSubview($0) }
-//
-//        tableView.snp.makeConstraints { make in
-//            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-//            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
-//            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
-//            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-//        }
-//
-//        // 스냅킷을 사용한 오토레이아웃 설정
-//        separatorView.snp.makeConstraints { make in
-//            make.top.equalTo(self.navigationController?.navigationBar.snp.bottom ?? self.view.snp.top)
-//            make.leading.equalTo(self.view.snp.leading)
-//            make.trailing.equalTo(self.view.snp.trailing)
-//            make.height.equalTo(5)
-//        }
-//
-//
-//
-//    }
-//
-//}
-//
-//extension MyPageViewController: UITableViewDelegate {
-//    // 섹션의 개수를 반환하는 메소드
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 3
-//    }
-//
-//    // 섹션의 헤더 높이를 반환하는 메소드
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        switch section {
-//        case 0:
-//            return 0 // 첫 번째 섹션의 헤더는 검은색 구분선이므로 네비게이션 바 바로 밑에 추가했으므로 여기서는 0을 반환합니다.
-//
-//        case 1, 2:
-//            return 33 // 나머지 섹션의 헤더는 텍스트가 있는 헤더이므로 높이는 33
-//        default:
-//            return 0 // 예외 처리
-//        }
-//    }
-//
-//    // 섹션의 헤더 뷰를 반환하는 메소드
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        switch section {
-//        case 0:
-//            let headerView = UIView()
-//            headerView.backgroundColor = .black // 첫 번째 섹션의 헤더는 검은색 구분선이므로 배경색을 검은색으로 설정
-//            return headerView
-//        case 1:
-//            let headerView = UILabel()
-//            headerView.text = "나의 채소" // 두 번째 섹션의 헤더는 "나의 채소"라는 텍스트를 가지는 라벨로 설정
-//            headerView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-//            headerView.textAlignment = .center
-//            return headerView
-//        case 2:
-//            let headerView = UILabel()
-//            headerView.text = "고객지원" // 세 번째 섹션의 헤더는 "고객지원"이라는 텍스트를 가지는 라벨로 설정
-//            headerView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-//            headerView.textAlignment = .center
-//            return headerView
-//        default:
-//            return nil // 예외 처리
-//        }
-//    }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.section {
-//        case 0:
-//            switch indexPath.row {
-//            case 0:
-//                return UITableView.automaticDimension // 첫 번째 섹션의 첫 번째 셀은 유저 헤더 셀이므로 오토레이아웃에 맞게 높이를 자동으로 설정합니다.
-//                // 수정해야 하는 부분: 유저 헤더 셀은 헤더가 아니라 셀이므로 높이를 반환하는 것이 아니라 UserHeaderCell 클래스를 정의하고 그 안에서 오토레이아웃을 설정해야 합니다.
-//                // 예시:
-//                /*
-//                 class UserHeaderCell: UITableViewCell {
-//                 let userImageView = UIImageView()
-//                 let userNameLabel = UILabel()
-//
-//                 override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//                 super.init(style: style, reuseIdentifier: reuseIdentifier)
-//
-//                 // 유저 이미지뷰 설정
-//                 userImageView.contentMode = .scaleAspectFill
-//                 userImageView.layer.cornerRadius = 50
-//                 userImageView.clipsToBounds = true
-//
-//                 // 유저 이름 라벨 설정
-//                 userNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-//                 userNameLabel.textAlignment = .center
-//
-//                 // 셀에 유저 이미지뷰와 유저 이름 라벨 추가 및 오토레이아웃 설정
-//                 self.contentView.addSubview(userImageView)
-//                 self.contentView.addSubview(userNameLabel)
-//
-//                 // 스냅킷을 사용한 오토레이아웃 설정
-//                 userImageView.snp.makeConstraints { make in
-//                 make.centerX.equalToSuperview()
-//                 make.top.equalToSuperview().offset(10)
-//                 make.width.height.equalTo(100)
-//                 }
-//
-//                 userNameLabel.snp.makeConstraints { make in
-//                 make.centerX.equalToSuperview()
-//                 make.top.equalTo(userImageView.snp.bottom).offset(10)
-//                 make.bottom.equalToSuperview().offset(-10)
-//                 make.width.equalToSuperview().multipliedBy(0.8)
-//                 }
-//                 }
-//
-//                 required init?(coder: NSCoder) {
-//                 fatalError("init(coder:) has not been implemented")
-//                 }
-//                 }
-//                 */
-//            case 1:
-//                return 150 // 첫 번째 섹션의 두 번째 셀은 나의 채소 셀이므로 높이는 150
-//            default:
-//                return 0 // 예외 처리
-//            }
-//        case 1:
-//            switch indexPath.row {
-//            case 0, 1, 2:
-//                return 50 // 두 번째 섹션의 첫 번째, 두 번째, 세 번째 셀은 내가 쓴 글, 북마크, 좋아요 셀이므로 높이는 50
-//            case 3:
-//                return 1 // 두 번째 섹션의 네 번째 셀은 구분선 셀이므로 높이는 1
-//            default:
-//                return 0 // 예외 처리
-//            }
-//        case 2:
-//            switch indexPath.row {
-//            case 0, 1, 2, 3:
-//                return 50 // 세 번째 섹션의 첫 번째, 두 번째, 세 번째, 네 번째 셀은 공지사항, 문의하기, 약관 및 정책, 설정 셀이므로 높이는 50
-//            case 4:
-//                return 1 // 세 번째 섹션의 다섯 번째 셀은 구분선 셀이므로 높이는 1
-//            case 5, 6:
-//                return 50 // 세 번째 섹션의 여섯 번째, 일곱 번째 셀은 로그아웃, 회원탈퇴 셀이므로 높이는 50
-//            default:
-//                return 0 // 예외 처리
-//            }
-//        default:
-//            return 0 // 예외 처리
-//        }
-//    }
-//
-//    // 셀을 반환하는 메소드
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        switch indexPath.section {
-//        case 0:
-//            switch indexPath.row {
-//            case 0:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "UserHeaderCell", for: indexPath) as! UserHeaderCell
-//                // 유저 헤더 셀에 뷰모델의 유저 정보를 바인딩하는 코드
-//                // 예시:
-//                /*
-//                 viewModel.user.map { $0.image }.bind(to: cell.userImageView.rx.image).disposed(by: cell.disposeBag)
-//                 viewModel.user.map { $0.name }.bind(to: cell.userNameLabel.rx.text).disposed(by: cell.disposeBag)
-//                 */
-//                return cell
-//            case 1:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "VegetableCell", for: indexPath) as! VegetableCell
-//                // 나의 채소 셀에 뷰모델의 유저 정보를 바인딩하는 코드
-//                // 예시:
-//                /*
-//                 viewModel.user.map { $0.vegetables }.bind(to: cell.collectionView.rx.items(cellIdentifier: "VegetableCollectionViewCell", cellType: VegetableCollectionViewCell.self)) { index, vegetable, cell in
-//                 cell.vegetableImageView.image = vegetable.image
-//                 cell.vegetableNameLabel.text = vegetable.name
-//                 }.disposed(by: cell.disposeBag)
-//                 */
-//                return cell
-//            default:
-//                return UITableViewCell() // 예외 처리
-//            }
-//        case 1:
-//            switch indexPath.row {
-//            case 0, 1, 2:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "MyPostCell", for: indexPath) as! MyPostCell
-//                // 내가 쓴 글, 북마크, 좋아요 셀에 뷰모델의 유저 정보를 바인딩하는 코드
-//                // 예시:
-//                /*
-//                 switch indexPath.row {
-//                 case 0:
-//                 viewModel.user.map { $0.posts.count }.map { "\($0)" }.bind(to: cell.countLabel.rx.text).disposed(by: cell.disposeBag)
-//                 cell.titleLabel.text = "내가 쓴 글"
-//                 case 1:
-//                 viewModel.user.map { $0.bookmarks.count }.map { "\($0)" }.bind(to: cell.countLabel.rx.text).disposed(by: cell.disposeBag)
-//                 cell.titleLabel.text = "북마크"
-//                 case 2:
-//                 viewModel.user.map { $0.likes.count }.map { "\($0)" }.bind(to: cell.countLabel.rx.text).disposed(by: cell.disposeBag)
-//                 cell.titleLabel.text = "좋아요"
-//                 default:
-//                 break
-//                 }
-//                 */
-//                return cell
-//            case 3:
-//                let cell = UITableViewCell()
-//                // 구분선 셀에 리딩, 트레일링 간격이 20인 구분선을 추가하는 코드
-//                // 예시:
-//                /*
-//                 let separatorView = UIView()
-//                 separatorView.backgroundColor = .lightGray
-//                 cell.contentView.addSubview(separatorView)
-//
-//                 // 스냅킷을 사용한 오토레이아웃 설정
-//                 separatorView.snp.makeConstraints { make in
-//                 make.top.bottom.equalToSuperview()
-//                 make.leading.equalToSuperview().offset(20)
-//                 make.trailing.equalToSuperview().offset(-20)
-//                 }
-//                 */
-//                return cell
-//            default:
-//                return UITableViewCell() // 예외 처리
-//            }
-//        case 2:
-//            switch indexPath.row {
-//            case 0, 1, 2, 3:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "SupportCell", for: indexPath) as! SupportCell
-//                // 공지사항, 문의하기, 약관 및 정책, 설정 셀에 텍스트를 설정하는 코드
-//                // 예시:
-//                /*
-//                 switch indexPath.row {
-//                 case 0:
-//                 cell.titleLabel.text = "공지사항"
-//                 case 1:
-//                 cell.titleLabel.text = "문의하기"
-//                 case 2:
-//                 cell.titleLabel.text = "약관 및 정책"
-//                 case 3:
-//                 cell.titleLabel.text = "설정"
-//                 default:
-//                 break
-//                 }
-//                 */
-//                return cell
-//            case 4:
-//                let cell = UITableViewCell()
-//                // 구분선 셀에 리딩, 트레일링 간격이 20인 구분선을 추가하는 코드
-//                // 예시:
-//                /*
-//                 let separatorView = UIView()
-//                 separatorView.backgroundColor = .lightGray
-//                 cell.contentView.addSubview(separatorView)
-//
-//                 // 스냅킷을 사용한 오토레이아웃 설정
-//                 separatorView.snp.makeConstraints { make in
-//                 make.top.bottom.equalToSuperview()
-//                 make.leading.equalToSuperview().offset(20)
-//                 make.trailing.equalToSuperview().offset(-20)
-//                 }
-//                 */
-//                return cell
-//            case 5, 6:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "LogoutCell", for: indexPath) as! LogoutCell
-//                // 로그아웃, 회원탈퇴 셀에 텍스트와 버튼 액션을 설정하는 코드
-//                // 예시:
-//                /*
-//                 switch indexPath.row {
-//                 case 5:
-//                 cell.titleLabel.text = "로그아웃"
-//                 cell.button.rx.tap.subscribe(onNext: { [weak self] in
-//                 self?.viewModel.logout() // 버튼을 누르면 뷰모델의 로그아웃 메소드 호출
-//                 }).disposed(by: cell.disposeBag)
-//
-//                 case 6:
-//                 cell.titleLabel.text = "회원탈퇴"
-//                 cell.button.rx.tap.subscribe(onNext: { [weak self] in
-//                 self?.viewModel.withdraw() // 버튼을 누르면 뷰모델의 회원탈퇴 메소드 호출
-//                 }).disposed(by: cell.disposeBag)
-//
-//                 default:
-//                 break
-//                 }
-//                 */
-//                return cell
-//            default:
-//                return UITableViewCell() // 예외 처리
-//            }
-//        default:
-//            return UITableViewCell() // 예외 처리
-//        }
-//    }
-//}
+import UIKit
+import RxSwift
+import RxCocoa
+import SnapKit
+
+class MyPageViewController: UIViewController, UIScrollViewDelegate {
+    
+    // MARK: - Properties
+    
+    let disposeBag = DisposeBag()
+    var myPageviewModel: MyPageViewModel
+    var ptCollectionViewModel: PTCollectionViewModel
+    
+    // MARK: - UI Elements
+    
+    private lazy var myChaesoLabel = UILabel()
+    private lazy var nicknameButton = UIButton()
+    private lazy var plusButton = UIButton()
+    private lazy var nicknameLabel = UILabel()
+    private lazy var postNumberLabel = UILabel()
+    private lazy var followingNumberLabel = UILabel()
+    private lazy var followerNumberLabel = UILabel()
+    private lazy var postLabel = UILabel()
+    private lazy var followingLabel = UILabel()
+    private lazy var followerLabel = UILabel()
+    private lazy var separateView = UIView()
+    private lazy var separateSecondView = UIView()
+    
+    private var tableView = UITableView()
+    
+    // MARK: - Initializers
+    
+    init(myPageviewModel: MyPageViewModel, ptCollectionViewModel: PTCollectionViewModel) {
+        self.myPageviewModel = myPageviewModel
+        self.ptCollectionViewModel = ptCollectionViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bind()
+        attribute()
+        layout()
+    }
+    
+    
+    func bind(){
+        myPageviewModel.myChaesoText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(myChaesoLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        myPageviewModel.postText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(postLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        myPageviewModel.followingText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(followingLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        myPageviewModel.followerText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(followerLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        
+        myPageviewModel.items
+            .bind(to: tableView.rx.items(cellIdentifier: "MyPageTableViewCell", cellType: MyPageTableViewCell.self)){ [weak self] (row, element, cell) in
+                
+                if let self = self, self.shouldShowSeparator(at: row) {
+                    cell.showSeparator()  // 구분뷰를 표시하는 함수
+                } else {
+                    cell.hideSeparator()  // 구분뷰를 숨기는 함수
+                }
+                
+                
+                
+                cell.titleLabel.text = element.title
+                cell.iconImageView.image = element.icon
+            }
+            .disposed(by: disposeBag)
+        
+        tableView.rx.willDisplayCell
+            .subscribe(onNext: { [self] (cell, indexPath) in
+                if indexPath.row == (tableView.numberOfRows(inSection: indexPath.section) - 1) {
+                    cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
+                } else {
+                    cell.separatorInset = UIEdgeInsets.zero
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
+
+        
+    }
+    
+    private func shouldShowSeparator(at index: Int) -> Bool {
+        return index == 2 || index == 6  // "좋아요"와 "설정" 셀 바로 아래에 구분뷰가 옵니다.
+    }
+  
+
+    
+    func attribute(){
+        
+        //MARK: myChaesoLabel Attribute
+        myChaesoLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
+        
+        //MARK: separateView Attribute
+        separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
+        
+        //MARK: separateView Attribute
+        separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
+        separateSecondView.backgroundColor = UIColor(hexCode: "D9D9D9")
+        
+        //MARK: nicknameButton Attribute
+        //Todo: 닉네임 이미지 실제 유저 이미지로 교체
+        nicknameButton.setImage(UIImage(named: "userImage"), for: .normal)
+        nicknameButton.backgroundColor = .blue
+        nicknameButton.clipsToBounds = true
+        nicknameButton.layer.cornerRadius = 30*Constants.standardWidth
+        nicknameButton.adjustsImageWhenHighlighted = false
+        
+        //MARK: plusButton Attribute
+        plusButton.setImage(UIImage(named: "plusButton"), for: .normal)
+        plusButton.backgroundColor = UIColor(named: "gray10")
+        plusButton.layer.cornerRadius = 9*Constants.standardHeight //(plusButton.frame.height*Constants.standardHeight) / 2
+        plusButton.adjustsImageWhenHighlighted = false
+        
+        //MARK: nicknameLabel Attribute
+        nicknameLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        //ToDo: 닉네임 실제걸로 변경
+        nicknameLabel.text = "씩씩한 시금치님"
+        
+        //MARK: post,following,followerNumberLabel Attribute
+        //ToDo: 숫자 실제걸로 변경
+        postNumberLabel.font = UIFont(name: "Pretendard-Bold", size: 13)
+        postNumberLabel.text = "20"
+        followingNumberLabel.font = UIFont(name: "Pretendard-Bold", size: 13)
+        followingNumberLabel.text = "80"
+        followerNumberLabel.font = UIFont(name: "Pretendard-Bold", size: 13)
+        followerNumberLabel.text = "100"
+        
+        //MARK: post,following,followerLabel Attribute
+        postLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
+        followingLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
+        followerLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
+        
+        tableView.tableFooterView = UIView()
+        tableView.isScrollEnabled = false
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20*Constants.standardWidth, bottom: 0, right: 20*Constants.standardWidth)
+        tableView.separatorColor = UIColor(hexCode: "D9D9D9")
+        tableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: "MyPageTableViewCell")
+        
+        
+    }
+    
+    func layout(){
+        [myChaesoLabel,separateView,nicknameButton,plusButton,nicknameLabel,separateSecondView,postNumberLabel,followingNumberLabel,followerNumberLabel,postLabel,followingLabel,followerLabel,tableView]
+            .forEach { UIView in
+                view.addSubview(UIView)
+            }
+        
+        myChaesoLabel.snp.makeConstraints { make in
+            //make.width.equalTo(100*Constants.standardWidth)
+            make.height.equalTo(19*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.top.equalToSuperview().offset(54*Constants.standardHeight)
+        }
+        
+        separateView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(5*Constants.standardHeight)
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview().offset(84*Constants.standardHeight)
+        }
+        
+        nicknameButton.snp.makeConstraints { make in
+            make.width.equalTo(60*Constants.standardWidth)
+            make.height.equalTo(60*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.top.equalToSuperview().offset(104*Constants.standardHeight)
+        }
+        
+        plusButton.snp.makeConstraints { make in
+            make.width.equalTo(18*Constants.standardWidth)
+            make.height.equalTo(18*Constants.standardHeight)
+            make.leading.equalTo(nicknameButton.snp.leading).offset(42*Constants.standardWidth)
+            make.top.equalTo(nicknameButton.snp.top).offset(42*Constants.standardHeight)
+        }
+        
+        nicknameLabel.snp.makeConstraints { make in
+            //make.width.equalTo(60*Constants.standardWidth)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(94*Constants.standardWidth)
+            make.top.equalToSuperview().offset(122*Constants.standardHeight)
+        }
+        
+        postNumberLabel.snp.makeConstraints { make in
+            //make.width.equalTo(17*Constants.standardWidth)
+            make.height.equalTo(16*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(55*Constants.standardWidth)
+            make.top.equalToSuperview().offset(188*Constants.standardHeight)
+        }
+        
+        postLabel.snp.makeConstraints { make in
+            //make.width.equalTo(34*Constants.standardWidth)
+            make.height.equalTo(16*Constants.standardHeight)
+            make.centerX.equalTo(postNumberLabel.snp.centerX)
+            make.top.equalTo(postNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        followingNumberLabel.snp.makeConstraints { make in
+            //make.width.equalTo(17*Constants.standardWidth)
+            make.height.equalTo(16*Constants.standardHeight)
+            make.leading.equalTo(postNumberLabel.snp.trailing).offset(107*Constants.standardWidth)
+            make.top.equalToSuperview().offset(188*Constants.standardHeight)
+        }
+        
+        followingLabel.snp.makeConstraints { make in
+            //make.width.equalTo(34*Constants.standardWidth)
+            make.height.equalTo(16*Constants.standardHeight)
+            make.centerX.equalTo(followingNumberLabel.snp.centerX)
+            make.top.equalTo(followingNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        followerNumberLabel.snp.makeConstraints { make in
+            //make.width.equalTo(17*Constants.standardWidth)
+            make.height.equalTo(16*Constants.standardHeight)
+            make.leading.equalTo(followingNumberLabel.snp.trailing).offset(107*Constants.standardWidth)
+            make.top.equalToSuperview().offset(188*Constants.standardHeight)
+        }
+        
+        followerLabel.snp.makeConstraints { make in
+            //make.width.equalTo(34*Constants.standardWidth)
+            make.height.equalTo(16*Constants.standardHeight)
+            make.centerX.equalTo(followerNumberLabel.snp.centerX)
+            make.top.equalTo(followerNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        separateSecondView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(5*Constants.standardHeight)
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview().offset(244*Constants.standardHeight)
+        }
+
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(separateSecondView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        
+    }
+}
+
+
+
+
+#if DEBUG
+import SwiftUI
+struct Preview: UIViewControllerRepresentable {
+
+    // 여기 ViewController를 변경해주세요
+    func makeUIViewController(context: Context) -> UIViewController {
+        MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
+    }
+
+    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+        // leave this empty
+    }
+}
+
+struct ViewController_PreviewProvider: PreviewProvider {
+    static var previews: some View {
+        Preview()
+            .edgesIgnoringSafeArea(.all)
+            .previewDisplayName("Preview")
+            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+
+        Preview()
+            .edgesIgnoringSafeArea(.all)
+            .previewDisplayName("Preview")
+            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+
+    }
+}
+#endif

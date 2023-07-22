@@ -38,6 +38,8 @@
 		31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */; };
 		31C392202A658289006C9FFE /* PTCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */; };
 		31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */; };
+		31C392242A6BEEA8006C9FFE /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */; };
+		31C392272A6C0976006C9FFE /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 31C392262A6C0976006C9FFE /* RxDataSources */; };
 		31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1ED2A54115000BABD62 /* Constants.swift */; };
 		31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */; };
 		31C4B1F32A55520000BABD62 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1F22A55520000BABD62 /* TabBarViewModel.swift */; };
@@ -98,6 +100,7 @@
 		31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewController.swift; sourceTree = "<group>"; };
 		31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewModel.swift; sourceTree = "<group>"; };
 		31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewCell.swift; sourceTree = "<group>"; };
+		31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
 		31C4B1ED2A54115000BABD62 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		31C4B1F22A55520000BABD62 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				317ED7CC2A49567900006F7B /* RxCocoa in Frameworks */,
+				31C392272A6C0976006C9FFE /* RxDataSources in Frameworks */,
 				31CF47222A5AC6F000A83671 /* Lottie in Frameworks */,
 				31C392162A641009006C9FFE /* GoogleSignIn in Frameworks */,
 				31C392182A641009006C9FFE /* GoogleSignInSwift in Frameworks */,
@@ -205,6 +209,7 @@
 				31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */,
 				31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */,
 				31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */,
+				31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */,
 			);
 			path = ChaeSo;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				31C3920F2A62B992006C9FFE /* RxKakaoSDKUser */,
 				31C392152A641009006C9FFE /* GoogleSignIn */,
 				31C392172A641009006C9FFE /* GoogleSignInSwift */,
+				31C392262A6C0976006C9FFE /* RxDataSources */,
 			);
 			productName = ChaeSo;
 			productReference = 317ED7A92A49467700006F7B /* ChaeSo.app */;
@@ -420,6 +426,7 @@
 				31CF47202A5AC6F000A83671 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				31C3920A2A62B992006C9FFE /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				31C392142A641009006C9FFE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				31C392252A6C0976006C9FFE /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = 317ED7AA2A49467700006F7B /* Products */;
 			projectDirPath = "";
@@ -529,6 +536,7 @@
 				31C4B21D2A5AA6EB00BABD62 /* NicknameViewModel.swift in Sources */,
 				31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */,
 				31C4B21B2A5AA69E00BABD62 /* NicknameViewController.swift in Sources */,
+				31C392242A6BEEA8006C9FFE /* MyPageTableViewCell.swift in Sources */,
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
 				31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */,
 				31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */,
@@ -792,6 +800,14 @@
 				kind = branch;
 			};
 		};
+		31C392252A6C0976006C9FFE /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		31CF471D2A5AC5C400A83671 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -855,6 +871,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31C392142A641009006C9FFE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		31C392262A6C0976006C9FFE /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31C392252A6C0976006C9FFE /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 		31CF471E2A5AC5C400A83671 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

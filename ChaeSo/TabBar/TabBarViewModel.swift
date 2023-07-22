@@ -18,14 +18,12 @@ class TabBarViewModel {
     let mapViewModel: MapViewModel
     let myPageViewModel: MyPageViewModel
     
-    // MARK: - Initializers
-    
-    init(model: TabBarModel) {
+    init(model: TabBarModel, communityViewModel: CommunityViewModel, mapViewModel: MapViewModel, myPageViewModel: MyPageViewModel) {
         self.model = model
-        
-        // Create the view models for each tab
-        communityViewModel = CommunityViewModel(model: model.communityModel)
-        mapViewModel = MapViewModel(model: model.mapModel)
-        myPageViewModel = MyPageViewModel(model: model.myPageModel)
+        self.communityViewModel = communityViewModel
+        self.mapViewModel = mapViewModel
+        self.myPageViewModel = myPageViewModel
     }
+    
+    
 }

@@ -51,4 +51,17 @@
 "Pesco" = "Pesco";
 "Pollo" = "Pollo";
 
-
+//MARK: MyPage
+"My Chaeso" = "My Chaeso";
+"Post" = "Post";
+"Following" = "Following";
+"Follower" = "Follower";
+"My Story" = "My Story";
+"Bookmark" = "Bookmark";
+"Like" = "Like";
+"Announcement" = "Announcement";
+"Inquiry" = "Inquiry";
+"Terms & Policy" = "Terms & Policy";
+"Setting" = "Setting";
+"Log Out" = "Log Out";
+"Withdrawal" = "Withdrawal";

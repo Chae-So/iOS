@@ -40,17 +40,6 @@ class NicknameViewController: UIViewController {
         attribute()
         layout()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        ptCollectionViewModel.selectedImageRelay
-//            .subscribe(onNext: { image in
-//                print("Image received from selectedImageRelay")
-//                print(image)
-//            })
-//            .disposed(by: disposeBag)
-    }
 
     
     private func showCollectionAlert() {
@@ -201,7 +190,7 @@ class NicknameViewController: UIViewController {
         //MARK: 바탕색
         self.view.backgroundColor = UIColor(named: "bgColor")
         
-        //MARK: imageButton Attribute
+        //MARK: nicknameButton Attribute
         nicknameButton.setImage(UIImage(named: "userImage"), for: .normal)
         //nicknameButton.imageView!.contentMode = .scaleAspectFill
         nicknameButton.backgroundColor = .white

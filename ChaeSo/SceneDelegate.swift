@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         //let rootViewController = StartViewController(startViewModel: rootViewModel)
-        let rootViewController = NicknameViewController(nicknameViewModel: rootViewModel, ptCollectionViewModel: ptCollectionViewModel)
+        let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
         //let rootViewController = PHViewController()
         
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
@@ -79,32 +79,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 rootVC.present(alert, animated: true, completion: nil)
             }
         }
-    
-    func showAlertAuth(
-        _ type: String
-    ) {
-        if let appName = Bundle.main.infoDictionary!["CFBundleDisplayName"] as? String {
-            let alertVC = UIAlertController(
-                title: "설정",
-                message: "\(appName)이(가) \(type) 접근 허용되어 있지 않습니다. 설정화면으로 가시겠습니까?",
-                preferredStyle: .alert
-            )
-            let cancelAction = UIAlertAction(
-                title: "취소",
-                style: .cancel,
-                handler: nil
-            )
-            let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-            }
-            alertVC.addAction(cancelAction)
-            alertVC.addAction(confirmAction)
-            if let rootVC = window?.rootViewController {
-                rootVC.present(alertVC, animated: true)
-            }
-        }
-    }
-
+   
     
 
     func sceneDidDisconnect(_ scene: UIScene) {
