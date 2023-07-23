@@ -126,6 +126,7 @@
 		31CF472A2A5AF67A00A83671 /* FlowTomato.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FlowTomato.json; sourceTree = "<group>"; };
 		31CF472C2A5BEED300A83671 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		31CF47302A61088400A83671 /* IdLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewController.swift; sourceTree = "<group>"; };
+		31F5FFAA2A6CF5AC00E4BCF3 /* ChaeSo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChaeSo.entitlements; sourceTree = "<group>"; };
 		EF2B71616B79C7EBBCECF87A /* Pods-ChaeSo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.debug.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +185,7 @@
 		317ED7AB2A49467700006F7B /* ChaeSo */ = {
 			isa = PBXGroup;
 			children = (
+				31F5FFAA2A6CF5AC00E4BCF3 /* ChaeSo.entitlements */,
 				317ED7C72A49550100006F7B /* FontStyle */,
 				317ED7AC2A49467700006F7B /* AppDelegate.swift */,
 				317ED7AE2A49467700006F7B /* SceneDelegate.swift */,
@@ -209,7 +211,6 @@
 				31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */,
 				31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */,
 				31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */,
-				31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */,
 			);
 			path = ChaeSo;
 			sourceTree = "<group>";
@@ -308,6 +309,7 @@
 				31C4B1FC2A55529B00BABD62 /* MyPageViewController.swift */,
 				31C4B2062A55535800BABD62 /* MyPageViewModel.swift */,
 				31C4B2082A55536200BABD62 /* MyPageModel.swift */,
+				31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -692,6 +694,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChaeSo/ChaeSo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9A5MT7L34S;
@@ -721,6 +724,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChaeSo/ChaeSo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9A5MT7L34S;

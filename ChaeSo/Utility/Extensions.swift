@@ -14,7 +14,6 @@ extension UITextField {
 }
 
 extension UIColor {
-    
     convenience init(hexCode: String, alpha: CGFloat = 1.0) {
         var hexFormatted: String = hexCode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
         
@@ -31,6 +30,26 @@ extension UIColor {
                   green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
                   blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
                   alpha: alpha)
+    }
+}
+
+extension UserDefaults {
+    private static let appleUserIDKey = "appleUserIDKey"
+
+    static func saveAppleUserID(_ userID: String) {
+        standard.set(userID, forKey: appleUserIDKey)
+    }
+
+    static func getAppleUserID() -> String? {
+        return standard.string(forKey: appleUserIDKey)
+    }
+}
+
+extension Reactive where Base: UIButton {
+    var borderColor: Binder<CGColor?> {
+        return Binder(self.base) { button, color in
+            button.layer.borderColor = color
+        }
     }
 }
 

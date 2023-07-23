@@ -322,7 +322,7 @@ class NicknameViewController: UIViewController {
 //
 //    // 여기 ViewController를 변경해주세요
 //    func makeUIViewController(context: Context) -> UIViewController {
-//        NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
+//        NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
 //    }
 //
 //    func updateUIViewController(_ uiView: UIViewController,context: Context) {

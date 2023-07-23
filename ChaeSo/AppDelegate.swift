@@ -2,35 +2,15 @@ import UIKit
 import RxKakaoSDKCommon
 import KakaoSDKCommon
 import GoogleSignIn
-
+import AuthenticationServices
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //window = UIWindow(frame: UIScreen.main.bounds)
-        
+                
         let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] ?? ""
         RxKakaoSDK.initSDK(appKey: nativeKey as! String)
-        
-        GIDSignIn.sharedInstance.restorePreviousSignIn { [self] user, error in
-            if error != nil || user == nil {
-                // Show the app's signed-out state.
-                
-                
-            } else {
-                // Show the app's signed-in state.
-                let loginViewController = TestViewController()
-                let navigationController = UINavigationController(rootViewController: loginViewController)
-                
-                self.window?.rootViewController = navigationController
-                self.window?.makeKeyAndVisible()
-                
-            }
-        }
-        
-        
         
         return true
     }
@@ -48,8 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If not handled by this app, return false.
         return false
     }
-    
-    
+        
 
     // MARK: UISceneSession Lifecycle
 

@@ -94,11 +94,10 @@ class IdLoginViewController: UIViewController {
         
         loginButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                //Todo: 메인 페이지 연결 및 아이디 비번 맞는지 확인
+                //ToDo: 메인 페이지 연결 및 아이디 비번 맞는지 확인
                 guard let self = self else { return }
-                let tosViewModel = TosViewModel(localizationManager: LocalizationManager.shared)
-                let tosViewController = TosViewController(tosViewModel: tosViewModel)
-                self.navigationController?.pushViewController(tosViewController, animated: true)
+                let tabBarViewController = TabBarController(viewModel: TabBarViewModel(model: TabBarModel(), communityViewModel: CommunityViewModel(model: CommunityModel()), mapViewModel: MapViewModel(model: MapModel()), myPageViewModel: MyPageViewModel(localizationManager: LocalizationManager.shared)))
+                self.navigationController?.pushViewController(tabBarViewController, animated: true)
             })
             .disposed(by: disposeBag)
         

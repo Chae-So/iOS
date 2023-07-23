@@ -3,8 +3,14 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import GoogleSignIn
+import AuthenticationServices
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,ASAuthorizationControllerPresentationContextProviding {
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
     private let disposeBag = DisposeBag()
     var loginViewModel: LoginViewModel!
 
@@ -73,6 +79,27 @@ class LoginViewController: UIViewController {
             .drive(signupButton.rx.title())
             .disposed(by: disposeBag)
         
+        appleLoginButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let appleIDProvider = ASAuthorizationAppleIDProvider()
+                let request = appleIDProvider.createRequest()
+                request.requestedScopes = [.fullName, .email]
+                
+                let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+                authorizationController.delegate = self.loginViewModel  // ViewModel handles the delegation
+                authorizationController.presentationContextProvider = self
+                authorizationController.performRequests()
+            })
+            .disposed(by: disposeBag)
+        
+        loginViewModel.loginError
+            .subscribe(onNext: { [weak self] error in
+                print("login failed - \(error.localizedDescription)")
+                // You can also show some alert or other UI changes here
+            })
+            .disposed(by: disposeBag)
+        
         googleLoginButton.rx.tap
             .bind(to: loginViewModel.googleButtonTapped)
             .disposed(by: disposeBag)
@@ -84,11 +111,10 @@ class LoginViewController: UIViewController {
         signupButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-//                let signUpViewModel = SignUpViewModel(localizationManager: LocalizationManager.shared)
-//                let signUpViewController = SignUpViewController(signUpViewModel: signUpViewModel)
-//                self.navigationController?.pushViewController(signUpViewController, animated: true)
-                let testViewController = TestViewController()
-                self.navigationController?.pushViewController(testViewController, animated: true)
+                let signUpViewModel = SignUpViewModel(localizationManager: LocalizationManager.shared)
+                let signUpViewController = SignUpViewController(signUpViewModel: signUpViewModel)
+                self.navigationController?.pushViewController(signUpViewController, animated: true)
+
             })
             .disposed(by: disposeBag)
     }
@@ -292,6 +318,10 @@ class LoginViewController: UIViewController {
     }
 
 }
+
+
+
+
 
 //#if DEBUG
 //import SwiftUI

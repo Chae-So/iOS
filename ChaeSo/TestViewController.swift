@@ -134,6 +134,13 @@ class TestViewController: UIViewController {
             make.top.equalToSuperview().offset(721*Constants.standardHeight)
         }
         
+        appleEndLinkButton.rx.tap
+            .subscribe(onNext: {
+                
+                print("애플로그인언링크 성공")
+            })
+            .disposed(by: disposeBag)
+        
         googleLogoutButton.rx.tap
             .subscribe(onNext: {
                 GIDSignIn.sharedInstance.signOut()

@@ -2,10 +2,12 @@ import UIKit
 import RxCocoa
 import RxSwift
 import RxKakaoSDKUser
+import AuthenticationServices
 import KakaoSDKUser
 import GoogleSignIn
 
-class LoginViewModel{
+
+class LoginViewModel: NSObject, ASAuthorizationControllerDelegate{
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
     let navigationControllerSubject = BehaviorSubject<UINavigationController?>(value: nil)
@@ -19,17 +21,33 @@ class LoginViewModel{
     let isFirstVisitLabelText = BehaviorRelay<String>(value: "")
     let signupButtonText = BehaviorRelay<String>(value: "")
     
+    let appleButtonTapped = PublishRelay<ASAuthorizationControllerPresentationContextProviding>()
+    var loginError = PublishSubject<Error>()
     let googleButtonTapped = PublishRelay<Void>()
     let kakaoButtonTapped = PublishRelay<Void>()
     
     // Output
     let titleText = BehaviorRelay<String>(value: "")
     
-    
+    let goToTosViewController = PublishRelay<Void>()
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
+        super.init()
         self.updateLocalization()
+        
+        appleButtonTapped
+            .subscribe(onNext: { provider in
+                let appleIDProvider = ASAuthorizationAppleIDProvider()
+                let request = appleIDProvider.createRequest()
+                request.requestedScopes = [.fullName, .email]
+                
+                let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+                authorizationController.delegate = self 
+                authorizationController.presentationContextProvider = provider
+                authorizationController.performRequests()
+            })
+            .disposed(by: disposeBag)
         
         googleButtonTapped
             .subscribe(onNext: { [self] in
@@ -43,8 +61,7 @@ class LoginViewModel{
                     guard let signInResult = signInResult else { return }
                     
                     let user = signInResult.user
-                    
-                    
+
                     let emailAddress = user.profile?.email
                     
                     let fullName = user.profile?.name
@@ -57,6 +74,8 @@ class LoginViewModel{
                     print("user.idToken",user.idToken)
                     print("user.userID",user.userID)
                     print("user.profile?.name",user.profile?.name)
+                    
+                    self.goToTosViewController.accept(())
                 }
             })
             .disposed(by: disposeBag)
@@ -73,6 +92,7 @@ class LoginViewModel{
                             _ = oauthToken
                             print("oauthToken",oauthToken)
                             self.getKakaoUserInfo()
+                            self.goToTosViewController.accept(())
                         }, onError: {error in
                             print(error)
                         })
@@ -92,7 +112,7 @@ class LoginViewModel{
                             print("oauthToken",oauthToken)
                             self.getKakaoUserInfo()
                             let testViewController = TestViewController()
-                            //self.navigationController?.pushViewController(testViewController, animated: true)
+                            self.goToTosViewController.accept(())
                             // 관련 메소드 추가
                         }
                     }
@@ -103,6 +123,34 @@ class LoginViewModel{
         
 
         
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            UserDefaults.saveAppleUserID(userIdentifier)
+            
+            if  let authorizationCode = appleIDCredential.authorizationCode,
+                let identityToken = appleIDCredential.identityToken,
+                let authCodeString = String(data: authorizationCode, encoding: .utf8),
+                let identifyTokenString = String(data: identityToken, encoding: .utf8) {
+                print("authorizationCode: \(authorizationCode)")
+                print("identityToken: \(identityToken)")
+                print("authCodeString: \(authCodeString)")
+                print("identifyTokenString: \(identifyTokenString)")
+            }
+            
+            print("useridentifier: \(userIdentifier)")
+            print("fullName: \(fullName)")
+            print("email: \(email)")
+        }
+        
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        loginError.onNext(error)
     }
     
     private func updateLocalization() {
@@ -130,7 +178,6 @@ class LoginViewModel{
                 print("nickname",nickname)
                 print("email",email)
                 
-                
             }, onFailure: {error in
                 print(error)
             })
@@ -139,4 +186,5 @@ class LoginViewModel{
     }
     
 }
+
 
