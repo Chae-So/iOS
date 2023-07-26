@@ -10,9 +10,9 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     let disposeBag = DisposeBag()
     var myPageviewModel: MyPageViewModel
     var ptCollectionViewModel: PTCollectionViewModel
+    let bookmarkView = BookmarkView(bookmarkViewModel: BookmarkViewModel(localizationManager: LocalizationManager.shared))
     
     // MARK: - UI Elements
-    
     private lazy var myChaesoLabel = UILabel()
     private lazy var nicknameButton = UIButton()
     private lazy var plusButton = UIButton()
@@ -82,13 +82,13 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
                     cell.hideSeparator()  // 구분뷰를 숨기는 함수
                 }
                 
-                
-                
                 cell.titleLabel.text = element.title
                 cell.iconImageView.image = element.icon
             }
             .disposed(by: disposeBag)
         
+        
+        //마지막 구분선 없애는 작업
         tableView.rx.willDisplayCell
             .subscribe(onNext: { [self] (cell, indexPath) in
                 if indexPath.row == (tableView.numberOfRows(inSection: indexPath.section) - 1) {
@@ -99,18 +99,51 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
             })
             .disposed(by: disposeBag)
         
-        
-
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] (index) in
+                guard let self = self else { return }
+                let row = index.row
+                print(row)
+                if row == 1 {
+                    self.showBookmarkView()
+                    //self.show(bookmarkView)
+                }
+            })
+            .disposed(by: disposeBag)
         
     }
     
     private func shouldShowSeparator(at index: Int) -> Bool {
         return index == 2 || index == 6  // "좋아요"와 "설정" 셀 바로 아래에 구분뷰가 옵니다.
     }
-  
+    
+    private func showBookmarkView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            // 테이블뷰를 왼쪽으로 슬라이드
+            self.tableView.snp.remakeConstraints { make in
+                make.right.equalTo(self.view.snp.left) // 이것은 테이블뷰를 왼쪽으로 완전히 슬라이드시킵니다.
+                make.top.equalTo(self.separateSecondView.snp.bottom)  // 기존의 top 제약 조건
+                make.bottom.equalTo(self.view)
+                // 여기에 기존의 top, bottom, height 제약조건을 유지하려면 추가적인 코드가 필요합니다.
+            }
+            
+            // BookmarkView를 화면 내로 슬라이드
+            self.bookmarkView.snp.remakeConstraints { make in
+                make.top.equalTo(self.separateSecondView.snp.bottom)
+                make.left.equalTo(self.view)  // 화면 안쪽으로 이동
+                make.width.equalTo(self.view)
+                make.bottom.equalTo(self.view)
+            }
+            
+            // 레이아웃을 즉시 업데이트
+            self.view.layoutIfNeeded()
+
+        })
+    }
 
     
     func attribute(){
+        view.backgroundColor = .white
         
         //MARK: myChaesoLabel Attribute
         myChaesoLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
@@ -166,7 +199,7 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func layout(){
-        [myChaesoLabel,separateView,nicknameButton,plusButton,nicknameLabel,separateSecondView,postNumberLabel,followingNumberLabel,followerNumberLabel,postLabel,followingLabel,followerLabel,tableView]
+        [myChaesoLabel,separateView,nicknameButton,plusButton,nicknameLabel,separateSecondView,postNumberLabel,followingNumberLabel,followerNumberLabel,postLabel,followingLabel,followerLabel,tableView,bookmarkView]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
@@ -261,6 +294,13 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
             make.bottom.equalToSuperview()
         }
         
+        bookmarkView.snp.remakeConstraints { make in
+            make.top.equalTo(separateSecondView.snp.bottom)
+            make.left.equalTo(view.snp.right)  // 화면 바깥쪽
+            make.width.equalTo(view)
+            make.bottom.equalTo(view)
+        }
+        
         
     }
 }
@@ -268,32 +308,32 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
 
 
 
-//#if DEBUG
-//import SwiftUI
-//struct Preview: UIViewControllerRepresentable {
-//
-//    // 여기 ViewController를 변경해주세요
-//    func makeUIViewController(context: Context) -> UIViewController {
-//        MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
-//    }
-//
-//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
-//        // leave this empty
-//    }
-//}
-//
-//struct ViewController_PreviewProvider: PreviewProvider {
-//    static var previews: some View {
-//        Preview()
-//            .edgesIgnoringSafeArea(.all)
-//            .previewDisplayName("Preview")
-//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-//
-//        Preview()
-//            .edgesIgnoringSafeArea(.all)
-//            .previewDisplayName("Preview")
-//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
-//
-//    }
-//}
-//#endif
+#if DEBUG
+import SwiftUI
+struct Preview: UIViewControllerRepresentable {
+
+    // 여기 ViewController를 변경해주세요
+    func makeUIViewController(context: Context) -> UIViewController {
+        MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
+    }
+
+    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+        // leave this empty
+    }
+}
+
+struct ViewController_PreviewProvider: PreviewProvider {
+    static var previews: some View {
+        Preview()
+            .edgesIgnoringSafeArea(.all)
+            .previewDisplayName("Preview")
+            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+
+        Preview()
+            .edgesIgnoringSafeArea(.all)
+            .previewDisplayName("Preview")
+            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+
+    }
+}
+#endif

@@ -25,8 +25,6 @@ class SearchingViewController: UIViewController {
         super.viewDidLoad()
         //navigationItem.hidesBackButton = true
         
-        
-        
         animationView.loopMode = .loop
         animationView.play() // 애미메이션뷰 실행
         
@@ -34,8 +32,9 @@ class SearchingViewController: UIViewController {
         attribute()
         layout()
         
-        
     }
+    
+    
     
     func bind(){
         searchingViewModel.searchingText

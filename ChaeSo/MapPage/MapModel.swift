@@ -1,37 +1,29 @@
 import Foundation
-import MapKit
+import RxSwift
 
-class MapAnnotation: NSObject, MKAnnotation {
-    let id: Int
-    let title: String?
-    let coordinate: CLLocationCoordinate2D
+struct MapModel {
+    let localNetwork: LocalNetwork
     
-    init(id: Int, title: String?, coordinate: CLLocationCoordinate2D) {
-        self.id = id
-        self.title = title
-        self.coordinate = coordinate
+    init(localNetwork: LocalNetwork = LocalNetwork()) {
+        self.localNetwork = localNetwork
     }
-}
-
-class MapModel {
     
-    // MARK: - Methods
+    func getLocation(by mapPoint: MTMapPoint) -> Single<Result<LocationData, URLError>> {
+        return localNetwork.getLocation(by: mapPoint)
+    }
     
-    func getAnnotations(completionHandler: @escaping (Result<[MapAnnotation], Error>) -> Void) {
-        
-        // Simulate a network request to get annotations from a server
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            
-            let annotations = [
-                MapAnnotation(id: 1, title: "서울시청", coordinate: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780)),
-                MapAnnotation(id: 2, title: "경복궁", coordinate: CLLocationCoordinate2D(latitude: 37.5788, longitude: 126.9770)),
-                MapAnnotation(id: 3, title: "남산타워", coordinate: CLLocationCoordinate2D(latitude: 37.5512, longitude: 126.9882))
-            ]
-            
-            completionHandler(.success(annotations))
-            
+    func documentsToCellData(_ data: [KLDocument]) -> [DetailListCellData] {
+        return data.map {
+            let address = $0.roadAddressName.isEmpty ? $0.addressName : $0.roadAddressName
+            let point = documentToMTMapPoint($0)
+            return DetailListCellData(placeName: $0.placeName, address: address, distance: $0.distance, point: point)
         }
+    }
+    
+    func documentToMTMapPoint(_ doc: KLDocument) -> MTMapPoint {
+        let longitude = Double(doc.x) ?? .zero
+        let latitude = Double(doc.y) ?? .zero
         
+        return MTMapPoint(geoCoord: MTMapPointGeo(latitude: latitude, longitude: longitude))
     }
 }

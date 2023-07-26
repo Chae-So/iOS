@@ -63,3 +63,12 @@
 "Setting" = "설정";
 "Log Out" = "로그아웃";
 "Withdrawal" = "회원탈퇴";
+
+//MARK: BookmarkView
+"Place" = "장소";
+"ChaesoLog" = "채소로그";
+
+//MARK: PlaceView
+"Restaurant" = "음식점";
+"Caffe" = "카페";
+"Store" = "스토어";

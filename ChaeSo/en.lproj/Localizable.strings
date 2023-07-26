@@ -65,3 +65,12 @@
 "Setting" = "Setting";
 "Log Out" = "Log Out";
 "Withdrawal" = "Withdrawal";
+
+//MARK: BookmarkView
+"Place" = "Place";
+"ChaesoLog" = "ChaesoLog";
+
+//MARK: PlaceView
+"Restaurant" = "Restaurant";
+"Caffe" = "Caffe";
+"Store" = "Store";

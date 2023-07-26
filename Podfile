@@ -9,3 +9,11 @@ target 'ChaeSo' do
   pod 'DropDown', '2.3.13'
 
 end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |build_configuration|
+      build_configuration.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+    end
+  end
+end
