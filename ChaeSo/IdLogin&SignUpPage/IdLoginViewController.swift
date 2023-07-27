@@ -96,7 +96,7 @@ class IdLoginViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 //ToDo: 메인 페이지 연결 및 아이디 비번 맞는지 확인
                 guard let self = self else { return }
-                let tabBarViewController = TabBarController(viewModel: TabBarViewModel(model: TabBarModel(), communityViewModel: CommunityViewModel(model: CommunityModel()), mapViewModel: MapViewModel(model: MapModel()), myPageViewModel: MyPageViewModel(localizationManager: LocalizationManager.shared)))
+                let tabBarViewController = TabBarController(viewModel: TabBarViewModel(model: TabBarModel(), communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared), mapViewModel: MapViewModel(model: MapModel()), myPageViewModel: MyPageViewModel(localizationManager: LocalizationManager.shared)))
                 self.navigationController?.pushViewController(tabBarViewController, animated: true)
             })
             .disposed(by: disposeBag)

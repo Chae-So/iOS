@@ -308,32 +308,32 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
 
 
 
-#if DEBUG
-import SwiftUI
-struct Preview: UIViewControllerRepresentable {
-
-    // 여기 ViewController를 변경해주세요
-    func makeUIViewController(context: Context) -> UIViewController {
-        MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
-    }
-
-    func updateUIViewController(_ uiView: UIViewController,context: Context) {
-        // leave this empty
-    }
-}
-
-struct ViewController_PreviewProvider: PreviewProvider {
-    static var previews: some View {
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-
-        Preview()
-            .edgesIgnoringSafeArea(.all)
-            .previewDisplayName("Preview")
-            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
-
-    }
-}
-#endif
+//#if DEBUG
+//import SwiftUI
+//struct Preview: UIViewControllerRepresentable {
+//
+//    // 여기 ViewController를 변경해주세요
+//    func makeUIViewController(context: Context) -> UIViewController {
+//        MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
+//    }
+//
+//    func updateUIViewController(_ uiView: UIViewController,context: Context) {
+//        // leave this empty
+//    }
+//}
+//
+//struct ViewController_PreviewProvider: PreviewProvider {
+//    static var previews: some View {
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
+//
+//    }
+//}
+//#endif

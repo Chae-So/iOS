@@ -106,9 +106,19 @@
 		31F500652A6E764D00E4BCF3 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500642A6E764D00E4BCF3 /* BookmarkViewModel.swift */; };
 		31F5006C2A70048300E4BCF3 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5006B2A70048300E4BCF3 /* PlaceView.swift */; };
 		31F5006F2A7004A900E4BCF3 /* ChaesoLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5006E2A7004A900E4BCF3 /* ChaesoLogView.swift */; };
-		31F500712A7005A500E4BCF3 /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500702A7005A500E4BCF3 /* TabCell.swift */; };
+		31F500712A7005A500E4BCF3 /* BookmarkTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500702A7005A500E4BCF3 /* BookmarkTabCell.swift */; };
 		31F500732A70DCE500E4BCF3 /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500722A70DCE500E4BCF3 /* PlaceViewModel.swift */; };
 		31F500762A70F3FA00E4BCF3 /* VeganStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500752A70F3FA00E4BCF3 /* VeganStoryViewController.swift */; };
+		31F500792A70F65E00E4BCF3 /* VSTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500782A70F65E00E4BCF3 /* VSTabView.swift */; };
+		31F5007B2A70F69D00E4BCF3 /* VSTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5007A2A70F69D00E4BCF3 /* VSTabViewModel.swift */; };
+		31F5007D2A70F6A700E4BCF3 /* VSTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5007C2A70F6A700E4BCF3 /* VSTabCell.swift */; };
+		31F5007F2A70FA3700E4BCF3 /* VeganStoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5007E2A70FA3700E4BCF3 /* VeganStoryViewModel.swift */; };
+		31F500842A7101E000E4BCF3 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500832A7101E000E4BCF3 /* InfoView.swift */; };
+		31F500862A7101EA00E4BCF3 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500852A7101EA00E4BCF3 /* MenuView.swift */; };
+		31F500882A7101F200E4BCF3 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500872A7101F200E4BCF3 /* ReviewView.swift */; };
+		31F5008A2A72395C00E4BCF3 /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500892A72395C00E4BCF3 /* ContentTableViewCell.swift */; };
+		31F5008C2A72456200E4BCF3 /* ContentTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5008B2A72456200E4BCF3 /* ContentTableViewCellModel.swift */; };
+		31F5008E2A727DE800E4BCF3 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5008D2A727DE800E4BCF3 /* RatingTableViewCell.swift */; };
 		31F5FFEF2A6D5F2900E4BCF3 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F5FFEE2A6D5F2900E4BCF3 /* OpenGLES.framework */; };
 		31F5FFF12A6D5F5800E4BCF3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F5FFF02A6D5F5800E4BCF3 /* SystemConfiguration.framework */; };
 		31F5FFF32A6D5F6500E4BCF3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F5FFF22A6D5F6500E4BCF3 /* CoreLocation.framework */; };
@@ -224,9 +234,19 @@
 		31F500642A6E764D00E4BCF3 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 		31F5006B2A70048300E4BCF3 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		31F5006E2A7004A900E4BCF3 /* ChaesoLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaesoLogView.swift; sourceTree = "<group>"; };
-		31F500702A7005A500E4BCF3 /* TabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
+		31F500702A7005A500E4BCF3 /* BookmarkTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTabCell.swift; sourceTree = "<group>"; };
 		31F500722A70DCE500E4BCF3 /* PlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
 		31F500752A70F3FA00E4BCF3 /* VeganStoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganStoryViewController.swift; sourceTree = "<group>"; };
+		31F500782A70F65E00E4BCF3 /* VSTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSTabView.swift; sourceTree = "<group>"; };
+		31F5007A2A70F69D00E4BCF3 /* VSTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSTabViewModel.swift; sourceTree = "<group>"; };
+		31F5007C2A70F6A700E4BCF3 /* VSTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSTabCell.swift; sourceTree = "<group>"; };
+		31F5007E2A70FA3700E4BCF3 /* VeganStoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganStoryViewModel.swift; sourceTree = "<group>"; };
+		31F500832A7101E000E4BCF3 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		31F500852A7101EA00E4BCF3 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		31F500872A7101F200E4BCF3 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		31F500892A72395C00E4BCF3 /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
+		31F5008B2A72456200E4BCF3 /* ContentTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCellModel.swift; sourceTree = "<group>"; };
+		31F5008D2A727DE800E4BCF3 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
 		31F5FFAA2A6CF5AC00E4BCF3 /* ChaeSo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChaeSo.entitlements; sourceTree = "<group>"; };
 		31F5FFEE2A6D5F2900E4BCF3 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		31F5FFF02A6D5F5800E4BCF3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -442,8 +462,6 @@
 		31C4B2102A55590700BABD62 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				31F5006D2A70049300E4BCF3 /* ChaesoLogView */,
-				31F500662A6EB1C700E4BCF3 /* PlaceView */,
 				31F500632A6E762F00E4BCF3 /* BookmarkView */,
 				31C4B1FC2A55529B00BABD62 /* MyPageViewController.swift */,
 				31C4B2062A55535800BABD62 /* MyPageViewModel.swift */,
@@ -562,9 +580,11 @@
 		31F500632A6E762F00E4BCF3 /* BookmarkView */ = {
 			isa = PBXGroup;
 			children = (
+				31F5006D2A70049300E4BCF3 /* ChaesoLogView */,
+				31F500662A6EB1C700E4BCF3 /* PlaceView */,
 				31F500612A6E762900E4BCF3 /* BookmarkView.swift */,
 				31F500642A6E764D00E4BCF3 /* BookmarkViewModel.swift */,
-				31F500702A7005A500E4BCF3 /* TabCell.swift */,
+				31F500702A7005A500E4BCF3 /* BookmarkTabCell.swift */,
 			);
 			path = BookmarkView;
 			sourceTree = "<group>";
@@ -574,6 +594,8 @@
 			children = (
 				31F5006B2A70048300E4BCF3 /* PlaceView.swift */,
 				31F500722A70DCE500E4BCF3 /* PlaceViewModel.swift */,
+				31F500892A72395C00E4BCF3 /* ContentTableViewCell.swift */,
+				31F5008B2A72456200E4BCF3 /* ContentTableViewCellModel.swift */,
 			);
 			path = PlaceView;
 			sourceTree = "<group>";
@@ -589,9 +611,49 @@
 		31F500742A70F3DB00E4BCF3 /* VeganStory */ = {
 			isa = PBXGroup;
 			children = (
+				31F500772A70F61800E4BCF3 /* VSTabView */,
 				31F500752A70F3FA00E4BCF3 /* VeganStoryViewController.swift */,
+				31F5007E2A70FA3700E4BCF3 /* VeganStoryViewModel.swift */,
 			);
 			path = VeganStory;
+			sourceTree = "<group>";
+		};
+		31F500772A70F61800E4BCF3 /* VSTabView */ = {
+			isa = PBXGroup;
+			children = (
+				31F500822A7101D200E4BCF3 /* ReviewView */,
+				31F500812A7101C500E4BCF3 /* MenuView */,
+				31F500802A7101BB00E4BCF3 /* InfoView */,
+				31F500782A70F65E00E4BCF3 /* VSTabView.swift */,
+				31F5007A2A70F69D00E4BCF3 /* VSTabViewModel.swift */,
+				31F5007C2A70F6A700E4BCF3 /* VSTabCell.swift */,
+			);
+			path = VSTabView;
+			sourceTree = "<group>";
+		};
+		31F500802A7101BB00E4BCF3 /* InfoView */ = {
+			isa = PBXGroup;
+			children = (
+				31F500832A7101E000E4BCF3 /* InfoView.swift */,
+			);
+			path = InfoView;
+			sourceTree = "<group>";
+		};
+		31F500812A7101C500E4BCF3 /* MenuView */ = {
+			isa = PBXGroup;
+			children = (
+				31F500852A7101EA00E4BCF3 /* MenuView.swift */,
+			);
+			path = MenuView;
+			sourceTree = "<group>";
+		};
+		31F500822A7101D200E4BCF3 /* ReviewView */ = {
+			isa = PBXGroup;
+			children = (
+				31F500872A7101F200E4BCF3 /* ReviewView.swift */,
+				31F5008D2A727DE800E4BCF3 /* RatingTableViewCell.swift */,
+			);
+			path = ReviewView;
 			sourceTree = "<group>";
 		};
 		7DD07D34F486E0D597426205 /* Pods */ = {
@@ -777,10 +839,13 @@
 				31C392092A62B06A006C9FFE /* TestViewController.swift in Sources */,
 				317ED7D92A498DBE00006F7B /* Extensions.swift in Sources */,
 				31F500052A6E353F00E4BCF3 /* KLDocument.swift in Sources */,
+				31F5008A2A72395C00E4BCF3 /* ContentTableViewCell.swift in Sources */,
 				31C4B2122A56FC7000BABD62 /* TosViewController.swift in Sources */,
 				31C4B1FD2A55529B00BABD62 /* MyPageViewController.swift in Sources */,
 				317ED7B12A49467700006F7B /* StartViewController.swift in Sources */,
+				31F5007F2A70FA3700E4BCF3 /* VeganStoryViewModel.swift in Sources */,
 				317ED7F02A4D69CF00006F7B /* Validator.swift in Sources */,
+				31F5008C2A72456200E4BCF3 /* ContentTableViewCellModel.swift in Sources */,
 				31F5000D2A6E35E200E4BCF3 /* DetailListBackgroundView.swift in Sources */,
 				317ED7EC2A49D67B00006F7B /* SignUpViewModel.swift in Sources */,
 				317ED7E82A499CFC00006F7B /* SignUpViewController.swift in Sources */,
@@ -795,16 +860,20 @@
 				317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */,
 				317ED7AF2A49467700006F7B /* SceneDelegate.swift in Sources */,
 				31C4B1F52A55520D00BABD62 /* TabBarModel.swift in Sources */,
+				31F5007B2A70F69D00E4BCF3 /* VSTabViewModel.swift in Sources */,
 				31F500032A6E352F00E4BCF3 /* LocationData.swift in Sources */,
 				31F500762A70F3FA00E4BCF3 /* VeganStoryViewController.swift in Sources */,
 				31F500072A6E355100E4BCF3 /* DetailListCellData.swift in Sources */,
 				31F500002A6E34EE00E4BCF3 /* LocalNetwork.swift in Sources */,
 				31CF47272A5AF65400A83671 /* VeganViewController.swift in Sources */,
+				31F500842A7101E000E4BCF3 /* InfoView.swift in Sources */,
 				31C4B2032A55533500BABD62 /* MapViewModel.swift in Sources */,
 				31C4B1FF2A55531800BABD62 /* CommunityViewModel.swift in Sources */,
 				317ED7EA2A49CF1200006F7B /* StartViewModel.swift in Sources */,
 				31F500732A70DCE500E4BCF3 /* PlaceViewModel.swift in Sources */,
 				31C4B2222A5AC26F00BABD62 /* SearchingViewModel.swift in Sources */,
+				31F5007D2A70F6A700E4BCF3 /* VSTabCell.swift in Sources */,
+				31F5008E2A727DE800E4BCF3 /* RatingTableViewCell.swift in Sources */,
 				31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */,
 				31C4B1F92A55526C00BABD62 /* CommunityViewController.swift in Sources */,
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
@@ -818,17 +887,20 @@
 				31F500092A6E356400E4BCF3 /* MTMapViewError.swift in Sources */,
 				31C4B2152A56FCC700BABD62 /* TosViewModel.swift in Sources */,
 				31C4B21D2A5AA6EB00BABD62 /* NicknameViewModel.swift in Sources */,
-				31F500712A7005A500E4BCF3 /* TabCell.swift in Sources */,
+				31F500712A7005A500E4BCF3 /* BookmarkTabCell.swift in Sources */,
+				31F500792A70F65E00E4BCF3 /* VSTabView.swift in Sources */,
 				31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */,
 				31F5000B2A6E35A700E4BCF3 /* DetailListCell.swift in Sources */,
 				31C4B21B2A5AA69E00BABD62 /* NicknameViewController.swift in Sources */,
 				31C392242A6BEEA8006C9FFE /* MyPageTableViewCell.swift in Sources */,
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
 				31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */,
+				31F500882A7101F200E4BCF3 /* ReviewView.swift in Sources */,
 				31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */,
 				31F5FFFE2A6E34D300E4BCF3 /* LocalAPI.swift in Sources */,
 				31F5006F2A7004A900E4BCF3 /* ChaesoLogView.swift in Sources */,
 				31CF472D2A5BEED300A83671 /* UserInfo.swift in Sources */,
+				31F500862A7101EA00E4BCF3 /* MenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

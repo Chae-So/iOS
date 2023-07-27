@@ -26,7 +26,7 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         // Set up the view controllers
-        let communityVC = CommunityViewController(viewModel: viewModel.communityViewModel)
+        let communityVC = CommunityViewController(communityViewModel: viewModel.communityViewModel)
         let mapVC = MapViewController()
         let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
         

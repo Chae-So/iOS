@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class TabCell: UICollectionViewCell {
+class VSTabCell: UICollectionViewCell {
     let titleLabel = UILabel()
 
     override init(frame: CGRect) {
@@ -16,7 +16,7 @@ class TabCell: UICollectionViewCell {
     
     func attribute(){
         titleLabel.textAlignment = .center
-        titleLabel.font = UIFont(name: "Pretendard-Medium", size: 14)
+        titleLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
     }
     
     func layout(){

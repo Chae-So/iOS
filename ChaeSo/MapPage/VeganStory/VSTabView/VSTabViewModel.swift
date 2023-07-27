@@ -1,13 +1,13 @@
 import RxSwift
 import RxCocoa
 
-class BookmarkViewModel {
+class VSTabViewModel {
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
     
-    let placeText = BehaviorRelay<String>(value: "")
-    let chaesoLogText = BehaviorRelay<String>(value: "")
-
+    let infoText = BehaviorRelay<String>(value: "")
+    let menuText = BehaviorRelay<String>(value: "")
+    let reviewText = BehaviorRelay<String>(value: "")
     
     // 일단은 예제를 위해 두 개의 탭 항목을 생성합니다.
     // 실제로는 여기에 서버나 데이터베이스에서 가져온 데이터를 바인딩할 수 있습니다.
@@ -20,17 +20,17 @@ class BookmarkViewModel {
         self.localizationManager = localizationManager
         self.updateLocalization()
         
-        Observable.combineLatest(placeText, chaesoLogText)
-            .subscribe(onNext: { [weak self] place, chaeso in
-                self?.tabItems.accept([place, chaeso])
+        Observable.combineLatest(infoText, menuText,reviewText)
+            .subscribe(onNext: { [weak self] info, menu, reivew in
+                self?.tabItems.accept([info, menu, reivew])
             })
             .disposed(by: disposeBag)
     }
     
     private func updateLocalization() {
-        placeText.accept(localizationManager.localizedString(forKey: "Chaeso Log"))
-        chaesoLogText.accept(localizationManager.localizedString(forKey: "Recommend"))
-        chaesoLogText.accept(localizationManager.localizedString(forKey: "Latest"))
+        infoText.accept(localizationManager.localizedString(forKey: "Info"))
+        menuText.accept(localizationManager.localizedString(forKey: "Menu"))
+        reviewText.accept(localizationManager.localizedString(forKey: "Review"))
     }
 
 }

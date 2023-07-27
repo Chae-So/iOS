@@ -18,6 +18,16 @@ class PlaceViewModel{
     var selectedCaffe = PublishRelay<Bool>()
     var selectedStore = PublishRelay<Bool>()
     
+    let items = Observable<[ContentTableViewCellModel]>.just([
+        
+        ContentTableViewCellModel(photo: UIImage(named: "tomato"), nameLabel: "비건스토리", categoryLabel: "음식점", distanceLabel: "2.9km", onOffLabel: "영업중", timeLabel: "오후 10시에 영업종료", pointLabel: "4.3 / 5"),
+        ContentTableViewCellModel(photo: UIImage(named: "tomato"), nameLabel: "비건스토리", categoryLabel: "음식점", distanceLabel: "2.9km", onOffLabel: "영업중", timeLabel: "오후 10시에 영업종료", pointLabel: "4.3 / 5"),
+        ContentTableViewCellModel(photo: UIImage(named: "tomato"), nameLabel: "비건스토리", categoryLabel: "음식점", distanceLabel: "2.9km", onOffLabel: "영업중", timeLabel: "오후 10시에 영업종료", pointLabel: "4.3 / 5"),
+        ContentTableViewCellModel(photo: UIImage(named: "tomato"), nameLabel: "비건스토리", categoryLabel: "음식점", distanceLabel: "2.9km", onOffLabel: "영업중", timeLabel: "오후 10시에 영업종료", pointLabel: "4.3 / 5"),
+        ContentTableViewCellModel(photo: UIImage(named: "tomato"), nameLabel: "비건스토리", categoryLabel: "음식점", distanceLabel: "2.9km", onOffLabel: "영업중", timeLabel: "오후 10시에 영업종료", pointLabel: "4.3 / 5"),
+        ContentTableViewCellModel(photo: UIImage(named: "tomato"), nameLabel: "비건스토리", categoryLabel: "음식점", distanceLabel: "2.9km", onOffLabel: "영업중", timeLabel: "오후 10시에 영업종료", pointLabel: "4.3 / 5")
+    ])
+    
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
         self.updateLocalization()
@@ -25,6 +35,7 @@ class PlaceViewModel{
         restaurantButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
+                print("음식점 눌림")
                 self.selectedRestaurant.accept(true)
                 self.selectedCaffe.accept(false)
                 self.selectedStore.accept(false)

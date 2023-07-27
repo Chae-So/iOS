@@ -41,15 +41,27 @@
 
 
 //MARK: VeganPage
-
-
-//MARK: SearchingPage
-"Looking for a good restaurant near you" = "Looking for a good restaurant near you";
 "Vegan" = "Vegan";
 "Lacto" = "Lacto";
 "Ovo" = "Ovo";
 "Pesco" = "Pesco";
 "Pollo" = "Pollo";
+
+//MARK: SearchingPage
+"Looking for a good restaurant near you" = "Looking for a good restaurant near you";
+
+//MARK: CommunityPage
+"Chaeso Log" = "Chaeso Log";
+"Recommend" = "Recommend";
+"Latest" = "Latest";
+
+//MARK: VeganStoryPage
+"Vegan Story" = "Vegan Story";
+
+//MARK: VSTabView
+"Info" = "Info";
+"Menu" = "Menu";
+"Review" = "Review";
 
 //MARK: MyPage
 "My Chaeso" = "My Chaeso";

@@ -26,9 +26,8 @@ class BookmarkView: UIView {
     
     func bind(){
         bookmarkViewModel.tabItems
-            .bind(to: tabCollectionView.rx.items(cellIdentifier: "TabCell", cellType: TabCell.self)) { row, element, cell in
+            .bind(to: tabCollectionView.rx.items(cellIdentifier: "BookmarkTabCell", cellType: BookmarkTabCell.self)) { row, element, cell in
                 cell.titleLabel.text = element
-                print(element)
             }
             .disposed(by: disposeBag)
         
@@ -41,7 +40,6 @@ class BookmarkView: UIView {
                 switch indexPath.row {
                 case 0:  // "장소"
                     self.showPlaceView()
-                    print("장소클릭")
                     self.leftActiveTabIndicator.backgroundColor = UIColor(named: "prColor")
                     self.rightActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
                     
@@ -73,7 +71,7 @@ class BookmarkView: UIView {
         }
         tabCollectionView.backgroundColor = .white
         tabCollectionView.showsHorizontalScrollIndicator = false
-        tabCollectionView.register(TabCell.self, forCellWithReuseIdentifier: "TabCell")
+        tabCollectionView.register(BookmarkTabCell.self, forCellWithReuseIdentifier: "BookmarkTabCell")
         
         //MARK: ActiveTabIndicator attribute
         leftActiveTabIndicator.backgroundColor = UIColor(named: "prColor")
@@ -110,6 +108,7 @@ class BookmarkView: UIView {
         
         placeView.snp.makeConstraints { make in
             make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.top.equalTo(leftActiveTabIndicator.snp.bottom)
         }

@@ -4,43 +4,35 @@ import RxCocoa
 
 class CommunityViewModel {
     
-    // MARK: - Properties
     let disposeBag = DisposeBag()
-    let model: CommunityModel
+    var localizationManager: LocalizationManager
     
-    // MARK: - Inputs
+    let chaesoLogText = BehaviorRelay<String>(value: "")
+    let recommendText = BehaviorRelay<String>(value: "")
+    let latestText = BehaviorRelay<String>(value: "")
+
+    let tabItems = BehaviorRelay<[String]>(value: [])
     
-    let selectedPost = BehaviorRelay<Post?>(value: nil)
+    // 현재 선택된 탭을 나타내는 변수입니다. 기본값은 "장소"로 설정하겠습니다.
+    let currentTab: BehaviorRelay<Bool> = BehaviorRelay(value: true)
     
-    // MARK: - Outputs
-    
-    let posts = BehaviorRelay<[Post]>(value: [])
-    
-    // MARK: - Initializers
-    
-    init(model: CommunityModel) {
-        self.model = model
+    init(localizationManager: LocalizationManager) {
+        self.localizationManager = localizationManager
+        self.updateLocalization()
         
-        // Reset the selected post when posts change
-        posts.asObservable()
-            .map { _ in nil }
-            .bind(to: selectedPost)
+        Observable.combineLatest(recommendText,latestText)
+            .subscribe(onNext: { [weak self] reco, latest in
+                self?.tabItems.accept([reco, latest])
+            })
             .disposed(by: disposeBag)
-        
-        // Fetch the posts from the model when initialized
-        fetchPosts()
     }
     
-    // MARK: - Methods
-    
-    func fetchPosts() {
-        model.getPosts { [weak self] result in
-            switch result {
-            case .success(let posts):
-                self?.posts.accept(posts)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+    private func updateLocalization() {
+        chaesoLogText.accept(localizationManager.localizedString(forKey: "Chaeso Log"))
+        recommendText.accept(localizationManager.localizedString(forKey: "Recommend"))
+        latestText.accept(localizationManager.localizedString(forKey: "Latest"))
     }
+    
+    
+    
 }

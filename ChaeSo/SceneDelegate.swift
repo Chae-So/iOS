@@ -25,8 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //let rootViewController = StartViewController(startViewModel: rootViewModel)
         //let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
         
-        var rootViewModel = MyPageViewModel(localizationManager: LocalizationManager.shared)
-        let rootViewController = MyPageViewController(myPageviewModel: rootViewModel, ptCollectionViewModel: PTCollectionViewModel())
+        var rootViewModel = VeganStoryViewModel(localizationManager: LocalizationManager.shared)
+        let rootViewController = VeganStoryViewController(veganStoryViewModel: rootViewModel)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
         

@@ -39,15 +39,27 @@
 "Please click Duplicate Check" = "중복확인을 눌러주세요";
 
 //MARK: VeganPage
-
-
-//MARK: SearchingPage
-"Looking for a good restaurant near you" = "주변의 맛있는 식당을 찾고 있어요";
 "Vegan" = "비건";
 "Lacto" = "락토";
 "Ovo" = "오보";
 "Pesco" = "페스코";
 "Pollo" = "폴로";
+
+//MARK: SearchingPage
+"Looking for a good restaurant near you" = "주변의 맛있는 식당을 찾고 있어요";
+
+//MARK: CommunityPage
+"Chaeso Log" = "채소로그";
+"Recommend" = "추천";
+"Latest" = "최신";
+
+//MARK: VeganStoryPage
+"Vegan Story" = "비건 스토리";
+
+//MARK: VSTabView
+"Info" = "정보";
+"Menu" = "메뉴";
+"Review" = "리뷰";
 
 //MARK: MyPage
 "My Chaeso" = "나의 채소";

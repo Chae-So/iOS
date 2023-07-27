@@ -10,6 +10,7 @@ class PlaceView: UIView {
     private lazy var restaurantButton = UIButton()
     private lazy var caffeButton = UIButton()
     private lazy var storeButton = UIButton()
+    private lazy var separateView = UIView()
     private let contentTableView = UITableView()
     
     init(placeViewModel: PlaceViewModel) {
@@ -46,7 +47,7 @@ class PlaceView: UIView {
         
         placeViewModel.selectedRestaurant
             .asDriver(onErrorDriveWith: .empty())
-            .map{ $0 ? UIColor(named: "prColor")?.cgColor : UIColor.clear.cgColor }
+            .map{ $0 ? UIColor(named: "prColor")?.cgColor : UIColor(named: "gray10")?.cgColor }
             .drive(restaurantButton.rx.borderColor)
             .disposed(by: disposeBag)
         
@@ -56,7 +57,7 @@ class PlaceView: UIView {
         
         placeViewModel.selectedCaffe
             .asDriver(onErrorDriveWith: .empty())
-            .map{ $0 ? UIColor(named: "prColor")?.cgColor : UIColor.clear.cgColor }
+            .map{ $0 ? UIColor(named: "prColor")?.cgColor : UIColor(named: "gray10")?.cgColor }
             .drive(restaurantButton.rx.borderColor)
             .disposed(by: disposeBag)
         
@@ -66,11 +67,23 @@ class PlaceView: UIView {
         
         placeViewModel.selectedStore
             .asDriver(onErrorDriveWith: .empty())
-            .map{ $0 ? UIColor(named: "prColor")?.cgColor : UIColor.clear.cgColor }
+            .map{ $0 ? UIColor(named: "prColor")?.cgColor : UIColor(named: "gray10")?.cgColor }
             .drive(restaurantButton.rx.borderColor)
             .disposed(by: disposeBag)
         
-        
+        placeViewModel.items
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(contentTableView.rx.items(cellIdentifier: "ContentTableViewCell", cellType: ContentTableViewCell.self)){ (row,element,cell) in
+                cell.photo.image = element.photo
+                cell.nameLabel.text = element.nameLabel
+                cell.categoryLabel.text = element.categoryLabel
+                cell.distanceLabel.text = element.distanceLabel
+                cell.onOffLabel.text = element.onOffLabel
+                cell.timeLabel.text = element.timeLabel
+                cell.pointLabel.text = element.pointLabel
+                
+            }
+            .disposed(by: disposeBag)
         
     }
     
@@ -80,9 +93,9 @@ class PlaceView: UIView {
         restaurantButton.titleLabel?.textAlignment = .center
         restaurantButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 14)
         restaurantButton.setTitleColor(UIColor.black, for: .normal)
-        restaurantButton.layer.cornerRadius = 30
+        restaurantButton.layer.cornerRadius = 15
         restaurantButton.layer.borderWidth = 1
-        restaurantButton.layer.borderColor = UIColor.clear.cgColor
+        restaurantButton.layer.borderColor = UIColor(named: "gray10")?.cgColor
         restaurantButton.backgroundColor = UIColor.white
         
         //MARK: caffeButton attribute
@@ -90,9 +103,9 @@ class PlaceView: UIView {
         caffeButton.titleLabel?.textAlignment = .center
         caffeButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 14)
         caffeButton.setTitleColor(UIColor.black, for: .normal)
-        caffeButton.layer.cornerRadius = 30
+        caffeButton.layer.cornerRadius = 15
         caffeButton.layer.borderWidth = 1
-        caffeButton.layer.borderColor = UIColor.clear.cgColor
+        caffeButton.layer.borderColor = UIColor(named: "gray10")?.cgColor
         caffeButton.backgroundColor = UIColor.white
         
         //MARK: storeButton attribute
@@ -100,42 +113,60 @@ class PlaceView: UIView {
         storeButton.titleLabel?.textAlignment = .center
         storeButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 14)
         storeButton.setTitleColor(UIColor.black, for: .normal)
-        storeButton.layer.cornerRadius = 30
+        storeButton.layer.cornerRadius = 15
         storeButton.layer.borderWidth = 1
-        storeButton.layer.borderColor = UIColor.clear.cgColor
+        storeButton.layer.borderColor = UIColor(named: "gray10")?.cgColor
         storeButton.backgroundColor = UIColor.white
+        
+        //MARK: separateView Attribute
+        separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
+        
+        //MARK: contentTableView Attribute
+        contentTableView.separatorStyle = .singleLine
+        contentTableView.separatorInset = UIEdgeInsets(top: 0, left: 8*Constants.standardWidth, bottom: 0, right: 24*Constants.standardWidth)
+        contentTableView.separatorColor = UIColor(hexCode: "D9D9D9")
+        contentTableView.rowHeight = 150*Constants.standardHeight
+        contentTableView.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
     }
     
     private func layout(){
-        [restaurantButton,caffeButton,storeButton,contentTableView]
+        [restaurantButton,caffeButton,storeButton,separateView,contentTableView]
             .forEach { UIView in
                 addSubview(UIView)
             }
         
         restaurantButton.snp.makeConstraints { make in
-            //make.width.equalToSuperview()
+            make.width.equalTo(69*Constants.standardWidth)
             make.height.equalTo(33*Constants.standardHeight)
             make.leading.equalToSuperview().offset(22*Constants.standardWidth)
             make.top.equalToSuperview().offset(16*Constants.standardHeight)
         }
         
         caffeButton.snp.makeConstraints { make in
-            //make.width.equalToSuperview()
+            make.width.equalTo(57*Constants.standardWidth)
             make.height.equalTo(33*Constants.standardHeight)
             make.leading.equalTo(restaurantButton.snp.trailing).offset(8*Constants.standardWidth)
             make.top.equalToSuperview().offset(16*Constants.standardHeight)
         }
         
         storeButton.snp.makeConstraints { make in
-            //make.width.equalToSuperview()
+            make.width.equalTo(69*Constants.standardWidth)
             make.height.equalTo(33*Constants.standardHeight)
             make.leading.equalTo(caffeButton.snp.trailing).offset(8*Constants.standardWidth)
             make.top.equalToSuperview().offset(16*Constants.standardHeight)
         }
         
+        separateView.snp.makeConstraints { make in
+            make.width.equalTo(343*Constants.standardWidth)
+            make.height.equalTo(2*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(8*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-24*Constants.standardWidth)
+            make.top.equalTo(restaurantButton.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
         contentTableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(restaurantButton.snp.bottom).offset(16*Constants.standardHeight)
+            make.top.equalTo(separateView.snp.bottom)
         }
         
     }
