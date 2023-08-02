@@ -34,7 +34,7 @@ class RatingTableViewCell: UITableViewCell {
     func attribute(){
         ratingLabel.text = "4.3 / 5"
         
-        starImageView.image = UIImage(named: "star")
+        starImageView.image = UIImage(named: "starFill")
         
         ratingLabel.textAlignment = .center
         ratingLabel.font = UIFont(name: "Pretendard-SemiBord", size: 16)

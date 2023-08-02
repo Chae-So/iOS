@@ -74,7 +74,7 @@ class ContentTableViewCell: UITableViewCell {
         pointLabel.font = UIFont(name: "Pretendard-Regular", size: 13)
         pointLabel.textColor = UIColor(named: "gray20")
         
-        starImageView.image = UIImage(named: "star")
+        starImageView.image = UIImage(named: "starFill")
         
         //MARK: bookmarkButton Attribute
         bookmarkButton.adjustsImageWhenHighlighted = false

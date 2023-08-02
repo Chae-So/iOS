@@ -66,7 +66,7 @@ class MapViewController: UIViewController {
     
     private func attribute() {
         title = "내 주변 편의점 찾기"
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hexCode: "F5F5F5")
         
         mapView.currentLocationTrackingMode = .onWithoutHeadingWithoutMapMoving
         

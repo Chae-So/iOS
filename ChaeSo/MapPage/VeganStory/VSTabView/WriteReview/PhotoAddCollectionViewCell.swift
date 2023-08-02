@@ -1,12 +1,13 @@
 import UIKit
 import SnapKit
 
-class VSTabCell: UICollectionViewCell {
-    let titleLabel = UILabel()
+class PhotoAddCollectionViewCell: UICollectionViewCell {
+    var photoImage = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(hexCode: "F5F5F5")
+        layer.cornerRadius = 8*Constants.standardHeight
         attribute()
         layout()
     }
@@ -16,17 +17,15 @@ class VSTabCell: UICollectionViewCell {
     }
     
     func attribute(){
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
+        photoImage.contentMode = .scaleAspectFit
     }
     
     func layout(){
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        addSubview(photoImage)
+        photoImage.snp.makeConstraints { make in
+            make.top.leading.bottom.trailing.equalToSuperview()
         }
     }
 
    
-
 }

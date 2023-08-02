@@ -52,7 +52,7 @@ class VeganStoryViewController: UIViewController {
    
     
     func attribute(){
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hexCode: "F5F5F5")
         
         //MARK: myChaesoLabel Attribute
         veganStoryLabel.font = UIFont(name: "Pretendard-Medium", size: 20)

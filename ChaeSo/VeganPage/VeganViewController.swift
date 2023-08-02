@@ -48,8 +48,9 @@ class VeganViewController: UIViewController {
         print(UserInfo.shared.nickname)
         
         bind()
-        attribute()
         layout()
+        attribute()
+        
     }
     
     func bind(){
@@ -191,7 +192,7 @@ class VeganViewController: UIViewController {
         firstButton.titleLabel?.textAlignment = .center
         firstButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 18)
         firstButton.setTitleColor(UIColor.black, for: .normal)
-        firstButton.layer.cornerRadius = 20
+        firstButton.layer.cornerRadius = 20*Constants.standardHeight
         firstButton.layer.borderWidth = 1
         firstButton.layer.borderColor = UIColor.clear.cgColor
         firstButton.backgroundColor = UIColor.white
@@ -281,8 +282,8 @@ class VeganViewController: UIViewController {
         }
         
         firstButton.imageView!.snp.makeConstraints { make in
-            make.width.equalTo(24*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
+            make.width.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(8*Constants.standardWidth)
             //make.trailing.equalTo(firstButton.titleLabel!.snp.leading).offset(-8*Constants.standardWidth)
             make.top.equalToSuperview().offset(8*Constants.standardHeight)
@@ -469,6 +470,15 @@ class VeganViewController: UIViewController {
 //            .previewDisplayName("Preview")
 //            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
 //
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPad (9th generation)"))
 //    }
 //}
 //#endif

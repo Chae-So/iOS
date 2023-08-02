@@ -84,10 +84,10 @@ class PTCollectionViewController: UIViewController, PHPhotoLibraryChangeObserver
         // Set up collection view layout
         let layout = UICollectionViewFlowLayout()
         let screenWidth = UIScreen.main.bounds.width
-        let cellWidth = (screenWidth - 4) / 3  // 2는 셀 간 간격이므로 총 2번 고려해야 합니다.
+        let cellWidth = (screenWidth - 3) / 4  // 2는 셀 간 간격이므로 총 2번 고려해야 합니다.
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-        layout.minimumLineSpacing = 2
-        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 1
         collectionView.setCollectionViewLayout(layout, animated: false)
         
         // Register collection view cell

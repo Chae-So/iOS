@@ -55,11 +55,31 @@
 
 //MARK: VeganStoryPage
 "Vegan Story" = "비건 스토리";
+"Write review" = "리뷰 작성하기";
+"View photo reviews" = "사진 리뷰 모아보기";
+"Follow" = "팔로우";
 
 //MARK: VSTabView
 "Info" = "정보";
 "Menu" = "메뉴";
 "Review" = "리뷰";
+
+//MARK: WriteReviewView
+"Write a review" = "리뷰 작성하기";
+"How was the place you visited?" = "방문한 장소는 어떠셨나요?";
+"Add" = "사진 추가";
+"Please share details of your visit experience." = "방문한 경험을 자세히 공유해 주세요.";
+"Did you have a group?" = "일행이 있으셨나요?";
+"Alone" = "혼자서";
+"With Friend" = "친구와";
+"With Family" = "가족과";
+"What is the vegetarian type of the group?" = "일행의 채식 타입은 무엇인가요?";
+"Flexitarian" = "플렉시테리언";
+"non-vegan" = "논비건";
+"Was there any non-vegan food?" = "논비건 음식이 있나요?";
+"Yes" = "예";
+"No" = "아니요";
+"Register" = "등록하기";
 
 //MARK: MyPage
 "My Chaeso" = "나의 채소";

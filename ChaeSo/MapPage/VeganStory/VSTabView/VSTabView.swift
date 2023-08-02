@@ -68,6 +68,8 @@ class VSTabView: UIView {
     }
     
     func attribute(){
+        backgroundColor = UIColor(hexCode: "F5F5F5")
+        
         //MARK: tabCollectionView attribute
         if let layout = tabCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal

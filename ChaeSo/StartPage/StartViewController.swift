@@ -150,11 +150,11 @@ class StartViewController: UIViewController {
         }
         
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(251*Constants.standardWidth)
+            make.width.equalTo(251*Constants.standardHeight)
+            //make.height.equalTo(imageView.snp.width)
             make.height.equalTo(242*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(62*Constants.standardWidth)
+            make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(230*Constants.standardHeight)
-            
         }
         
         chaesoLabel.snp.makeConstraints { make in
@@ -171,8 +171,6 @@ class StartViewController: UIViewController {
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(548*Constants.standardHeight)
         }
-        
-        
         
         startButton.snp.makeConstraints { make in
             make.width.equalTo(343*Constants.standardWidth)
@@ -198,14 +196,14 @@ class StartViewController: UIViewController {
 //
 //    // 여기 ViewController를 변경해주세요
 //    func makeUIViewController(context: Context) -> UIViewController {
-//        StartViewController(startViewModel: StartViewModel())
+//        StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
 //    }
 //
 //    func updateUIViewController(_ uiView: UIViewController,context: Context) {
 //        // leave this empty
 //    }
 //}
-//
+
 //struct ViewController_PreviewProvider: PreviewProvider {
 //    static var previews: some View {
 //        Preview()
@@ -218,6 +216,15 @@ class StartViewController: UIViewController {
 //            .previewDisplayName("Preview")
 //            .previewDevice(PreviewDevice(rawValue: "iPhoneX"))
 //
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
+//
+//        Preview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPad (9th generation)"))
 //    }
 //}
 //#endif

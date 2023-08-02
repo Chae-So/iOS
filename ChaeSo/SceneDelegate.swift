@@ -22,11 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        //let rootViewController = StartViewController(startViewModel: rootViewModel)
+        //let rootViewController = StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
         //let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
+
+        //var rootViewModel = VeganStoryViewModel(localizationManager: LocalizationManager.shared)
+        //let rootViewController = VeganStoryViewController(veganStoryViewModel: rootViewModel)
         
-        var rootViewModel = VeganStoryViewModel(localizationManager: LocalizationManager.shared)
-        let rootViewController = VeganStoryViewController(veganStoryViewModel: rootViewModel)
+        //let rootViewController = MainPTCollectionViewController(mainPTCollectionViewModel: MainPTCollectionViewModel())
+        
+        let rootViewController = WriteReviewViewController(writeReviewViewModel: WriteReviewViewModel(localizationManager: LocalizationManager.shared))
+        
+        //let rootViewController = MapViewController()
+        
+        
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
         

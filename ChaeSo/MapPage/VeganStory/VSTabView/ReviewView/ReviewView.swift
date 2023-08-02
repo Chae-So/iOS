@@ -25,6 +25,7 @@ class ReviewView: UIView {
     }
     
     private func attribute(){
+        backgroundColor = UIColor(hexCode: "F5F5F5")
         
         //reviewTableView.tableFooterView = UIView()
         reviewTableView.separatorStyle = .singleLine

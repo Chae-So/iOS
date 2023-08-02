@@ -2,7 +2,7 @@ class MenuView: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .green
+        backgroundColor = UIColor(hexCode: "F5F5F5")
     }
 
     required init?(coder: NSCoder) {

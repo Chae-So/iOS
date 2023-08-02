@@ -57,11 +57,32 @@
 
 //MARK: VeganStoryPage
 "Vegan Story" = "Vegan Story";
+"Write review" = "Write review";
+"View photo reviews" = "View photo reviews";
+"Follow" = "Follow";
 
 //MARK: VSTabView
 "Info" = "Info";
 "Menu" = "Menu";
 "Review" = "Review";
+
+//MARK: WriteReviewView
+"Write a review" = "Write a review";
+"How was the place you visited?" = "How was the place you visited?";
+"Add" = "Add";
+"Please share details of your visit experience." = "Please share details of your visit experience.";
+"Did you have a group?" = "Did you have a group?";
+"Alone" = "Alone";
+"With Friend" = "With Friend";
+"With Family" = "With Family";
+"What is the vegetarian type of the group?" = "What is the vegetarian type of the group?";
+"Flexitarian" = "Flexitarian";
+"Non-Vegan" = "Non-Vegan";
+"Was there any non-vegan food?" = "Was there any non-vegan food?";
+"Yes" = "Yes";
+"No" = "No";
+"Register" = "Register";
+
 
 //MARK: MyPage
 "My Chaeso" = "My Chaeso";
