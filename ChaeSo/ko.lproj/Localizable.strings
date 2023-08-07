@@ -52,6 +52,8 @@
 "Chaeso Log" = "채소로그";
 "Recommend" = "추천";
 "Latest" = "최신";
+"replies" = "답글 달기";
+"View replies" = "당글 %d개 보기";
 
 //MARK: VeganStoryPage
 "Vegan Story" = "비건 스토리";

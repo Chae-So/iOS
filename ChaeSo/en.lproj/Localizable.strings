@@ -54,6 +54,8 @@
 "Chaeso Log" = "Chaeso Log";
 "Recommend" = "Recommend";
 "Latest" = "Latest";
+"replies" = "replies";
+"View replies" = "View replies (%d)";
 
 //MARK: VeganStoryPage
 "Vegan Story" = "Vegan Story";

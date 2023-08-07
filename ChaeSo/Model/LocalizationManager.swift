@@ -11,9 +11,11 @@ class LocalizationManager {
         }
     }
     
-    func localizedString(forKey key: String) -> String {
+    func localizedString(forKey key: String, arguments: CVarArg...) -> String {
         let path = Bundle.main.path(forResource: language, ofType: "lproj")
         let bundle = Bundle(path: path!)
-        return bundle?.localizedString(forKey: key, value: nil, table: nil) ?? ""
+        let format = bundle?.localizedString(forKey: key, value: nil, table: nil) ?? ""
+        return String(format: format, arguments: arguments)
     }
+
 }

@@ -100,8 +100,26 @@ class WriteReviewViewController: UIViewController {
         
         writeReviewViewModel.placeholderText
             .asDriver(onErrorDriveWith: .empty())
-            .drive(textView.rx.placeholder)
+            .drive(textView.rx.text)
             .disposed(by: disposeBag)
+        
+        textView.rx.didBeginEditing
+            .subscribe(onNext: { [self] in
+                textView.text = nil
+                textView.textColor = .black
+               })
+            .disposed(by: disposeBag)
+        
+//        textView.rx.didEndEditing
+//            .subscribe(onNext: { [self] in
+//                if(textView.text == nil || textView.text == ""){
+//                    textView.text = """
+//                                탈퇴 사유를 남겨주세요.
+//                                향후 서비스 개선을 위해 노력하겠습니다.
+//                                """
+//                    textView.textColor = .gray3        //다시 placeholder 글자색으로(연한색)
+//
+//                }}).disposed(by: disposeBag)
         
         writeReviewViewModel.aloneText
             .asDriver(onErrorDriveWith: .empty())
@@ -440,6 +458,8 @@ class WriteReviewViewController: UIViewController {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(named: "gray10")?.cgColor
             $0.textColor = UIColor(named: "gray20")
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            
         }
         
         
@@ -530,7 +550,7 @@ class WriteReviewViewController: UIViewController {
         
         photoAddCollectionView.snp.makeConstraints { make in
             make.width.equalTo(359*Constants.standardWidth)
-            make.height.equalTo(100*Constants.standardHeight)
+            make.height.equalTo(101*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(quesFirstLabel.snp.bottom).offset(67*Constants.standardHeight)
         }
@@ -563,8 +583,8 @@ class WriteReviewViewController: UIViewController {
         }
         
         aloneButton.snp.makeConstraints { make in
-            make.width.equalTo(74*Constants.standardWidth)
-            make.height.equalTo(35*Constants.standardHeight)
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(quesSecondLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
@@ -582,6 +602,94 @@ class WriteReviewViewController: UIViewController {
             make.leading.equalTo(friendButton.snp.trailing).offset(8*Constants.standardWidth)
             make.top.equalTo(quesSecondLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
+        
+        [quesThirdLabel,veganButton,lactoButton,ovoButton,polloButton,pescoButton,flexitarianButton,noneVeganButton]
+            .forEach { UIView in
+                viewTwo.addSubview(UIView)
+            }
+        
+        quesThirdLabel.snp.makeConstraints { make in
+            //make.width.equalTo(343*Constants.standardWidth)
+            make.height.equalTo(19*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview()
+        }
+        
+        veganButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(quesThirdLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        lactoButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalTo(veganButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(quesThirdLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        ovoButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalTo(lactoButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(quesThirdLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        pescoButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalTo(ovoButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(quesThirdLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        polloButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(veganButton.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        flexitarianButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalTo(polloButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(veganButton.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        noneVeganButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalTo(flexitarianButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(veganButton.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        [quesFourthLabel,yesButton,noButton]
+            .forEach { UIView in
+                viewThree.addSubview(UIView)
+            }
+        
+        quesFourthLabel.snp.makeConstraints { make in
+            //make.width.equalTo(343*Constants.standardWidth)
+            make.height.equalTo(19*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview()
+        }
+        
+        yesButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(quesFourthLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        noButton.snp.makeConstraints { make in
+            //make.width.equalTo(74*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalTo(yesButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(quesFourthLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
         
         [viewOne,viewTwo,viewThree,registerButton]
             .forEach { UIView in
@@ -609,7 +717,12 @@ class WriteReviewViewController: UIViewController {
             make.top.equalTo(viewOne.snp.bottom)
         }
         
-        
+        registerButton.snp.makeConstraints { make in
+            make.width.equalTo(343*Constants.standardWidth)
+            make.height.equalTo(56*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.bottom.equalToSuperview().offset(-35*Constants.standardHeight)
+        }
         
        
         

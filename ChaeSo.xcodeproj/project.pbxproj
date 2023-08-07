@@ -10,6 +10,13 @@
 		3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */; };
 		3165C2252A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */; };
 		3165C2272A769AD000421D05 /* AAAAAA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2262A769AD000421D05 /* AAAAAA.swift */; };
+		3165C2302A7B72BB00421D05 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C22F2A7B72BB00421D05 /* CommunityTableViewCell.swift */; };
+		3165C2352A7F645B00421D05 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2342A7F645A00421D05 /* CommentViewController.swift */; };
+		3165C2372A7F646600421D05 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2362A7F646600421D05 /* CommentViewModel.swift */; };
+		3165C2392A7F647100421D05 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2382A7F647100421D05 /* CommentModel.swift */; };
+		3165C2402A7F64DD00421D05 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C23F2A7F64DD00421D05 /* CommentTableViewCell.swift */; };
+		3165C2432A7F6C8B00421D05 /* WriteChaesoLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2422A7F6C8B00421D05 /* WriteChaesoLogViewController.swift */; };
+		3165C2452A7F767B00421D05 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2442A7F767B00421D05 /* CommentHeaderView.swift */; };
 		317CDD7D2A4FF6E700F9320B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 317CDD7F2A4FF6E700F9320B /* Localizable.strings */; };
 		317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CDD812A50338100F9320B /* LocalizationManager.swift */; };
 		317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7AC2A49467700006F7B /* AppDelegate.swift */; };
@@ -147,6 +154,13 @@
 		3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddFirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2262A769AD000421D05 /* AAAAAA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAAAAA.swift; sourceTree = "<group>"; };
+		3165C22F2A7B72BB00421D05 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
+		3165C2342A7F645A00421D05 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		3165C2362A7F646600421D05 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		3165C2382A7F647100421D05 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		3165C23F2A7F64DD00421D05 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		3165C2422A7F6C8B00421D05 /* WriteChaesoLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteChaesoLogViewController.swift; sourceTree = "<group>"; };
+		3165C2442A7F767B00421D05 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		317CDD7C2A4FF6C400F9320B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		317CDD7E2A4FF6E700F9320B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		317CDD802A4FF6F100F9320B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -315,6 +329,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3165C2332A7F643300421D05 /* CommentView */ = {
+			isa = PBXGroup;
+			children = (
+				3165C23C2A7F648800421D05 /* CommentTableViewCell */,
+				3165C2342A7F645A00421D05 /* CommentViewController.swift */,
+				3165C2362A7F646600421D05 /* CommentViewModel.swift */,
+				3165C2382A7F647100421D05 /* CommentModel.swift */,
+			);
+			path = CommentView;
+			sourceTree = "<group>";
+		};
+		3165C23C2A7F648800421D05 /* CommentTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3165C23F2A7F64DD00421D05 /* CommentTableViewCell.swift */,
+				3165C2442A7F767B00421D05 /* CommentHeaderView.swift */,
+			);
+			path = CommentTableViewCell;
+			sourceTree = "<group>";
+		};
+		3165C2412A7F6C6700421D05 /* WriteChaesoLogView */ = {
+			isa = PBXGroup;
+			children = (
+				3165C2422A7F6C8B00421D05 /* WriteChaesoLogViewController.swift */,
+			);
+			path = WriteChaesoLogView;
+			sourceTree = "<group>";
+		};
 		317CDD832A5130EE00F9320B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,9 +507,12 @@
 		31C4B20E2A5558E300BABD62 /* CommunityPage */ = {
 			isa = PBXGroup;
 			children = (
+				3165C2412A7F6C6700421D05 /* WriteChaesoLogView */,
+				3165C2332A7F643300421D05 /* CommentView */,
 				31C4B1F82A55526C00BABD62 /* CommunityViewController.swift */,
 				31C4B1FE2A55531800BABD62 /* CommunityViewModel.swift */,
 				31C4B2002A55532300BABD62 /* CommunityModel.swift */,
+				3165C22F2A7B72BB00421D05 /* CommunityTableViewCell.swift */,
 			);
 			path = CommunityPage;
 			sourceTree = "<group>";
@@ -919,6 +964,7 @@
 				31C4B2052A55534200BABD62 /* MapModel.swift in Sources */,
 				317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */,
 				31C4B2202A5AC26200BABD62 /* SearchingViewController.swift in Sources */,
+				3165C2392A7F647100421D05 /* CommentModel.swift in Sources */,
 				31C4B2092A55536200BABD62 /* MyPageModel.swift in Sources */,
 				31C4B2072A55535800BABD62 /* MyPageViewModel.swift in Sources */,
 				31F5009B2A74CF7900E4BCF3 /* WriteReviewViewModel.swift in Sources */,
@@ -928,6 +974,7 @@
 				317ED7C62A4954F700006F7B /* LoginViewController.swift in Sources */,
 				317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */,
 				31F500942A73D1F200E4BCF3 /* ReviewViewModel.swift in Sources */,
+				3165C2352A7F645B00421D05 /* CommentViewController.swift in Sources */,
 				317ED7AF2A49467700006F7B /* SceneDelegate.swift in Sources */,
 				31C4B1F52A55520D00BABD62 /* TabBarModel.swift in Sources */,
 				31F5007B2A70F69D00E4BCF3 /* VSTabViewModel.swift in Sources */,
@@ -945,8 +992,11 @@
 				31F500732A70DCE500E4BCF3 /* PlaceViewModel.swift in Sources */,
 				31C4B2222A5AC26F00BABD62 /* SearchingViewModel.swift in Sources */,
 				31F5007D2A70F6A700E4BCF3 /* VSTabCell.swift in Sources */,
+				3165C2432A7F6C8B00421D05 /* WriteChaesoLogViewController.swift in Sources */,
 				31F5008E2A727DE800E4BCF3 /* RatingTableViewCell.swift in Sources */,
 				31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */,
+				3165C2302A7B72BB00421D05 /* CommunityTableViewCell.swift in Sources */,
+				3165C2452A7F767B00421D05 /* CommentHeaderView.swift in Sources */,
 				31F500992A74CEC600E4BCF3 /* WriteReviewViewController.swift in Sources */,
 				31C4B1F92A55526C00BABD62 /* CommunityViewController.swift in Sources */,
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
@@ -963,6 +1013,7 @@
 				31C4B2152A56FCC700BABD62 /* TosViewModel.swift in Sources */,
 				31C4B21D2A5AA6EB00BABD62 /* NicknameViewModel.swift in Sources */,
 				31F500712A7005A500E4BCF3 /* BookmarkTabCell.swift in Sources */,
+				3165C2402A7F64DD00421D05 /* CommentTableViewCell.swift in Sources */,
 				31F500792A70F65E00E4BCF3 /* VSTabView.swift in Sources */,
 				31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */,
 				31F5000B2A6E35A700E4BCF3 /* DetailListCell.swift in Sources */,
@@ -970,6 +1021,7 @@
 				31C392242A6BEEA8006C9FFE /* MyPageTableViewCell.swift in Sources */,
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
 				3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */,
+				3165C2372A7F646600421D05 /* CommentViewModel.swift in Sources */,
 				31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */,
 				31F500882A7101F200E4BCF3 /* ReviewView.swift in Sources */,
 				31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */,

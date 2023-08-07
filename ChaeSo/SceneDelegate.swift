@@ -30,12 +30,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //let rootViewController = MainPTCollectionViewController(mainPTCollectionViewModel: MainPTCollectionViewModel())
         
-        let rootViewController = WriteReviewViewController(writeReviewViewModel: WriteReviewViewModel(localizationManager: LocalizationManager.shared))
+        //let rootViewController = WriteReviewViewController(writeReviewViewModel: WriteReviewViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = MapViewController()
         
+        let rootViewController = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
+        
+        //let rootViewController = CommentViewController(commentViewModel: CommentViewModel(localizationManager: LocalizationManager.shared))
         
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+        
         window?.makeKeyAndVisible()
         
 //        //MARK: appleAutoLogin

@@ -2,6 +2,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Then
+import RxDataSources
+import ImageSlideshow
 
 class CommunityViewController: UIViewController {
     
@@ -9,20 +12,37 @@ class CommunityViewController: UIViewController {
     private let communityViewModel: CommunityViewModel
     
     private let chaesoLogLabel = UILabel()
-    private lazy var tabCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private let leftActiveTabIndicator = UIView()
-    private let rightActiveTabIndicator = UIView()
+    private lazy var tabCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then{
+        $0.scrollDirection = .horizontal
+        
+        // 컬렉션뷰의 폭을 반으로 나누어서 itemSize를 설정
+        let halfWidth = UIScreen.main.bounds.width * 0.5
+        $0.itemSize = CGSize(width: halfWidth, height: 45 * Constants.standardHeight) // 여기서 높이는 원하는 높이로 설정
+        
+        $0.minimumInteritemSpacing = 0 // 아이템 간의 최소 간격
+    })
+    private let leftActiveTabIndicator = UIView().then{
+        $0.backgroundColor = UIColor(named: "prColor")
+    }
+    private let rightActiveTabIndicator = UIView().then{
+        $0.backgroundColor = UIColor(named: "gray10")
+    }
     private let contentsTableView = UITableView()
-    
+    var length = 0
+    var aa = ""
+    var labelHeights: [IndexPath: CGFloat] = [:]
 
+    
+    
     init(communityViewModel: CommunityViewModel) {
         self.communityViewModel = communityViewModel
         super.init(nibName: nil, bundle: nil)
-        bind()
         attribute()
         layout()
+        bind()
+        
     }
-   
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,14 +53,15 @@ class CommunityViewController: UIViewController {
             .drive(chaesoLogLabel.rx.text)
             .disposed(by: disposeBag)
         
+        
+        
         communityViewModel.tabItems
             .bind(to: tabCollectionView.rx.items(cellIdentifier: "BookmarkTabCell", cellType: BookmarkTabCell.self)) { row, element, cell in
                 cell.titleLabel.text = element
             }
             .disposed(by: disposeBag)
         
-
-        // Handle tab selection and animate the views accordingly
+        
         tabCollectionView.rx.itemSelected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] indexPath in
@@ -60,44 +81,90 @@ class CommunityViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        communityViewModel.chaesoLog
+            .drive(contentsTableView.rx.items(cellIdentifier: "CommunityTableViewCell", cellType: CommunityTableViewCell.self)){ [weak self] (row, element, cell) in
+                
+                guard let self = self else {return}
+                
+                cell.userImageView.image = element.userImage
+                cell.nicknameLabel.text = element.nickname
+                cell.configureImageSlideshow(with: element.imagesArr)
+
+                cell.likeNumLabel.text = "좋아요 \(element.likeNum)개"
+                //cell.contentsLabel.text = element.contents
+                cell.setContentText(element.contents)
+                cell.commentNumLabel.text = "댓글 \(element.commentNum)개 모두 보기"
+                cell.commentUserImageView.image = element.commentImage
+                cell.commentLabel.text = element.comment
+                print(row)
+                
+                
+                cell.labelLength
+                    .subscribe(onNext: { [weak self] height in
+                        guard let self = self else { return }
+                        self.labelHeights[IndexPath(row: row, section: 0)] = 580 + height
+                        //self.contentsTableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
+                        self.contentsTableView.beginUpdates()
+                        
+                        self.contentsTableView.endUpdates()
+                    })
+                    .disposed(by: self.disposeBag)
+
+                cell.commentButton.rx.tap
+                    .subscribe(onNext: {
+                        let a = CommentViewController(commentViewModel: CommentViewModel(localizationManager: LocalizationManager.shared))
+                        //a.modalPresentationStyle = .
+                        self.present(a, animated: true)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                
+            }
+            .disposed(by: disposeBag)
+        
+        contentsTableView.rx.setDelegate(self).disposed(by: disposeBag)
         
     }
     
     func attribute(){
         view.backgroundColor = UIColor(hexCode: "F5F5F5")
         
-        //MARK: tabCollectionView attribute
-        if let layout = tabCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            
-            // 컬렉션뷰의 폭을 반으로 나누어서 itemSize를 설정
-            let halfWidth = UIScreen.main.bounds.width * 0.5
-            layout.itemSize = CGSize(width: halfWidth, height: 39 * Constants.standardHeight) // 여기서 높이는 원하는 높이로 설정
-            
-            layout.minimumInteritemSpacing = 0 // 아이템 간의 최소 간격
-            layout.minimumLineSpacing = 0      // 줄 간의 최소 간격
+        tabCollectionView.do{
+            $0.showsHorizontalScrollIndicator = false
+            $0.register(BookmarkTabCell.self, forCellWithReuseIdentifier: "BookmarkTabCell")
         }
-        tabCollectionView.backgroundColor = .white
-        tabCollectionView.showsHorizontalScrollIndicator = false
-        tabCollectionView.register(BookmarkTabCell.self, forCellWithReuseIdentifier: "BookmarkTabCell")
         
-        //MARK: ActiveTabIndicator attribute
-        leftActiveTabIndicator.backgroundColor = UIColor(named: "prColor")
-        rightActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
-
+        contentsTableView.do{
+            $0.separatorStyle = .singleLine
+            $0.separatorInset = UIEdgeInsets(top: 0, left: 20*Constants.standardWidth, bottom: 0, right: 20*Constants.standardWidth)
+            $0.separatorColor = UIColor(hexCode: "D9D9D9")
+            //$0.estimatedRowHeight = 620
+            //$0.rowHeight = UITableView.automaticDimension
+            
+            $0.register(CommunityTableViewCell.self, forCellReuseIdentifier: "CommunityTableViewCell")
+        }
+        
+        
     }
     
     func layout(){
-        [tabCollectionView,leftActiveTabIndicator,rightActiveTabIndicator,contentsTableView]
+        [chaesoLogLabel,tabCollectionView,leftActiveTabIndicator,rightActiveTabIndicator,contentsTableView]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
         
+        chaesoLogLabel.snp.makeConstraints { make in
+            //make.width.equalToSuperview()
+            make.height.equalTo(19*Constants.standardHeight)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(54*Constants.standardHeight)
+        }
+        
         tabCollectionView.snp.makeConstraints { make in
             make.width.equalToSuperview()
-            make.height.equalTo(39*Constants.standardHeight)
+            make.height.equalTo(45*Constants.standardHeight)
             make.leading.equalToSuperview()
-            make.top.equalToSuperview()
+            make.top.equalTo(chaesoLogLabel.snp.bottom).offset(5*Constants.standardHeight)
         }
         
         leftActiveTabIndicator.snp.makeConstraints { make in
@@ -121,10 +188,29 @@ class CommunityViewController: UIViewController {
             make.top.equalTo(leftActiveTabIndicator.snp.bottom)
         }
         
-        
     }
-
+    
 }
+
+
+extension CommunityViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //print("labelHeights[indexPath] ?? 0",labelHeights[indexPath] ?? 0,indexPath.row)
+        return UITableView.automaticDimension
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return labelHeights[indexPath] ?? UITableView.automaticDimension
+//    }
+    
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 580
+//    }
+    
+}
+
+
+
 
 //#if DEBUG
 //import SwiftUI

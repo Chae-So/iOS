@@ -1,4 +1,6 @@
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 
 class ContentTableViewCell: UITableViewCell {
@@ -21,6 +23,13 @@ class ContentTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        
+        bookmarkButton.rx.tap
+            .subscribe(onNext: {
+                print("213")
+            })
+            .disposed(by: DisposeBag())
+        
         attribute()
         layout()
     }

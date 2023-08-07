@@ -31,7 +31,7 @@ class ReviewView: UIView {
         reviewTableView.separatorStyle = .singleLine
         reviewTableView.separatorInset = UIEdgeInsets(top: 0, left: 16*Constants.standardWidth, bottom: 0, right: 16*Constants.standardWidth)
         reviewTableView.separatorColor = UIColor(hexCode: "D9D9D9")
-        reviewTableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: "MyPageTableViewCell")
+        reviewTableView.register(RatingTableViewCell.self, forCellReuseIdentifier: "RatingTableViewCell")
     }
     
     private func layout(){

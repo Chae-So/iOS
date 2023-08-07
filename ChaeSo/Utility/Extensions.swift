@@ -13,6 +13,7 @@ extension UITextField {
     }
 }
 
+
 extension UIColor {
     convenience init(hexCode: String, alpha: CGFloat = 1.0) {
         var hexFormatted: String = hexCode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
@@ -107,15 +108,3 @@ extension Reactive where Base: UITextField {
     }
 }
 
-extension Reactive where Base: UITextView {
-    public var placeholder: Binder<String?> {
-        return Binder(self.base) { textView, placeholder in
-            if let placeholder = placeholder, textView.text.isEmpty {
-                textView.attributedText = NSAttributedString(string: placeholder,
-                                                            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-            } else if textView.attributedText.string == placeholder {
-                textView.text = nil
-            }
-        }
-    }
-}

@@ -46,7 +46,6 @@ class MyPageViewModel {
         postText.accept(localizationManager.localizedString(forKey: "Post"))
         followingText.accept(localizationManager.localizedString(forKey: "Following"))
         followerText.accept(localizationManager.localizedString(forKey: "Follower"))
-        
     }
 }
 
