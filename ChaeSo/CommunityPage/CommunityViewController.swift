@@ -99,6 +99,7 @@ class CommunityViewController: UIViewController {
                 print(row)
                 
                 
+                
                 cell.labelLength
                     .subscribe(onNext: { [weak self] height in
                         guard let self = self else { return }
@@ -140,7 +141,8 @@ class CommunityViewController: UIViewController {
             $0.separatorColor = UIColor(hexCode: "D9D9D9")
             //$0.estimatedRowHeight = 620
             //$0.rowHeight = UITableView.automaticDimension
-            
+            $0.showsVerticalScrollIndicator = false
+            $0.backgroundColor = UIColor(hexCode: "F5F5F5")
             $0.register(CommunityTableViewCell.self, forCellReuseIdentifier: "CommunityTableViewCell")
         }
         
@@ -198,6 +200,15 @@ extension CommunityViewController: UITableViewDelegate {
         //print("labelHeights[indexPath] ?? 0",labelHeights[indexPath] ?? 0,indexPath.row)
         return UITableView.automaticDimension
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            let height = scrollView.frame.size.height
+
+            if offsetY > contentHeight - height { // 맨 아래에서의 스크롤 위치를 초과한 경우
+                scrollView.contentOffset.y = contentHeight - height
+            }
+        }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return labelHeights[indexPath] ?? UITableView.automaticDimension

@@ -101,6 +101,7 @@ class CommentHeaderView: UITableViewHeaderFooterView {
             $0.titleLabel?.textAlignment = .center
             $0.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 13)
             $0.setTitleColor(UIColor(named: "gray20"), for: .normal)
+            $0.isHidden = true
         }
         
         
