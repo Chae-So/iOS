@@ -53,7 +53,12 @@
 "Recommend" = "추천";
 "Latest" = "최신";
 "replies" = "답글 달기";
-"View replies" = "당글 %d개 보기";
+"View replies" = "답글 %d개 보기";
+
+//MARK: WriteChaesoLogPage
+"카테고리를 선택해 주세요" = "카테고리를 선택해 주세요";
+"채색타입을 선택해 주세요" = "채식타입을 선택해 주세요";
+"나누고 싶은 이야기를 공유해 주세요" = "나누고 싶은 이야기를 공유해 주세요";
 
 //MARK: VeganStoryPage
 "Vegan Story" = "비건 스토리";
@@ -104,5 +109,5 @@
 
 //MARK: PlaceView
 "Restaurant" = "음식점";
-"Caffe" = "카페";
+"Cafe" = "카페";
 "Store" = "스토어";

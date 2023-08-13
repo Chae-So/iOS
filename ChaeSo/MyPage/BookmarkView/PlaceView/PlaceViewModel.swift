@@ -7,15 +7,15 @@ class PlaceViewModel{
     var localizationManager: LocalizationManager
     
     let restaurantText = BehaviorRelay<String>(value: "")
-    let caffeText = BehaviorRelay<String>(value: "")
+    let cafeText = BehaviorRelay<String>(value: "")
     let storeText = BehaviorRelay<String>(value: "")
     
     let restaurantButtonTapped = PublishRelay<Void>()
-    let caffeButtonTapped = PublishRelay<Void>()
+    let cafeButtonTapped = PublishRelay<Void>()
     let storeButtonTapped = PublishRelay<Void>()
     
     var selectedRestaurant = PublishRelay<Bool>()
-    var selectedCaffe = PublishRelay<Bool>()
+    var selectedCafe = PublishRelay<Bool>()
     var selectedStore = PublishRelay<Bool>()
     
     let items = Observable<[ContentTableViewCellModel]>.just([
@@ -37,16 +37,16 @@ class PlaceViewModel{
                 guard let self = self else { return }
                 print("음식점 눌림")
                 self.selectedRestaurant.accept(true)
-                self.selectedCaffe.accept(false)
+                self.selectedCafe.accept(false)
                 self.selectedStore.accept(false)
             })
             .disposed(by: disposeBag)
         
-        caffeButtonTapped
+        cafeButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.selectedRestaurant.accept(false)
-                self.selectedCaffe.accept(true)
+                self.selectedCafe.accept(true)
                 self.selectedStore.accept(false)
             })
             .disposed(by: disposeBag)
@@ -55,7 +55,7 @@ class PlaceViewModel{
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.selectedRestaurant.accept(false)
-                self.selectedCaffe.accept(false)
+                self.selectedCafe.accept(false)
                 self.selectedStore.accept(true)
             })
             .disposed(by: disposeBag)
@@ -64,7 +64,7 @@ class PlaceViewModel{
     
     private func updateLocalization() {
         restaurantText.accept(localizationManager.localizedString(forKey: "Restaurant"))
-        caffeText.accept(localizationManager.localizedString(forKey: "Caffe"))
+        cafeText.accept(localizationManager.localizedString(forKey: "Cafe"))
         storeText.accept(localizationManager.localizedString(forKey: "Store"))
     }
     

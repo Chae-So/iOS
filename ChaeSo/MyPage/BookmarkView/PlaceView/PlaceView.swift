@@ -8,7 +8,7 @@ class PlaceView: UIView {
     let placeViewModel: PlaceViewModel
     
     private lazy var restaurantButton = UIButton()
-    private lazy var caffeButton = UIButton()
+    private lazy var cafeButton = UIButton()
     private lazy var storeButton = UIButton()
     private lazy var separateView = UIView()
     private let contentTableView = UITableView()
@@ -31,9 +31,9 @@ class PlaceView: UIView {
             .drive(restaurantButton.rx.title(for: .normal))
             .disposed(by: disposeBag)
         
-        placeViewModel.caffeText
+        placeViewModel.cafeText
             .asDriver(onErrorDriveWith: .empty())
-            .drive(caffeButton.rx.title(for: .normal))
+            .drive(cafeButton.rx.title(for: .normal))
             .disposed(by: disposeBag)
         
         placeViewModel.storeText
@@ -51,11 +51,11 @@ class PlaceView: UIView {
             .drive(restaurantButton.rx.borderColor)
             .disposed(by: disposeBag)
         
-        caffeButton.rx.tap
+        cafeButton.rx.tap
             .bind(to: placeViewModel.restaurantButtonTapped)
             .disposed(by: disposeBag)
         
-        placeViewModel.selectedCaffe
+        placeViewModel.selectedCafe
             .asDriver(onErrorDriveWith: .empty())
             .map{ $0 ? UIColor(named: "prColor")?.cgColor : UIColor(named: "gray10")?.cgColor }
             .drive(restaurantButton.rx.borderColor)
@@ -73,7 +73,7 @@ class PlaceView: UIView {
         
         placeViewModel.items
             .asDriver(onErrorDriveWith: .empty())
-            .drive(contentTableView.rx.items(cellIdentifier: "ContentTableViewCell", cellType: ContentTableViewCell.self)){ (row,element,cell) in
+            .drive(contentTableView.rx.items(cellIdentifier: "ContentTableViewCell", cellType: ListTableViewCell.self)){ (row,element,cell) in
                 cell.photo.image = element.photo
                 cell.nameLabel.text = element.nameLabel
                 cell.categoryLabel.text = element.categoryLabel
@@ -98,15 +98,15 @@ class PlaceView: UIView {
         restaurantButton.layer.borderColor = UIColor(named: "gray10")?.cgColor
         restaurantButton.backgroundColor = UIColor.white
         
-        //MARK: caffeButton attribute
-        caffeButton.adjustsImageWhenHighlighted = false
-        caffeButton.titleLabel?.textAlignment = .center
-        caffeButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 14)
-        caffeButton.setTitleColor(UIColor.black, for: .normal)
-        caffeButton.layer.cornerRadius = 15
-        caffeButton.layer.borderWidth = 1
-        caffeButton.layer.borderColor = UIColor(named: "gray10")?.cgColor
-        caffeButton.backgroundColor = UIColor.white
+        //MARK: cafeButton attribute
+        cafeButton.adjustsImageWhenHighlighted = false
+        cafeButton.titleLabel?.textAlignment = .center
+        cafeButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 14)
+        cafeButton.setTitleColor(UIColor.black, for: .normal)
+        cafeButton.layer.cornerRadius = 15
+        cafeButton.layer.borderWidth = 1
+        cafeButton.layer.borderColor = UIColor(named: "gray10")?.cgColor
+        cafeButton.backgroundColor = UIColor.white
         
         //MARK: storeButton attribute
         storeButton.adjustsImageWhenHighlighted = false
@@ -126,11 +126,11 @@ class PlaceView: UIView {
         contentTableView.separatorInset = UIEdgeInsets(top: 0, left: 8*Constants.standardWidth, bottom: 0, right: 24*Constants.standardWidth)
         contentTableView.separatorColor = UIColor(hexCode: "D9D9D9")
         contentTableView.rowHeight = 150*Constants.standardHeight
-        contentTableView.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
+        contentTableView.register(ListTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
     }
     
     private func layout(){
-        [restaurantButton,caffeButton,storeButton,separateView,contentTableView]
+        [restaurantButton,cafeButton,storeButton,separateView,contentTableView]
             .forEach { UIView in
                 addSubview(UIView)
             }
@@ -142,7 +142,7 @@ class PlaceView: UIView {
             make.top.equalToSuperview().offset(16*Constants.standardHeight)
         }
         
-        caffeButton.snp.makeConstraints { make in
+        cafeButton.snp.makeConstraints { make in
             make.width.equalTo(57*Constants.standardWidth)
             make.height.equalTo(33*Constants.standardHeight)
             make.leading.equalTo(restaurantButton.snp.trailing).offset(8*Constants.standardWidth)
@@ -152,7 +152,7 @@ class PlaceView: UIView {
         storeButton.snp.makeConstraints { make in
             make.width.equalTo(69*Constants.standardWidth)
             make.height.equalTo(33*Constants.standardHeight)
-            make.leading.equalTo(caffeButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.leading.equalTo(cafeButton.snp.trailing).offset(8*Constants.standardWidth)
             make.top.equalToSuperview().offset(16*Constants.standardHeight)
         }
         

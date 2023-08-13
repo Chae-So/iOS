@@ -2,13 +2,19 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class WriteReviewViewModel{
+protocol PhotoViewModelProtocol {
+    var selectedPhotosRelay: BehaviorRelay<[UIImage]> { get set }
+}
+
+class WriteReviewViewModel: PhotoViewModelProtocol{
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
     var selectedPhotosRelay: BehaviorRelay<[UIImage]> = BehaviorRelay(value: [])
     
     // Input
-    let titleText = BehaviorRelay<String>(value: "")
+    var titleText: String {
+        return localizationManager.localizedString(forKey: "Write a review")
+    }
     let firstText = BehaviorRelay<String>(value: "")
     let secondText = BehaviorRelay<String>(value: "")
     let thirdText = BehaviorRelay<String>(value: "")
@@ -51,69 +57,12 @@ class WriteReviewViewModel{
         self.updateLocalization()
         
         
-        veganButtonTapped
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                self.selectedVegan.accept(true)
-                self.selectedLacto.accept(false)
-                self.selectedOvo.accept(false)
-                self.selectedPesco.accept(false)
-                self.selectedPollo.accept(false)
-            })
-            .disposed(by: disposeBag)
-                
-        lactoButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(true)
-                    self.selectedOvo.accept(false)
-                    self.selectedPesco.accept(false)
-                    self.selectedPollo.accept(false)
-            })
-            .disposed(by: disposeBag)
         
-        ovoButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(false)
-                    self.selectedOvo.accept(true)
-                    self.selectedPesco.accept(false)
-                    self.selectedPollo.accept(false)
-            })
-            .disposed(by: disposeBag)
-        
-        pescoButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(false)
-                    self.selectedOvo.accept(false)
-                    self.selectedPesco.accept(true)
-                    self.selectedPollo.accept(false)
-            })
-            .disposed(by: disposeBag)
-        
-        polloButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(false)
-                    self.selectedOvo.accept(false)
-                    self.selectedPesco.accept(false)
-                    self.selectedPollo.accept(true)
-            })
-            .disposed(by: disposeBag)
-        
-        allValid = Observable.combineLatest(selectedVegan.asObservable(), selectedLacto.asObservable(), selectedOvo.asObservable(), selectedPesco.asObservable(), selectedPollo.asObservable())
-            .map{ $0 || $1 || $2 || $3 || $4}
         
         
     }
     
     private func updateLocalization() {
-        titleText.accept(localizationManager.localizedString(forKey: "Write a review"))
         firstText.accept(localizationManager.localizedString(forKey: "How was the place you visited?"))
         secondText.accept(localizationManager.localizedString(forKey: "Did you have a group?"))
         thirdText.accept(localizationManager.localizedString(forKey: "What is the vegetarian type of the group?"))

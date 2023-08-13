@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class BookmarkTabCell: UICollectionViewCell {
+class TypeTableViewCell: UIView {
     let titleLabel = UILabel()
 
     override init(frame: CGRect) {

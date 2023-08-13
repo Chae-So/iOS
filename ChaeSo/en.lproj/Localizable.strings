@@ -57,6 +57,11 @@
 "replies" = "replies";
 "View replies" = "View replies (%d)";
 
+//MARK: WriteChaesoLogPage
+"카테고리를 선택해 주세요" = "카테고리를 선택해 주세요";
+"채색타입을 선택해 주세요" = "채식타입을 선택해 주세요";
+"나누고 싶은 이야기를 공유해 주세요" = "나누고 싶은 이야기를 공유해 주세요";
+
 //MARK: VeganStoryPage
 "Vegan Story" = "Vegan Story";
 "Write review" = "Write review";
@@ -107,5 +112,5 @@
 
 //MARK: PlaceView
 "Restaurant" = "Restaurant";
-"Caffe" = "Caffe";
+"Cafe" = "Cafe";
 "Store" = "Store";

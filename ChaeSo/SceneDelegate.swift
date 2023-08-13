@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //let rootViewController = WriteReviewViewController(writeReviewViewModel: WriteReviewViewModel(localizationManager: LocalizationManager.shared))
         
-        //let rootViewController = MapViewController()
+        //let rootViewController = WriteChaesoLogViewController(writeChaesoLogViewModel: WriteChaesoLogViewModel(localizationManager: LocalizationManager.shared))
         
         let rootViewController = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
         

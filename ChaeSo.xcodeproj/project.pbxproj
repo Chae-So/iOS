@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310ADE1E2A88960500C5ADEA /* StarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE1D2A88960500C5ADEA /* StarCollectionViewCell.swift */; };
 		3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */; };
 		3165C2252A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */; };
 		3165C2272A769AD000421D05 /* AAAAAA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2262A769AD000421D05 /* AAAAAA.swift */; };
@@ -17,6 +18,8 @@
 		3165C2402A7F64DD00421D05 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C23F2A7F64DD00421D05 /* CommentTableViewCell.swift */; };
 		3165C2432A7F6C8B00421D05 /* WriteChaesoLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2422A7F6C8B00421D05 /* WriteChaesoLogViewController.swift */; };
 		3165C2452A7F767B00421D05 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2442A7F767B00421D05 /* CommentHeaderView.swift */; };
+		3165C24F2A820FA300421D05 /* WriteChaesoLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C24E2A820FA300421D05 /* WriteChaesoLogViewModel.swift */; };
+		3165C2582A827A3E00421D05 /* ButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2572A827A3E00421D05 /* ButtonCollectionViewCell.swift */; };
 		317CDD7D2A4FF6E700F9320B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 317CDD7F2A4FF6E700F9320B /* Localizable.strings */; };
 		317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CDD812A50338100F9320B /* LocalizationManager.swift */; };
 		317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7AC2A49467700006F7B /* AppDelegate.swift */; };
@@ -125,7 +128,7 @@
 		31F500842A7101E000E4BCF3 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500832A7101E000E4BCF3 /* InfoView.swift */; };
 		31F500862A7101EA00E4BCF3 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500852A7101EA00E4BCF3 /* MenuView.swift */; };
 		31F500882A7101F200E4BCF3 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500872A7101F200E4BCF3 /* ReviewView.swift */; };
-		31F5008A2A72395C00E4BCF3 /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500892A72395C00E4BCF3 /* ContentTableViewCell.swift */; };
+		31F5008A2A72395C00E4BCF3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F500892A72395C00E4BCF3 /* ListTableViewCell.swift */; };
 		31F5008C2A72456200E4BCF3 /* ContentTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5008B2A72456200E4BCF3 /* ContentTableViewCellModel.swift */; };
 		31F5008E2A727DE800E4BCF3 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5008D2A727DE800E4BCF3 /* RatingTableViewCell.swift */; };
 		31F500902A728F0C00E4BCF3 /* PhotoReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F5008F2A728F0C00E4BCF3 /* PhotoReviewTableViewCell.swift */; };
@@ -151,6 +154,7 @@
 /* Begin PBXFileReference section */
 		260699AF00107AD9D89F2B95 /* Pods_ChaeSo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChaeSo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AF2B425CBDE89AC53475E8C /* Pods-ChaeSo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChaeSo.release.xcconfig"; path = "Target Support Files/Pods-ChaeSo/Pods-ChaeSo.release.xcconfig"; sourceTree = "<group>"; };
+		310ADE1D2A88960500C5ADEA /* StarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddFirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2262A769AD000421D05 /* AAAAAA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAAAAA.swift; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 		3165C23F2A7F64DD00421D05 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		3165C2422A7F6C8B00421D05 /* WriteChaesoLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteChaesoLogViewController.swift; sourceTree = "<group>"; };
 		3165C2442A7F767B00421D05 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
+		3165C24E2A820FA300421D05 /* WriteChaesoLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteChaesoLogViewModel.swift; sourceTree = "<group>"; };
+		3165C2572A827A3E00421D05 /* ButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 		317CDD7C2A4FF6C400F9320B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		317CDD7E2A4FF6E700F9320B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		317CDD802A4FF6F100F9320B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -272,7 +278,7 @@
 		31F500832A7101E000E4BCF3 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		31F500852A7101EA00E4BCF3 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		31F500872A7101F200E4BCF3 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
-		31F500892A72395C00E4BCF3 /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
+		31F500892A72395C00E4BCF3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		31F5008B2A72456200E4BCF3 /* ContentTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCellModel.swift; sourceTree = "<group>"; };
 		31F5008D2A727DE800E4BCF3 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
 		31F5008F2A728F0C00E4BCF3 /* PhotoReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewTableViewCell.swift; sourceTree = "<group>"; };
@@ -353,6 +359,8 @@
 			isa = PBXGroup;
 			children = (
 				3165C2422A7F6C8B00421D05 /* WriteChaesoLogViewController.swift */,
+				3165C24E2A820FA300421D05 /* WriteChaesoLogViewModel.swift */,
+				3165C2572A827A3E00421D05 /* ButtonCollectionViewCell.swift */,
 			);
 			path = WriteChaesoLogView;
 			sourceTree = "<group>";
@@ -663,7 +671,7 @@
 			children = (
 				31F5006B2A70048300E4BCF3 /* PlaceView.swift */,
 				31F500722A70DCE500E4BCF3 /* PlaceViewModel.swift */,
-				31F500892A72395C00E4BCF3 /* ContentTableViewCell.swift */,
+				31F500892A72395C00E4BCF3 /* ListTableViewCell.swift */,
 				31F5008B2A72456200E4BCF3 /* ContentTableViewCellModel.swift */,
 			);
 			path = PlaceView;
@@ -735,6 +743,7 @@
 				31F5009A2A74CF7900E4BCF3 /* WriteReviewViewModel.swift */,
 				3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */,
 				3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */,
+				310ADE1D2A88960500C5ADEA /* StarCollectionViewCell.swift */,
 			);
 			path = WriteReview;
 			sourceTree = "<group>";
@@ -950,7 +959,7 @@
 				31C392092A62B06A006C9FFE /* TestViewController.swift in Sources */,
 				317ED7D92A498DBE00006F7B /* Extensions.swift in Sources */,
 				31F500052A6E353F00E4BCF3 /* KLDocument.swift in Sources */,
-				31F5008A2A72395C00E4BCF3 /* ContentTableViewCell.swift in Sources */,
+				31F5008A2A72395C00E4BCF3 /* ListTableViewCell.swift in Sources */,
 				31C4B2122A56FC7000BABD62 /* TosViewController.swift in Sources */,
 				31C4B1FD2A55529B00BABD62 /* MyPageViewController.swift in Sources */,
 				317ED7B12A49467700006F7B /* StartViewController.swift in Sources */,
@@ -971,6 +980,7 @@
 				31F500A32A74F0F800E4BCF3 /* MainPTCollectionViewModel.swift in Sources */,
 				31F500622A6E762900E4BCF3 /* BookmarkView.swift in Sources */,
 				31CF47292A5AF66100A83671 /* VeganViewModel.swift in Sources */,
+				3165C24F2A820FA300421D05 /* WriteChaesoLogViewModel.swift in Sources */,
 				317ED7C62A4954F700006F7B /* LoginViewController.swift in Sources */,
 				317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */,
 				31F500942A73D1F200E4BCF3 /* ReviewViewModel.swift in Sources */,
@@ -1002,6 +1012,7 @@
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
 				31CF47312A61088400A83671 /* IdLoginViewController.swift in Sources */,
 				31F500A12A74F0D000E4BCF3 /* MainPTCollectionViewController.swift in Sources */,
+				310ADE1E2A88960500C5ADEA /* StarCollectionViewCell.swift in Sources */,
 				31F5006C2A70048300E4BCF3 /* PlaceView.swift in Sources */,
 				31C392202A658289006C9FFE /* PTCollectionViewModel.swift in Sources */,
 				31F5000F2A6E35F500E4BCF3 /* DetailListBackgroundViewModel.swift in Sources */,
@@ -1019,6 +1030,7 @@
 				31F5000B2A6E35A700E4BCF3 /* DetailListCell.swift in Sources */,
 				31C4B21B2A5AA69E00BABD62 /* NicknameViewController.swift in Sources */,
 				31C392242A6BEEA8006C9FFE /* MyPageTableViewCell.swift in Sources */,
+				3165C2582A827A3E00421D05 /* ButtonCollectionViewCell.swift in Sources */,
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
 				3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */,
 				3165C2372A7F646600421D05 /* CommentViewModel.swift in Sources */,

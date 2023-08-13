@@ -28,6 +28,7 @@ class CommunityViewController: UIViewController {
         $0.backgroundColor = UIColor(named: "gray10")
     }
     private let contentsTableView = UITableView()
+    private let writeButton = UIButton()
     var length = 0
     var aa = ""
     var labelHeights: [IndexPath: CGFloat] = [:]
@@ -146,11 +147,34 @@ class CommunityViewController: UIViewController {
             $0.register(CommunityTableViewCell.self, forCellReuseIdentifier: "CommunityTableViewCell")
         }
         
+        writeButton.do{
+            $0.adjustsImageWhenHighlighted = false
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.setTitleColor(UIColor.black, for: .normal)
+            $0.setTitle("글쓰기", for: .normal)
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.clear.cgColor
+            $0.backgroundColor = UIColor(named: "bgColor")
+            $0.setImage(UIImage(systemName: "plus"), for: .normal)
+            $0.tintColor = UIColor.black
+            $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
+
+            $0.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+            $0.sizeToFit()
+            $0.layer.cornerRadius = $0.frame.size.height / 2
+            $0.layer.shadowColor = UIColor.black.cgColor // 색깔
+            //$0.layer.masksToBounds = false  // 내부에 속한 요소들이 UIView 밖을 벗어날 때, 잘라낼 것인지. 그림자는 밖에 그려지는 것이므로 false 로 설정
+            $0.layer.shadowOffset = CGSize(width: 0, height: 4) // 위치조정
+            $0.layer.shadowRadius = 4 // 반경
+            $0.layer.shadowOpacity = 0.1 // alpha값
+        }
+        
         
     }
     
     func layout(){
-        [chaesoLogLabel,tabCollectionView,leftActiveTabIndicator,rightActiveTabIndicator,contentsTableView]
+        [chaesoLogLabel,tabCollectionView,leftActiveTabIndicator,rightActiveTabIndicator,contentsTableView,writeButton]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
@@ -188,6 +212,13 @@ class CommunityViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.top.equalTo(leftActiveTabIndicator.snp.bottom)
+        }
+        
+        writeButton.snp.makeConstraints { make in
+            //make.width.equalToSuperview()
+            //make.height.equalTo(5*Constants.standardHeight)
+            make.trailing.equalToSuperview().offset(-16*Constants.standardWidth)
+            make.bottom.equalToSuperview().offset(-16*Constants.standardHeight)
         }
         
     }

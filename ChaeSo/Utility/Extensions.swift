@@ -108,3 +108,17 @@ extension Reactive where Base: UITextField {
     }
 }
 
+extension Reactive where Base: UICollectionView {
+    var updateSelectedCellBorderColor: Binder<IndexPath?> {
+        return Binder(self.base) { collectionView, indexPath in
+            for visibleCell in collectionView.visibleCells {
+                if let cellIndexPath = collectionView.indexPath(for: visibleCell) {
+                    visibleCell.layer.cornerRadius = visibleCell.frame.size.height / 2
+                    visibleCell.layer.borderWidth = (cellIndexPath == indexPath) ? 1.0 : 0.0
+                    visibleCell.layer.borderColor = (cellIndexPath == indexPath) ? UIColor(named: "prColor")?.cgColor : UIColor.clear.cgColor
+                }
+            }
+        }
+    }
+}
+

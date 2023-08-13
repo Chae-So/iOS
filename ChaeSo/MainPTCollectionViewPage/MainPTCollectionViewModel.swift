@@ -46,10 +46,10 @@ class MainPTCollectionViewModel: NSObject, PHPhotoLibraryChangeObserver{
     
     let doneButtonTapped = PublishSubject<Void>()
     private let disposeBag = DisposeBag()
-    private let writeReviewViewModel: WriteReviewViewModel
+    private let photoViewModelProtocol: PhotoViewModelProtocol
     
-    init(writeReviewViewModel: WriteReviewViewModel) {
-        self.writeReviewViewModel = writeReviewViewModel
+    init(photoViewModelProtocol: PhotoViewModelProtocol) {
+        self.photoViewModelProtocol = photoViewModelProtocol
         super.init()
         PHPhotoLibrary.shared().register(self)
         doneButtonTapped
@@ -57,7 +57,7 @@ class MainPTCollectionViewModel: NSObject, PHPhotoLibraryChangeObserver{
                 return self?.getSelectedPhotos().compactMap { self?.getImage(from: $0) } ?? []
             }
             .do(onNext: { [weak self] images in
-                self?.writeReviewViewModel.selectedPhotosRelay.accept(images)
+                self?.photoViewModelProtocol.selectedPhotosRelay.accept(images)
             })
                 .bind(to: selectedPhotos)
                 .disposed(by: disposeBag)

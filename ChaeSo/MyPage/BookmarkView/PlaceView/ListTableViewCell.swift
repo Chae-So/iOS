@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class ContentTableViewCell: UITableViewCell {
+class ListTableViewCell: UITableViewCell {
     
     let photo = UIImageView()
     let nameLabel = UILabel()
