@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 import SnapKit
 import Then
 
@@ -25,14 +26,23 @@ class WriteReviewViewController: UIViewController {
     private let starCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then{
         $0.scrollDirection = .horizontal
         $0.itemSize = CGSize(width: 28 * Constants.standardHeight, height: 28 * Constants.standardHeight)
-        $0.minimumInteritemSpacing = 16 // 아이템 간의 최소 간격
+        $0.minimumInteritemSpacing = 0
+        $0.minimumLineSpacing = 16
     })
     private let photoAddCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then{
         $0.scrollDirection = .horizontal
         $0.itemSize = CGSize(width: 100 * Constants.standardHeight, height: 100 * Constants.standardHeight)
-        $0.minimumInteritemSpacing = 8 // 아이템 간의 최소 간격
     })
-
+    private let firstCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then{
+        $0.scrollDirection = .horizontal
+    })
+    private let secondCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then{
+        $0.scrollDirection = .vertical
+        $0.minimumInteritemSpacing = 15
+    })
+    private let thirdCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then{
+        $0.scrollDirection = .horizontal
+    })
     private lazy var viewOne = UIView()
     private lazy var viewTwo = UIView()
     private lazy var viewThree = UIView()
@@ -53,7 +63,9 @@ class WriteReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.hidesBackButton = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
         bind()
         attribute()
         layout()
@@ -62,9 +74,12 @@ class WriteReviewViewController: UIViewController {
     
     func bind(){
         
-        writeReviewViewModel.placeholderText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(textView.rx.text)
+        backButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                print(564596045)
+                self.navigationController?.popViewController(animated: true)
+            })
             .disposed(by: disposeBag)
         
         textView.rx.didBeginEditing
@@ -73,14 +88,22 @@ class WriteReviewViewController: UIViewController {
                 textView.textColor = .black
                })
             .disposed(by: disposeBag)
-
-        writeReviewViewModel.registerText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(registerButton.rx.title(for: .normal))
+        
+        writeReviewViewModel.selectedStar
+            .asObservable()
+            .map { selected in
+                return Array(0..<5).map { $0 < selected }
+            }
+            .bind(to: starCollectionView.rx.items(cellIdentifier: "StarCollectionViewCell", cellType: StarCollectionViewCell.self)) { row, isFilled, cell in
+                cell.configure(isFilled: isFilled)
+            }
             .disposed(by: disposeBag)
         
+        starCollectionView.rx.itemSelected
+            .map { $0.row }
+            .bind(onNext: writeReviewViewModel.didSelectStar(at:))
+            .disposed(by: disposeBag)
         
-
 
         writeReviewViewModel.selectedPhotosRelay
             .map { [UIImage(named: "tomato")!] + $0 }
@@ -111,8 +134,71 @@ class WriteReviewViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        //MARK: firstCollectionView
+        firstCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        writeReviewViewModel.firstItems
+            .bind(to: firstCollectionView.rx.items(cellIdentifier: "ButtonCollectionViewCell", cellType: ButtonCollectionViewCell.self)) { row, element, cell in
+                cell.tabButton.setTitle(element, for: .normal)
+            }
+            .disposed(by: disposeBag)
+        
+        writeReviewViewModel.firstSelectedIndexPath
+                .bind(to: firstCollectionView.rx.updateSelectedCellBorderColor)
+                .disposed(by: disposeBag)
+        
+        firstCollectionView.rx.itemSelected
+            .bind(to: writeReviewViewModel.firstSelectedIndexPath)
+            .disposed(by: disposeBag)
+        
+        firstCollectionView.rx.itemSelected
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                switch indexPath.row {
+                case 0:
+                    self.slideViewTwoIn()
+                default:
+                    self.slideViewTwoOut()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        //MARK: secondCollectionView
+        secondCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        writeReviewViewModel.secondItems
+            .bind(to: secondCollectionView.rx.items(cellIdentifier: "ButtonCollectionViewCell", cellType: ButtonCollectionViewCell.self)) { row, element, cell in
+                cell.tabButton.setTitle(element, for: .normal)
+            }
+            .disposed(by: disposeBag)
+        
+        writeReviewViewModel.secondSelectedIndexPath
+                .bind(to: secondCollectionView.rx.updateSelectedCellBorderColor)
+                .disposed(by: disposeBag)
+        
+        secondCollectionView.rx.itemSelected
+            .bind(to: writeReviewViewModel.secondSelectedIndexPath)
+            .disposed(by: disposeBag)
 
-
+        //MARK: thirdCollectionView
+        thirdCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        writeReviewViewModel.thirdItems
+            .bind(to: thirdCollectionView.rx.items(cellIdentifier: "ButtonCollectionViewCell", cellType: ButtonCollectionViewCell.self)) { row, element, cell in
+                cell.tabButton.setTitle(element, for: .normal)
+            }
+            .disposed(by: disposeBag)
+        
+        writeReviewViewModel.thirdSelectedIndexPath
+                .bind(to: thirdCollectionView.rx.updateSelectedCellBorderColor)
+                .disposed(by: disposeBag)
+        
+        thirdCollectionView.rx.itemSelected
+            .bind(to: writeReviewViewModel.thirdSelectedIndexPath)
+            .disposed(by: disposeBag)
+        
+        
         
     }
 
@@ -121,13 +207,21 @@ class WriteReviewViewController: UIViewController {
     func attribute(){
         view.backgroundColor = UIColor(hexCode: "F5F5F5")
         
+        scrollView.do{
+            $0.isScrollEnabled = true
+            $0.contentSize = CGSize(width: self.view.frame.width, height: 800 * Constants.standardHeight)
+
+        }
+        
         backButton.do {
             $0.setImage(UIImage(systemName: "xmark"), for: .normal)
+            $0.tintColor = .black
         }
         
         writeReviewLabel.do{
             $0.textAlignment = .center
             $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.text = writeReviewViewModel.titleText
         }
         
         separateFirstView.do{
@@ -138,10 +232,28 @@ class WriteReviewViewController: UIViewController {
             $0.backgroundColor = UIColor(hexCode: "D9D9D9")
         }
         
-        
-        [quesFirstLabel,quesSecondLabel,quesThirdLabel,quesFourthLabel].forEach{
+        quesFirstLabel.do{
             $0.textAlignment = .center
             $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.text = writeReviewViewModel.firstText
+        }
+        
+        quesSecondLabel.do{
+            $0.textAlignment = .center
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.text = writeReviewViewModel.secondText
+        }
+        
+        quesThirdLabel.do{
+            $0.textAlignment = .center
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.text = writeReviewViewModel.thirdText
+        }
+        
+        quesFourthLabel.do{
+            $0.textAlignment = .center
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.text = writeReviewViewModel.fourthText
         }
         
         starCollectionView.do{
@@ -166,7 +278,12 @@ class WriteReviewViewController: UIViewController {
             $0.layer.borderColor = UIColor(named: "gray10")?.cgColor
             $0.textColor = UIColor(named: "gray20")
             $0.font = UIFont(name: "Pretendard-Medium", size: 16)
-            
+            $0.text = writeReviewViewModel.placeholderText
+        }
+        
+        [firstCollectionView,secondCollectionView,thirdCollectionView].forEach{
+            $0.backgroundColor = UIColor(hexCode: "F5F5F5")
+            $0.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: "ButtonCollectionViewCell")
         }
         
         
@@ -175,7 +292,7 @@ class WriteReviewViewController: UIViewController {
             $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
             $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
             $0.setTitle("next", for: .normal)
-            $0.backgroundColor = UIColor(named: "bgColor")
+            $0.backgroundColor = UIColor(hexCode: "F5F5F5")
             $0.layer.cornerRadius = 8
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
@@ -200,7 +317,7 @@ class WriteReviewViewController: UIViewController {
         }
 
         writeReviewLabel.snp.makeConstraints { make in
-            //make.width.equalToSuperview()
+            //make.width.equalTo(150*Constants.standardWidth)
             //make.height.equalTo(5*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(59*Constants.standardHeight)
@@ -215,8 +332,8 @@ class WriteReviewViewController: UIViewController {
 
         scrollView.snp.makeConstraints { make in
             make.width.equalToSuperview()
-            //make.height.equalTo(18*Constants.standardHeight)
-            make.leading.bottom.trailing.equalToSuperview()
+            make.height.equalTo(740*Constants.standardHeight)
+            make.leading.equalToSuperview()
             make.top.equalTo(separateFirstView.snp.bottom)
         }
         
@@ -233,10 +350,10 @@ class WriteReviewViewController: UIViewController {
         }
         
         starCollectionView.snp.makeConstraints { make in
-            make.width.equalTo(359*Constants.standardWidth)
-            make.height.equalTo(101*Constants.standardHeight)
+            make.width.equalTo(300*Constants.standardWidth)
+            make.height.equalTo(50*Constants.standardHeight)
             make.leading.equalToSuperview().offset(24*Constants.standardWidth)
-            make.top.equalTo(quesFirstLabel.snp.bottom).offset(11*Constants.standardHeight)
+            make.top.equalTo(quesFirstLabel.snp.bottom)
         }
         
         
@@ -244,7 +361,7 @@ class WriteReviewViewController: UIViewController {
             make.width.equalTo(359*Constants.standardWidth)
             make.height.equalTo(101*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalTo(quesFirstLabel.snp.bottom).offset(67*Constants.standardHeight)
+            make.top.equalTo(starCollectionView.snp.bottom)
         }
         
         textView.snp.makeConstraints { make in
@@ -261,6 +378,56 @@ class WriteReviewViewController: UIViewController {
             make.top.equalTo(textView.snp.bottom).offset(16*Constants.standardHeight)
         }
         
+        [quesSecondLabel,firstCollectionView]
+            .forEach { UIView in
+                viewOne.addSubview(UIView)
+            }
+        
+        quesSecondLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview()
+        }
+        
+        firstCollectionView.snp.makeConstraints { make in
+            make.width.equalTo(359*Constants.standardWidth)
+            make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(quesSecondLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        [quesThirdLabel,secondCollectionView]
+            .forEach { UIView in
+                viewTwo.addSubview(UIView)
+            }
+        
+        quesThirdLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview()
+        }
+        
+        secondCollectionView.snp.makeConstraints { make in
+            make.width.equalTo(300*Constants.standardWidth)
+            make.height.equalTo(80*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(quesThirdLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
+        
+        [quesFourthLabel,thirdCollectionView]
+            .forEach { UIView in
+                viewThree.addSubview(UIView)
+            }
+        
+        quesFourthLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview()
+        }
+        
+        thirdCollectionView.snp.makeConstraints { make in
+            make.width.equalTo(359*Constants.standardWidth)
+            make.height.equalTo(35*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(quesFourthLabel.snp.bottom).offset(16*Constants.standardHeight)
+        }
         
         
         [viewOne,viewTwo,viewThree,registerButton]
@@ -293,13 +460,56 @@ class WriteReviewViewController: UIViewController {
             make.width.equalTo(343*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.bottom.equalToSuperview().offset(-35*Constants.standardHeight)
+            make.top.equalTo(viewThree.snp.bottom).offset(50*Constants.standardHeight)
         }
         
-       
-        
-        
+    }
+    
+    private func slideViewTwoIn() {
+        UIView.animate(withDuration: 0.5) { [self] in
+            self.viewTwo.transform = CGAffineTransform(translationX: -self.viewTwo.bounds.width, y: 0)
+            self.viewThree.transform = CGAffineTransform(translationX: 0, y: self.viewTwo.bounds.height)
+            self.registerButton.transform = CGAffineTransform(translationX: 0, y: self.viewTwo.bounds.height)
+            self.view.layoutIfNeeded()
+        }
+    }
 
+    private func slideViewTwoOut() {
+        UIView.animate(withDuration: 0.5){ [self] in
+            self.viewTwo.transform = CGAffineTransform(translationX: self.viewTwo.bounds.width, y: 0)
+            self.viewThree.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.registerButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+}
+
+extension WriteReviewViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var items = writeReviewViewModel.firstItems.value
+        if collectionView == firstCollectionView {
+            items = writeReviewViewModel.firstItems.value
+        } else if collectionView == secondCollectionView {
+            items = writeReviewViewModel.secondItems.value
+        } else if collectionView == thirdCollectionView{
+            items = writeReviewViewModel.thirdItems.value
+        } else {
+            return CGSize(width: 0, height: 0)
+        }
+        guard indexPath.item < items.count else {
+            return CGSize(width: 0, height: 0)
+        }
+        
+        let text = items[indexPath.item]
+        let font = UIFont(name: "Pretendard-Medium", size: 14)
+        
+        let textSize = text.size(withAttributes: [NSAttributedString.Key.font: font])
+        
+        let width = textSize.width + 16 * 2 * Constants.standardWidth  // 좌우 패딩
+        let height = textSize.height + 8 * 2 * Constants.standardHeight // 상하 패딩
+        
+        return CGSize(width: width, height: height)
     }
 }
 

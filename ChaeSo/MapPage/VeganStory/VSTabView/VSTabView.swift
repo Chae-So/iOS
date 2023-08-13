@@ -10,9 +10,10 @@ class VSTabView: UIView {
     private let rightActiveTabIndicator = UIView()
     private let infoView = InfoView()
     private let menuView = MenuView()
-    private let reviewView = ReviewView()
+    private let reviewView = ReviewView(reviewViewModel: ReviewViewModel(localizationManager: LocalizationManager.shared))
     private let vsTabViewModel: VSTabViewModel
     private let disposeBag = DisposeBag()
+    let presentWriteReviewRelay = PublishRelay<Void>()
 
     init(vsTabViewModel: VSTabViewModel) {
         self.vsTabViewModel = vsTabViewModel
@@ -27,6 +28,10 @@ class VSTabView: UIView {
     }
     
     func bind(){
+        reviewView.presentWriteReviewRelay
+                .bind(to: presentWriteReviewRelay)
+                .disposed(by: disposeBag)
+        
         vsTabViewModel.tabItems
             .bind(to: tabCollectionView.rx.items(cellIdentifier: "VSTabCell", cellType: VSTabCell.self)) { row, element, cell in
                 cell.titleLabel.text = element

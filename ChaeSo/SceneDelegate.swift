@@ -25,8 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //let rootViewController = StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
         //let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
 
-        //var rootViewModel = VeganStoryViewModel(localizationManager: LocalizationManager.shared)
-        //let rootViewController = VeganStoryViewController(veganStoryViewModel: rootViewModel)
+        //let rootViewController = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
+        
+        let rootViewController = TabBarController(viewModel: TabBarViewModel())
         
         //let rootViewController = MainPTCollectionViewController(mainPTCollectionViewModel: MainPTCollectionViewModel())
         
@@ -34,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //let rootViewController = WriteChaesoLogViewController(writeChaesoLogViewModel: WriteChaesoLogViewModel(localizationManager: LocalizationManager.shared))
         
-        let rootViewController = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
+        //let rootViewController = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = CommentViewController(commentViewModel: CommentViewModel(localizationManager: LocalizationManager.shared))
         

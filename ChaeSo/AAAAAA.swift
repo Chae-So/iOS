@@ -133,50 +133,17 @@ class YourViewController: UIViewController {
     }
     
     private func slideView2In() {
-        //self.view2TopConstraint?.update(offset: 0) // view2를 view1 바로 밑으로 이동
         UIView.animate(withDuration: 0.5) { [self] in
-            
-//            self.view2.snp.makeConstraints { make in
-//                make.width.equalToSuperview()
-//                make.height.equalTo(50*Constants.standardHeight)
-//                make.leading.equalToSuperview()
-//                make.top.equalTo(view1.snp.bottom)
-//            }
-//
-//            self.view3.snp.updateConstraints { make in
-//                make.width.equalToSuperview()
-//                make.height.equalTo(50*Constants.standardHeight)
-//                make.leading.equalToSuperview()
-//                make.top.equalTo(view1.snp.bottom).offset(100)
-//            }
             self.view2.transform = CGAffineTransform(translationX: -self.view2.bounds.width, y: 0)
             self.view3.transform = CGAffineTransform(translationX: 0, y: self.view3.bounds.height)
-            
-            
-            
             self.view.layoutIfNeeded()
         }
     }
 
     private func slideView2Out() {
         UIView.animate(withDuration: 0.5){ [self] in
-//            self.view2.snp.makeConstraints { make in
-//                make.width.equalToSuperview()
-//                make.height.equalTo(50*Constants.standardHeight)
-//                make.leading.equalTo(view.snp.trailing)
-//                make.top.equalTo(view1.snp.bottom)
-//            }
-//
-//            self.view3.snp.updateConstraints { make in
-//                make.width.equalToSuperview()
-//                make.height.equalTo(50*Constants.standardHeight)
-//                make.leading.equalToSuperview()
-//                make.top.equalTo(view1.snp.bottom).offset(100)
-//            }
             self.view2.transform = CGAffineTransform(translationX: self.view2.bounds.width, y: 0)
             self.view3.transform = CGAffineTransform(translationX: 0, y: 0)
-            
-            
             self.view.layoutIfNeeded()
         }
     }

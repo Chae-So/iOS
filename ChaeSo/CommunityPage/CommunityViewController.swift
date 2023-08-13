@@ -231,15 +231,15 @@ extension CommunityViewController: UITableViewDelegate {
         //print("labelHeights[indexPath] ?? 0",labelHeights[indexPath] ?? 0,indexPath.row)
         return UITableView.automaticDimension
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            let offsetY = scrollView.contentOffset.y
-            let contentHeight = scrollView.contentSize.height
-            let height = scrollView.frame.size.height
-
-            if offsetY > contentHeight - height { // 맨 아래에서의 스크롤 위치를 초과한 경우
-                scrollView.contentOffset.y = contentHeight - height
-            }
-        }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//            let offsetY = scrollView.contentOffset.y
+//            let contentHeight = scrollView.contentSize.height
+//            let height = scrollView.frame.size.height
+//
+//            if offsetY > contentHeight - height { // 맨 아래에서의 스크롤 위치를 초과한 경우
+//                scrollView.contentOffset.y = contentHeight - height
+//            }
+//        }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return labelHeights[indexPath] ?? UITableView.automaticDimension

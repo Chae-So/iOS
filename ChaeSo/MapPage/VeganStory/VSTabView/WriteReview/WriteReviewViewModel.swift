@@ -9,18 +9,37 @@ protocol PhotoViewModelProtocol {
 class WriteReviewViewModel: PhotoViewModelProtocol{
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
+    
+    let selectedStar: BehaviorRelay<Int> = BehaviorRelay(value: 0)
     var selectedPhotosRelay: BehaviorRelay<[UIImage]> = BehaviorRelay(value: [])
+    
+    let firstItems = BehaviorRelay<[String]>(value: [])
+    let secondItems = BehaviorRelay<[String]>(value: [])
+    let thirdItems = BehaviorRelay<[String]>(value: [])
+    
+    let firstSelectedIndexPath = BehaviorRelay<IndexPath?>(value: nil)
+    let secondSelectedIndexPath = BehaviorRelay<IndexPath?>(value: nil)
+    let thirdSelectedIndexPath = BehaviorRelay<IndexPath?>(value: nil)
     
     // Input
     var titleText: String {
         return localizationManager.localizedString(forKey: "Write a review")
     }
-    let firstText = BehaviorRelay<String>(value: "")
-    let secondText = BehaviorRelay<String>(value: "")
-    let thirdText = BehaviorRelay<String>(value: "")
-    let fourthText = BehaviorRelay<String>(value: "")
-    let addText = BehaviorRelay<String>(value: "")
-    let placeholderText = BehaviorRelay<String>(value: "")
+    var firstText: String {
+        return localizationManager.localizedString(forKey: "How was the place you visited?")
+    }
+    var secondText: String {
+        return localizationManager.localizedString(forKey: "Did you have a group?")
+    }
+    var thirdText: String {
+        return localizationManager.localizedString(forKey: "What is the vegetarian type of the group?")
+    }
+    var fourthText: String {
+        return localizationManager.localizedString(forKey: "Was there any non-vegan food?")
+    }
+    var placeholderText: String {
+        return localizationManager.localizedString(forKey: "Please share details of your visit experience.")
+    }
     
     let aloneText = BehaviorRelay<String>(value: "")
     let friendText = BehaviorRelay<String>(value: "")
@@ -30,11 +49,13 @@ class WriteReviewViewModel: PhotoViewModelProtocol{
     let ovoText = BehaviorRelay<String>(value: "")
     let polloText = BehaviorRelay<String>(value: "")
     let pescoText = BehaviorRelay<String>(value: "")
-    let flexitarian = BehaviorRelay<String>(value: "")
+    let flexitarianText = BehaviorRelay<String>(value: "")
     let nonVeganText = BehaviorRelay<String>(value: "")
     let yesText = BehaviorRelay<String>(value: "")
     let noText = BehaviorRelay<String>(value: "")
-    let registerText = BehaviorRelay<String>(value: "")
+    var registerText: String {
+        return localizationManager.localizedString(forKey: "Register")
+    }
     
     let aloneButtonTapped = PublishRelay<Void>()
     
@@ -56,20 +77,28 @@ class WriteReviewViewModel: PhotoViewModelProtocol{
         self.localizationManager = localizationManager
         self.updateLocalization()
         
+        Observable.combineLatest(aloneText, friendText, familyText)
+            .subscribe(onNext: { [weak self] a, b, c in
+                self?.firstItems.accept([a, b, c])
+            })
+            .disposed(by: disposeBag)
         
+        Observable.combineLatest(veganText, lactoText, ovoText, pescoText, polloText, flexitarianText, nonVeganText)
+            .subscribe(onNext: { [weak self] a, b, c, d, e, f, g in
+                self?.secondItems.accept([a, b, c, d, e, f, g])
+            })
+            .disposed(by: disposeBag)
         
-        
+        Observable.combineLatest(yesText, noText)
+            .subscribe(onNext: { [weak self] a, b in
+                self?.thirdItems.accept([a, b])
+            })
+            .disposed(by: disposeBag)
         
     }
     
     private func updateLocalization() {
-        firstText.accept(localizationManager.localizedString(forKey: "How was the place you visited?"))
-        secondText.accept(localizationManager.localizedString(forKey: "Did you have a group?"))
-        thirdText.accept(localizationManager.localizedString(forKey: "What is the vegetarian type of the group?"))
-        fourthText.accept(localizationManager.localizedString(forKey: "Was there any non-vegan food?"))
 
-        addText.accept(localizationManager.localizedString(forKey: "Add"))
-        placeholderText.accept(localizationManager.localizedString(forKey: "Please share details of your visit experience."))
         aloneText.accept(localizationManager.localizedString(forKey: "Alone"))
         friendText.accept(localizationManager.localizedString(forKey: "With Friend"))
         familyText.accept(localizationManager.localizedString(forKey: "With Family"))
@@ -78,12 +107,17 @@ class WriteReviewViewModel: PhotoViewModelProtocol{
         ovoText.accept(localizationManager.localizedString(forKey: "Ovo"))
         polloText.accept(localizationManager.localizedString(forKey: "Pesco"))
         pescoText.accept(localizationManager.localizedString(forKey: "Pollo"))
-        flexitarian.accept(localizationManager.localizedString(forKey: "Flexitarian"))
+        flexitarianText.accept(localizationManager.localizedString(forKey: "Flexitarian"))
         nonVeganText.accept(localizationManager.localizedString(forKey: "Non-Vegan"))
         yesText.accept(localizationManager.localizedString(forKey: "Yes"))
-        nonVeganText.accept(localizationManager.localizedString(forKey: "No"))
-        registerText.accept(localizationManager.localizedString(forKey: "Register"))
+        noText.accept(localizationManager.localizedString(forKey: "No"))
+        
     }
+    
+    func didSelectStar(at index: Int) {
+        selectedStar.accept(index + 1)
+    }
+    
 }
 
 

@@ -7,7 +7,7 @@ class VeganStoryViewController: UIViewController {
     
     // MARK: - Properties
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     var veganStoryViewModel: VeganStoryViewModel
     
     // MARK: - UI Elements
@@ -34,9 +34,23 @@ class VeganStoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bind()
+        //bind()
         attribute()
         layout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // 구독 설정
+        bind()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        // 구독 해제
+        disposeBag = DisposeBag()
     }
     
     
@@ -46,6 +60,15 @@ class VeganStoryViewController: UIViewController {
             .drive(veganStoryLabel.rx.text)
             .disposed(by: disposeBag)
         
+        vsTabView.presentWriteReviewRelay
+                .subscribe(onNext: { [weak self] in
+                    let writeReviewViewController = WriteReviewViewController(writeReviewViewModel: WriteReviewViewModel(localizationManager: LocalizationManager.shared))
+                    writeReviewViewController.modalPresentationStyle = .fullScreen
+                    //self?.present(writeReviewViewController, animated: true, completion: nil)
+                    print(123123)
+                    self?.show(writeReviewViewController, sender: nil)
+                })
+                .disposed(by: disposeBag)
         
     }
 

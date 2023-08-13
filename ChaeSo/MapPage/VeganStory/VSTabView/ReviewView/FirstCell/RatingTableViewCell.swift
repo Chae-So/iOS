@@ -1,7 +1,12 @@
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 
 class RatingTableViewCell: UITableViewCell {
+    var disposeBag = DisposeBag()
+    
+    let writeReviewButtonTapped = PublishRelay<Void>()
     
     let starImageView = UIImageView()
     let ratingLabel = UILabel()
@@ -22,6 +27,14 @@ class RatingTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = .none
+        
+        writeReviewButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.writeReviewButtonTapped.accept(())
+            })
+            .disposed(by: disposeBag)
+        
         attribute()
         layout()
         
@@ -30,6 +43,11 @@ class RatingTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        disposeBag = DisposeBag()
+//    }
     
     func attribute(){
         ratingLabel.text = "4.3 / 5"
@@ -91,7 +109,7 @@ class RatingTableViewCell: UITableViewCell {
     func layout(){
         [starImageView,ratingLabel,oneLabel,twoLabel,threeLabel,fourLabel,fiveLabel,firstGaugeView,secondGaugeView,thirdGaugeView,fourthGaugeView,fifthGaugeView,writeReviewButton]
             .forEach { UIView in
-                addSubview(UIView)
+                contentView.addSubview(UIView)
             }
         
         starImageView.snp.makeConstraints { make in
@@ -102,42 +120,42 @@ class RatingTableViewCell: UITableViewCell {
         }
         
         ratingLabel.snp.makeConstraints { make in
-            //make.width.equalTo(28*Constants.standardWidth)
+            make.width.equalTo(50*Constants.standardWidth)
             make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(61*Constants.standardWidth)
             make.top.equalToSuperview().offset(18*Constants.standardHeight)
         }
         
         fiveLabel.snp.makeConstraints { make in
-            //make.width.equalTo(28*Constants.standardWidth)
+            make.width.equalTo(10*Constants.standardWidth)
             make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(35*Constants.standardWidth)
             make.top.equalToSuperview().offset(57*Constants.standardHeight)
         }
         
         fourLabel.snp.makeConstraints { make in
-            //make.width.equalTo(28*Constants.standardWidth)
+            make.width.equalTo(10*Constants.standardWidth)
             make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(34*Constants.standardWidth)
             make.top.equalTo(fiveLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         threeLabel.snp.makeConstraints { make in
-            //make.width.equalTo(28*Constants.standardWidth)
+            make.width.equalTo(10*Constants.standardWidth)
             make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(34*Constants.standardWidth)
             make.top.equalTo(fourLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         twoLabel.snp.makeConstraints { make in
-            //make.width.equalTo(28*Constants.standardWidth)
+            make.width.equalTo(10*Constants.standardWidth)
             make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(34*Constants.standardWidth)
             make.top.equalTo(threeLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         oneLabel.snp.makeConstraints { make in
-            //make.width.equalTo(28*Constants.standardWidth)
+            make.width.equalTo(10*Constants.standardWidth)
             make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(34*Constants.standardWidth)
             make.top.equalTo(twoLabel.snp.bottom).offset(8*Constants.standardHeight)
@@ -179,11 +197,11 @@ class RatingTableViewCell: UITableViewCell {
         }
         
         writeReviewButton.snp.makeConstraints { make in
-            //make.width.equalTo(298*Constants.standardWidth)
-            //make.height.equalTo(10*Constants.standardHeight)
-            //make.leading.equalToSuperview().offset(128*Constants.standardWidth)
+            make.width.equalTo(120*Constants.standardWidth)
+            //make.height.equalTo(35*Constants.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(201*Constants.standardHeight)
+            make.top.equalTo(fifthGaugeView.snp.bottom).offset(20*Constants.standardHeight)
+            make.bottom.equalToSuperview().offset(-17*Constants.standardHeight)
         }
         
     }

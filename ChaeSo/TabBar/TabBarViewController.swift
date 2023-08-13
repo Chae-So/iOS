@@ -14,7 +14,9 @@ class TabBarController: UITabBarController {
     init(viewModel: TabBarViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        tabBar.backgroundColor = .white
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,8 +28,8 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         // Set up the view controllers
-        let communityVC = CommunityViewController(communityViewModel: viewModel.communityViewModel)
-        let mapVC = MapViewController()
+        let communityVC = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
+        let mapVC = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
         let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
         
         communityVC.tabBarItem = UITabBarItem(title: "커뮤니티", image: UIImage(systemName: "house"), tag: 0)

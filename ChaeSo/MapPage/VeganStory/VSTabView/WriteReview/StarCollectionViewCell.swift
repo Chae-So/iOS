@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class StarCollectionViewCell: UICollectionViewCell {
     var starImage = UIImageView()
@@ -22,7 +23,7 @@ class StarCollectionViewCell: UICollectionViewCell {
     }
     
     func attribute(){
-        //starImage.contentMode = .scaleAspectFit
+        starImage.contentMode = .scaleAspectFit
         starImage.image = UIImage(named: "star")
     }
     
@@ -31,6 +32,10 @@ class StarCollectionViewCell: UICollectionViewCell {
         starImage.snp.makeConstraints { make in
             make.top.leading.bottom.trailing.equalToSuperview()
         }
+    }
+    
+    func configure(isFilled: Bool) {
+        starImage.image = isFilled ? UIImage(named: "starFill") : UIImage(named: "star")
     }
 
    

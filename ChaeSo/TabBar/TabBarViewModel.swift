@@ -6,7 +6,7 @@ class TabBarViewModel {
     
     // MARK: - Properties
     
-    let model: TabBarModel
+    //let model: TabBarModel
     
     // MARK: - Inputs
     
@@ -14,16 +14,17 @@ class TabBarViewModel {
     
     // MARK: - Outputs
     
-    let communityViewModel: CommunityViewModel
-    let mapViewModel: MapViewModel
-    let myPageViewModel: MyPageViewModel
     
-    init(model: TabBarModel, communityViewModel: CommunityViewModel, mapViewModel: MapViewModel, myPageViewModel: MyPageViewModel) {
-        self.model = model
-        self.communityViewModel = communityViewModel
-        self.mapViewModel = mapViewModel
-        self.myPageViewModel = myPageViewModel
-    }
+//    let communityViewModel: CommunityViewModel
+//    let mapViewModel: MapViewModel
+//    let myPageViewModel: MyPageViewModel
+//
+//    init(communityViewModel: CommunityViewModel, mapViewModel: MapViewModel, myPageViewModel: MyPageViewModel) {
+//        self.model = model
+//        self.communityViewModel = communityViewModel
+//        self.mapViewModel = mapViewModel
+//        self.myPageViewModel = myPageViewModel
+//    }
     
     
 }

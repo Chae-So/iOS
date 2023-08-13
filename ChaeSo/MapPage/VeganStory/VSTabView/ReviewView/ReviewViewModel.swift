@@ -9,6 +9,7 @@ class ReviewViewModel {
     let viewPhotoReviewsText = BehaviorRelay<String>(value: "")
     let followText = BehaviorRelay<String>(value: "")
     
+    let cellData = Driver<[[String]]>.just([["a"],["c"]])
     
     
     init(localizationManager: LocalizationManager) {
