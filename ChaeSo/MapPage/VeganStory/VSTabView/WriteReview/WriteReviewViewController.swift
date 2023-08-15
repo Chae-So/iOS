@@ -502,7 +502,7 @@ extension WriteReviewViewController: UICollectionViewDelegateFlowLayout {
         }
         
         let text = items[indexPath.item]
-        let font = UIFont(name: "Pretendard-Medium", size: 14)
+        let font = UIFont(name: "Pretendard-Medium", size: 16)
         
         let textSize = text.size(withAttributes: [NSAttributedString.Key.font: font])
         

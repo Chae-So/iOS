@@ -27,6 +27,7 @@ class RatingTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = .none
+        self.backgroundColor = UIColor(hexCode: "F5F5F5")
         
         writeReviewButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -44,10 +45,7 @@ class RatingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        disposeBag = DisposeBag()
-//    }
+
     
     func attribute(){
         ratingLabel.text = "4.3 / 5"

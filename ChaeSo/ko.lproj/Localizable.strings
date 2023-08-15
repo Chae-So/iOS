@@ -39,11 +39,13 @@
 "Please click Duplicate Check" = "중복확인을 눌러주세요";
 
 //MARK: VeganPage
+"Hello" = "%@님의\n비건 단계를 선택해 주세요.";
 "Vegan" = "비건";
 "Lacto" = "락토";
 "Ovo" = "오보";
 "Pesco" = "페스코";
 "Pollo" = "폴로";
+"Flexitarian" = "플렉시테리언";
 
 //MARK: SearchingPage
 "Looking for a good restaurant near you" = "주변의 맛있는 식당을 찾고 있어요";
@@ -81,7 +83,6 @@
 "With Friend" = "친구와";
 "With Family" = "가족과";
 "What is the vegetarian type of the group?" = "일행의 채식 타입은 무엇인가요?";
-"Flexitarian" = "플렉시테리언";
 "Non-Vegan" = "논비건";
 "Was there any non-vegan food?" = "논비건 음식이 있나요?";
 "Yes" = "예";

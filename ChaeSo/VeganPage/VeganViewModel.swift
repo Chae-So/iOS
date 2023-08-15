@@ -2,105 +2,78 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+struct Nickname{
+    let name: String
+}
+
+struct VeganStage{
+    let image: UIImage?
+    let text: String
+}
+
 class VeganViewModel{
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
     
-    // Input
-    let veganText = BehaviorRelay<String>(value: "")
-    let lactoText = BehaviorRelay<String>(value: "")
-    let ovoText = BehaviorRelay<String>(value: "")
-    let polloText = BehaviorRelay<String>(value: "")
-    let pescoText = BehaviorRelay<String>(value: "")
-    let isFirstVisitLabelText = BehaviorRelay<String>(value: "")
-    let signupButtonText = BehaviorRelay<String>(value: "")
+    var titleText: String{
+        return localizationManager.localizedString(forKey: "Hello",arguments: "씩씩한 시금치")
+    }
     
-    let veganButtonTapped = PublishRelay<Void>()
-    let lactoButtonTapped = PublishRelay<Void>()
-    let ovoButtonTapped = PublishRelay<Void>()
-    let pescoButtonTapped = PublishRelay<Void>()
-    let polloButtonTapped = PublishRelay<Void>()
+    var veganText: String{
+        return localizationManager.localizedString(forKey: "Vegan")
+    }
+    var lactoText: String{
+        return localizationManager.localizedString(forKey: "Lacto")
+    }
+    var ovoText: String{
+        return localizationManager.localizedString(forKey: "Ovo")
+    }
+    var pescoText: String{
+        return localizationManager.localizedString(forKey: "Pesco")
+    }
+    var polloText: String{
+        return localizationManager.localizedString(forKey: "Pollo")
+    }
+    var flexitarianText: String{
+        return localizationManager.localizedString(forKey: "Flexitarian")
+    }
+    let signupButtonText = BehaviorRelay<String>(value: "")
+
     
     // Output
-    let titleText = BehaviorRelay<String>(value: "")
-    var allValid: Observable<Bool> = Observable.just(false)
-    var selectedVegan = PublishRelay<Bool>()
-    var selectedLacto = PublishRelay<Bool>()
-    var selectedOvo = PublishRelay<Bool>()
-    var selectedPesco = PublishRelay<Bool>()
-    var selectedPollo = PublishRelay<Bool>()
+    let firstSelectedIndexPath = BehaviorRelay<IndexPath?>(value: nil)
+    
+    var cellData = Driver<[VeganStage]>.just([])
+    var currentCellData: [VeganStage] = []
+
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
         self.updateLocalization()
         
-        veganButtonTapped
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                self.selectedVegan.accept(true)
-                self.selectedLacto.accept(false)
-                self.selectedOvo.accept(false)
-                self.selectedPesco.accept(false)
-                self.selectedPollo.accept(false)
-            })
-            .disposed(by: disposeBag)
-                
-        lactoButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(true)
-                    self.selectedOvo.accept(false)
-                    self.selectedPesco.accept(false)
-                    self.selectedPollo.accept(false)
-            })
-            .disposed(by: disposeBag)
+        cellData = Driver.just(
+            [VeganStage(image: UIImage(named: "firstVegan"), text: veganText),
+             VeganStage(image: UIImage(named: "secondVegan"), text: lactoText),
+             VeganStage(image: UIImage(named: "thirdVegan"), text: ovoText),
+             VeganStage(image: UIImage(named: "fourthVegan"), text: pescoText),
+             VeganStage(image: UIImage(named: "fifthVegan"), text: polloText),
+             VeganStage(image: UIImage(named: "sixthVegan"), text: flexitarianText)
+             
+            ])
         
-        ovoButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(false)
-                    self.selectedOvo.accept(true)
-                    self.selectedPesco.accept(false)
-                    self.selectedPollo.accept(false)
+        cellData
+            .drive(onNext: { [weak self] data in
+                self?.currentCellData = data
             })
             .disposed(by: disposeBag)
+
         
-        pescoButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(false)
-                    self.selectedOvo.accept(false)
-                    self.selectedPesco.accept(true)
-                    self.selectedPollo.accept(false)
-            })
-            .disposed(by: disposeBag)
         
-        polloButtonTapped
-            .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    self.selectedVegan.accept(false)
-                    self.selectedLacto.accept(false)
-                    self.selectedOvo.accept(false)
-                    self.selectedPesco.accept(false)
-                    self.selectedPollo.accept(true)
-            })
-            .disposed(by: disposeBag)
-        
-        allValid = Observable.combineLatest(selectedVegan.asObservable(), selectedLacto.asObservable(), selectedOvo.asObservable(), selectedPesco.asObservable(), selectedPollo.asObservable())
-            .map{ $0 || $1 || $2 || $3 || $4}
         
         
     }
     
     private func updateLocalization() {
-        veganText.accept(localizationManager.localizedString(forKey: "Vegan"))
-        lactoText.accept(localizationManager.localizedString(forKey: "Lacto"))
-        ovoText.accept(localizationManager.localizedString(forKey: "Ovo"))
-        polloText.accept(localizationManager.localizedString(forKey: "Pollo"))
-        pescoText.accept(localizationManager.localizedString(forKey: "Pesco"))
 
     }
 }

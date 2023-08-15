@@ -41,11 +41,13 @@
 
 
 //MARK: VeganPage
+"Hello" = "Hello! %@\nPlease select the vegan stage";
 "Vegan" = "Vegan";
 "Lacto" = "Lacto";
 "Ovo" = "Ovo";
 "Pesco" = "Pesco";
 "Pollo" = "Pollo";
+"Flexitarian" = "Flexitarian";
 
 //MARK: SearchingPage
 "Looking for a good restaurant near you" = "Looking for a good restaurant near you";
@@ -83,7 +85,6 @@
 "With Friend" = "With Friend";
 "With Family" = "With Family";
 "What is the vegetarian type of the group?" = "What is the vegetarian type of the group?";
-"Flexitarian" = "Flexitarian";
 "Non-Vegan" = "Non-Vegan";
 "Was there any non-vegan food?" = "Was there any non-vegan food?";
 "Yes" = "Yes";
