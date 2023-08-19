@@ -120,5 +120,17 @@ extension Reactive where Base: UICollectionView {
             }
         }
     }
+    
+    
+    var updateSelectedCellTextColor: Binder<IndexPath?> {
+        return Binder(self.base) { collectionView, indexPath in
+            for visibleCell in collectionView.visibleCells {
+                if let cell = visibleCell as? VSTabCell, let cellIndexPath = collectionView.indexPath(for: visibleCell) {
+                    cell.titleLabel.textColor = (cellIndexPath == indexPath) ? .black : .gray
+                }
+            }
+        }
+    }
+    
 }
 

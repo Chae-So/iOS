@@ -211,12 +211,7 @@ extension CommentViewController: UITableViewDelegate{
         // replies의 개수에 따라서 답글 보기 버튼의 텍스트를 설정
         let repliesText = commentViewModel.localizationManager.localizedString(forKey: "View replies", arguments: comment.replies.count)
         headerView.showRepliesButton.setTitle(repliesText, for: .normal)
-        
-        //        //replies View replies(1)
-        //        myPageviewModel.myChaesoText
-        //            .asDriver(onErrorDriveWith: .empty())
-        //            .drive(myChaesoLabel.rx.text)
-        //            .disposed(by: disposeBag)
+
         
         headerView.showRepliesButton.rx.tap
             .subscribe(onNext: { [weak self] in

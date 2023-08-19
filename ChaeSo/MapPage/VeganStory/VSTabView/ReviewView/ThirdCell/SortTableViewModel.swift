@@ -31,7 +31,6 @@ class SortTableViewModel{
         Observable.combineLatest(aloneText, friendText, familyText)
             .subscribe(onNext: { [weak self] a, b, c in
                 self?.firstItems.accept([a, b, c])
-                print(123123123)
             })
             .disposed(by: disposeBag)
         

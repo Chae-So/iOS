@@ -15,7 +15,6 @@ class PhotoReviewTableViewModel{
 
         init() {
             images.subscribe(onNext: { _ in
-                print("이미지들어옴")
             }).disposed(by: disposeBag)
         }
 }

@@ -52,6 +52,7 @@ class RatingTableViewCell: UITableViewCell {
         
         starImageView.image = UIImage(named: "starFill")
         
+        
         ratingLabel.textAlignment = .center
         ratingLabel.font = UIFont(name: "Pretendard-SemiBord", size: 16)
         

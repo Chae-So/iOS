@@ -40,11 +40,9 @@ class SortTableViewCell: UITableViewCell {
     func bind(sortTableViewModel: SortTableViewModel){
         self.sortTableViewModel = sortTableViewModel
         firstCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        print(sortTableViewModel.firstItems.value)
         sortTableViewModel.firstItems
             .bind(to: firstCollectionView.rx.items(cellIdentifier: "ButtonCollectionViewCell", cellType: ButtonCollectionViewCell.self)) { row, element, cell in
                 cell.tabButton.setTitle(element, for: .normal)
-                print("타입셀")
             }
             .disposed(by: disposeBag)
         

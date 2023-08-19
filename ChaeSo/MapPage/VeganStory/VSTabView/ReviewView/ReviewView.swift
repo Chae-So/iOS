@@ -36,7 +36,6 @@ class ReviewView: UIView {
                             cell.writeReviewButtonTapped
                                 .subscribe(onNext: { [weak self] in
                                     guard let self = self else { return }
-                                    print("Button tapped event received in ReviewView")
                                     self.presentWriteReviewRelay.accept(())
                                 })
                                 .disposed(by: cell.disposeBag)
@@ -44,14 +43,11 @@ class ReviewView: UIView {
                         case 1:
                             let cell = table.dequeueReusableCell(withIdentifier: "PhotoReviewTableViewCell") as! PhotoReviewTableViewCell
                             if let imagesArray = item as? [UIImage] {
-                                print("성공")
                                 reviewViewModel.photoReviewTableViewModel.images.accept(imagesArray)
                                 
                                
                             }
-                            else{
-                                print("실패!!!!")
-                            }
+                            
                             
                             cell.bind(photoReviewTableViewModel: reviewViewModel.photoReviewTableViewModel)
                             return cell
@@ -69,15 +65,7 @@ class ReviewView: UIView {
         
         reviewViewModel.cellData
             .map { sections in
-                
-//                let photoReviewCellViewModel = PhotoReviewTableViewModel()
-//                if let imagesArray = sections[1] as? [UIImage] {
-//                    photoReviewCellViewModel.images.accept(imagesArray)
-//                } else {
-//                    print("에러발생!!!!")
-//                }
-                
-                
+               
                 return [
                     SectionModel(model: "A", items: sections[0]),
                     SectionModel(model: "B", items: sections[1]),

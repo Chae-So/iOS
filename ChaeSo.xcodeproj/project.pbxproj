@@ -14,6 +14,12 @@
 		310ADE292A8A14FF00C5ADEA /* RatingTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE282A8A14FF00C5ADEA /* RatingTableViewModel.swift */; };
 		310ADE2B2A8A257C00C5ADEA /* VeganCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE2A2A8A257C00C5ADEA /* VeganCollectionViewCell.swift */; };
 		310ADE2D2A8B46EC00C5ADEA /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE2C2A8B46EC00C5ADEA /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		310ADE302A8F32C200C5ADEA /* FirstInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE2F2A8F32C200C5ADEA /* FirstInfoTableViewCell.swift */; };
+		310ADE322A8F357800C5ADEA /* SecondInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE312A8F357800C5ADEA /* SecondInfoTableViewCell.swift */; };
+		310ADE342A8F472B00C5ADEA /* FourthInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE332A8F472B00C5ADEA /* FourthInfoTableViewCell.swift */; };
+		310ADE362A8F474B00C5ADEA /* InfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE352A8F474B00C5ADEA /* InfoHeaderView.swift */; };
+		310ADE382A8F56AF00C5ADEA /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE372A8F56AF00C5ADEA /* InfoViewModel.swift */; };
+		310ADE3A2A8F56B700C5ADEA /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE392A8F56B700C5ADEA /* InfoModel.swift */; };
 		3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */; };
 		3165C2252A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */; };
 		3165C2272A769AD000421D05 /* AAAAAA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2262A769AD000421D05 /* AAAAAA.swift */; };
@@ -167,6 +173,12 @@
 		310ADE282A8A14FF00C5ADEA /* RatingTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewModel.swift; sourceTree = "<group>"; };
 		310ADE2A2A8A257C00C5ADEA /* VeganCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganCollectionViewCell.swift; sourceTree = "<group>"; };
 		310ADE2C2A8B46EC00C5ADEA /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		310ADE2F2A8F32C200C5ADEA /* FirstInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstInfoTableViewCell.swift; sourceTree = "<group>"; };
+		310ADE312A8F357800C5ADEA /* SecondInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondInfoTableViewCell.swift; sourceTree = "<group>"; };
+		310ADE332A8F472B00C5ADEA /* FourthInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthInfoTableViewCell.swift; sourceTree = "<group>"; };
+		310ADE352A8F474B00C5ADEA /* InfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoHeaderView.swift; sourceTree = "<group>"; };
+		310ADE372A8F56AF00C5ADEA /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
+		310ADE392A8F56B700C5ADEA /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddFirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2262A769AD000421D05 /* AAAAAA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAAAAA.swift; sourceTree = "<group>"; };
@@ -354,6 +366,17 @@
 				310ADE262A89F96900C5ADEA /* SortTableViewModel.swift */,
 			);
 			path = ThirdCell;
+			sourceTree = "<group>";
+		};
+		310ADE2E2A8F329100C5ADEA /* InfoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				310ADE2F2A8F32C200C5ADEA /* FirstInfoTableViewCell.swift */,
+				310ADE312A8F357800C5ADEA /* SecondInfoTableViewCell.swift */,
+				310ADE332A8F472B00C5ADEA /* FourthInfoTableViewCell.swift */,
+				310ADE352A8F474B00C5ADEA /* InfoHeaderView.swift */,
+			);
+			path = InfoTableViewCell;
 			sourceTree = "<group>";
 		};
 		3165C2332A7F643300421D05 /* CommentView */ = {
@@ -735,7 +758,10 @@
 		31F500802A7101BB00E4BCF3 /* InfoView */ = {
 			isa = PBXGroup;
 			children = (
+				310ADE2E2A8F329100C5ADEA /* InfoTableViewCell */,
 				31F500832A7101E000E4BCF3 /* InfoView.swift */,
+				310ADE372A8F56AF00C5ADEA /* InfoViewModel.swift */,
+				310ADE392A8F56B700C5ADEA /* InfoModel.swift */,
 			);
 			path = InfoView;
 			sourceTree = "<group>";
@@ -994,13 +1020,16 @@
 				317ED7F02A4D69CF00006F7B /* Validator.swift in Sources */,
 				3165C2272A769AD000421D05 /* AAAAAA.swift in Sources */,
 				31F5008C2A72456200E4BCF3 /* ContentTableViewCellModel.swift in Sources */,
+				310ADE362A8F474B00C5ADEA /* InfoHeaderView.swift in Sources */,
 				31F5000D2A6E35E200E4BCF3 /* DetailListBackgroundView.swift in Sources */,
+				310ADE322A8F357800C5ADEA /* SecondInfoTableViewCell.swift in Sources */,
 				317ED7EC2A49D67B00006F7B /* SignUpViewModel.swift in Sources */,
 				317ED7E82A499CFC00006F7B /* SignUpViewController.swift in Sources */,
 				31C4B2052A55534200BABD62 /* MapModel.swift in Sources */,
 				317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */,
 				31C4B2202A5AC26200BABD62 /* SearchingViewController.swift in Sources */,
 				3165C2392A7F647100421D05 /* CommentModel.swift in Sources */,
+				310ADE382A8F56AF00C5ADEA /* InfoViewModel.swift in Sources */,
 				31C4B2092A55536200BABD62 /* MyPageModel.swift in Sources */,
 				31C4B2072A55535800BABD62 /* MyPageViewModel.swift in Sources */,
 				31F5009B2A74CF7900E4BCF3 /* WriteReviewViewModel.swift in Sources */,
@@ -1032,6 +1061,7 @@
 				31F5007D2A70F6A700E4BCF3 /* VSTabCell.swift in Sources */,
 				310ADE2D2A8B46EC00C5ADEA /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				3165C2432A7F6C8B00421D05 /* WriteChaesoLogViewController.swift in Sources */,
+				310ADE3A2A8F56B700C5ADEA /* InfoModel.swift in Sources */,
 				31F5008E2A727DE800E4BCF3 /* RatingTableViewCell.swift in Sources */,
 				31C4B1F12A5551EF00BABD62 /* TabBarViewController.swift in Sources */,
 				3165C2302A7B72BB00421D05 /* CommunityTableViewCell.swift in Sources */,
@@ -1057,6 +1087,7 @@
 				310ADE292A8A14FF00C5ADEA /* RatingTableViewModel.swift in Sources */,
 				31F500712A7005A500E4BCF3 /* BookmarkTabCell.swift in Sources */,
 				3165C2402A7F64DD00421D05 /* CommentTableViewCell.swift in Sources */,
+				310ADE302A8F32C200C5ADEA /* FirstInfoTableViewCell.swift in Sources */,
 				31F500792A70F65E00E4BCF3 /* VSTabView.swift in Sources */,
 				31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */,
 				31F5000B2A6E35A700E4BCF3 /* DetailListCell.swift in Sources */,
@@ -1069,6 +1100,7 @@
 				31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */,
 				31F500882A7101F200E4BCF3 /* ReviewView.swift in Sources */,
 				31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */,
+				310ADE342A8F472B00C5ADEA /* FourthInfoTableViewCell.swift in Sources */,
 				31F5FFFE2A6E34D300E4BCF3 /* LocalAPI.swift in Sources */,
 				31F5006F2A7004A900E4BCF3 /* ChaesoLogView.swift in Sources */,
 				31F500A52A74F10600E4BCF3 /* MainPTCollectionViewCell.swift in Sources */,

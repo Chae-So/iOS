@@ -8,7 +8,7 @@ class VSTabView: UIView {
     private let leftActiveTabIndicator = UIView()
     private let centerActiveTabIndicator = UIView()
     private let rightActiveTabIndicator = UIView()
-    private let infoView = InfoView()
+    private let infoView = InfoView(infoViewModel: InfoViewModel())
     private let menuView = MenuView()
     private let reviewView = ReviewView(reviewViewModel: ReviewViewModel(localizationManager: LocalizationManager.shared))
     private let vsTabViewModel: VSTabViewModel
@@ -35,38 +35,32 @@ class VSTabView: UIView {
         vsTabViewModel.tabItems
             .bind(to: tabCollectionView.rx.items(cellIdentifier: "VSTabCell", cellType: VSTabCell.self)) { row, element, cell in
                 cell.titleLabel.text = element
+                switch row{
+                case 0: cell.titleLabel.textColor = .black
+                case 1: cell.titleLabel.textColor = UIColor(named: "gray20")
+                case 2: cell.titleLabel.textColor = UIColor(named: "gray20")
+                default: break
+                }
             }
             .disposed(by: disposeBag)
         
 
-        // Handle tab selection and animate the views accordingly
         tabCollectionView.rx.itemSelected
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                switch indexPath.row {
-                case 0:
-                    self.showInfoView()
-                    self.leftActiveTabIndicator.backgroundColor = UIColor(named: "prColor")
-                    self.centerActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
-                    self.rightActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
-                    
-                case 1:
-                    self.showMenuView()
-                    self.leftActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
-                    self.centerActiveTabIndicator.backgroundColor = UIColor(named: "prColor")
-                    self.rightActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
-                    
-                case 2:
-                    self.showReviewView()
-                    self.leftActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
-                    self.centerActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
-                    self.rightActiveTabIndicator.backgroundColor = UIColor(named: "prColor")
-                    
-                default:
-                    break
-                }
+            .map { $0.row }
+            .subscribe(onNext: { [weak self] selectedIndex in
+                self?.updateViews(for: selectedIndex)
             })
+            .disposed(by: disposeBag)
+
+        
+        
+        vsTabViewModel.selectedIndexPath
+                .bind(to: tabCollectionView.rx.updateSelectedCellTextColor)
+                .disposed(by: disposeBag)
+        
+        tabCollectionView.rx.itemSelected
+            .bind(to: vsTabViewModel.selectedIndexPath)
             .disposed(by: disposeBag)
         
         
@@ -94,7 +88,7 @@ class VSTabView: UIView {
         rightActiveTabIndicator.backgroundColor = UIColor(named: "gray10")
 
         //MARK: Info,Menu,Review attribute
-        self.infoView.isHidden = true
+        self.infoView.isHidden = false
         self.menuView.isHidden = true
         self.reviewView.isHidden = true
         
@@ -158,35 +152,22 @@ class VSTabView: UIView {
         
         
     }
-
-
-    private func showInfoView() {
-        // Animate the transition to show the PlaceView and hide the ChaesoLogView
-        UIView.animate(withDuration: 0.3) {
-            self.infoView.isHidden = false
-            self.menuView.isHidden = true
-            self.reviewView.isHidden = true
-        }
-    }
-
-    private func showMenuView() {
-        // Animate the transition to show the ChaesoLogView and hide the PlaceView
-        UIView.animate(withDuration: 0.3) {
-            self.infoView.isHidden = true
-            self.menuView.isHidden = false
-            self.reviewView.isHidden = true
-        }
-    }
-
-    private func showReviewView() {
-        // Animate the transition to show the PlaceView and hide the ChaesoLogView
-        UIView.animate(withDuration: 0.3) {
-            self.infoView.isHidden = true
-            self.menuView.isHidden = true
-            self.reviewView.isHidden = false
-        }
-    }
     
-    
+    private func updateViews(for index: Int) {
+        infoView.isHidden = index != 0
+        menuView.isHidden = index != 1
+        reviewView.isHidden = index != 2
+
+        let color = UIColor(named: "prColor")
+        let grayColor = UIColor(named: "gray10")
+        
+        leftActiveTabIndicator.backgroundColor = index == 0 ? color : grayColor
+        centerActiveTabIndicator.backgroundColor = index == 1 ? color : grayColor
+        rightActiveTabIndicator.backgroundColor = index == 2 ? color : grayColor
+
+        UIView.animate(withDuration: 0.3) {
+            self.layoutIfNeeded()
+        }
+    }
     
 }
