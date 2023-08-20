@@ -77,7 +77,6 @@ class WriteReviewViewController: UIViewController {
         backButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                print(564596045)
                 self.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)

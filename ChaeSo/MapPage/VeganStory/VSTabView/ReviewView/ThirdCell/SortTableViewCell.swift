@@ -7,7 +7,7 @@ import Then
 
 class SortTableViewCell: UITableViewCell {
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     var sortTableViewModel: SortTableViewModel?
     
     private let firstLabel = UILabel()
@@ -27,7 +27,7 @@ class SortTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+       
         self.selectionStyle = .none
         self.backgroundColor = UIColor(hexCode: "F5F5F5")
         attribute()
@@ -39,9 +39,21 @@ class SortTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
     func bind(sortTableViewModel: SortTableViewModel){
         self.sortTableViewModel = sortTableViewModel
+        
+//        self.firstCollectionView.delegate = nil
+//        self.firstCollectionView.dataSource = nil
+//        self.secondCollectionView.delegate = nil
+//        self.secondCollectionView.dataSource = nil
+
         firstCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+
         sortTableViewModel.firstItems
             .bind(to: firstCollectionView.rx.items(cellIdentifier: "ButtonCollectionViewCell", cellType: ButtonCollectionViewCell.self)) { row, element, cell in
                 cell.tabButton.setTitle(element, for: .normal)
@@ -89,6 +101,7 @@ class SortTableViewCell: UITableViewCell {
             $0.showsHorizontalScrollIndicator = false
             $0.backgroundColor = UIColor(hexCode: "F5F5F5")
             $0.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: "ButtonCollectionViewCell")
+            $0.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: "ButtonCollectionViewCell")
         }
     }
     
@@ -119,7 +132,7 @@ class SortTableViewCell: UITableViewCell {
         }
         
         secondCollectionView.snp.makeConstraints { make in
-            make.width.equalTo(250*Constants.standardWidth)
+            make.width.equalTo(350*Constants.standardWidth)
             make.height.equalTo(38*Constants.standardHeight)
             //make.leading.equalToSuperview().offset(100*Constants.standardWidth)
             make.leading.equalTo(firstCollectionView.snp.leading)

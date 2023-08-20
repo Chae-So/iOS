@@ -15,7 +15,12 @@ class ReviewViewModel {
     let cellData = Driver<[[Any]]>.just([
         ["a"],
         [[UIImage(named: "tomato"),UIImage(named: "tomato"),UIImage(named: "tomato"),UIImage(named: "tomato"),UIImage(named: "tomato"),UIImage(named: "tomato")]],
-        ["b"]
+        ["b"],
+        [
+            ReviewList(userImage: UIImage(named: "tomato")!, userName: "villa", starPoint: "5", userType: "비건", withType: "친구와", otherType: "", reviewImages: [UIImage(named: "tomato")!,UIImage(named: "tomato")!,UIImage(named: "tomato")!,UIImage(named: "tomato")!], content: "dfsgfsgfdsdfsgdf  asfsdkfshd kksd fksdh kkadjsk dshkh dhka skhasdh kj sdhjhsdk khasdkhfksfjksdhfkjsdh ajkfhsd khshlkjf hlkafkjasd lsdfkdsbj dshf sd fsdk ksdjfweukoqlwoi;qwo elhf dk,j xc dkl"),
+            ReviewList(userImage: UIImage(named: "tomato")!, userName: "fdhg", starPoint: "4", userType: "오보", withType: "친구와", otherType: "오보", reviewImages: [UIImage(named: "tomato")!,UIImage(named: "tomato")!,UIImage(named: "tomato")!,UIImage(named: "tomato")!], content: "dfsgfsgfdsdfsgdf  asfsdkfshd kksd fksdh kkadjsk dshkh dhka skhasdh kj sdhjhsdk khasdkhfksfjksdhfkjsdh ajkfhsd khshlkjf hlkafkjasd lsdfkdsbj dshf sd fsdk ksdjfweukoqlwoi;qwo elhf dk,j xc dkl"),
+            ReviewList(userImage: UIImage(named: "tomato")!, userName: "rtutyr", starPoint: "3", userType: "비건", withType: "친구와", otherType: "nil", reviewImages: [UIImage(named: "tomato")!,UIImage(named: "tomato")!,UIImage(named: "tomato")!,UIImage(named: "tomato")!], content: "dfsgfsgfdsdfsgdf  asfsdkfshd kksd fksdh kkadjsk dshkh dhka skhasdh kj sdhjhsdk khasdkhfksfjksdhfkjsdh ajkfhsd khshlkjf hlkafkjasd lsdfkdsbj dshf sd fsdk ksdjfweukoqlwoi;qwo elhf dk,j xc dkl")
+        ]
     ])
     
     

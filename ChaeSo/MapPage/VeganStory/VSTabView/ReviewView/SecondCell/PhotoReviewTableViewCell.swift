@@ -6,6 +6,7 @@ import SnapKit
 class PhotoReviewTableViewCell: UITableViewCell {
     
     let disposeBag = DisposeBag()
+    var photoReviewTableViewModel: PhotoReviewTableViewModel?
     
     let titleLabel = UILabel()
     let photoReviewCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -26,6 +27,11 @@ class PhotoReviewTableViewCell: UITableViewCell {
     }
     
     func bind(photoReviewTableViewModel: PhotoReviewTableViewModel){
+        self.photoReviewTableViewModel = photoReviewTableViewModel
+        
+        photoReviewCollectionView.delegate = nil
+        photoReviewCollectionView.dataSource = nil
+        
         photoReviewTableViewModel.images
             .bind(to: photoReviewCollectionView.rx.items(cellIdentifier: "PhotoReviewCollectionViewCell", cellType: PhotoReviewCollectionViewCell.self)) { row, element, cell in
                 cell.photo.image = element

@@ -32,7 +32,6 @@ class InfoHeaderView: UITableViewHeaderFooterView {
     
     
     func configure(with model: HeaderItem) {
-        print(model)
         updownButton.setImage(model.isExpanded ? UIImage(named: "up") : UIImage(named: "down"), for: .normal)
         firstLabel.text = model.day
         secondLabel.text = model.time

@@ -28,6 +28,8 @@ class ReviewView: UIView {
     
     private func bind(){
         
+        
+        
         let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, Any>>(
             configureCell: { [self] dataSource, table, indexPath, item in
                         switch indexPath.section {
@@ -44,18 +46,19 @@ class ReviewView: UIView {
                             let cell = table.dequeueReusableCell(withIdentifier: "PhotoReviewTableViewCell") as! PhotoReviewTableViewCell
                             if let imagesArray = item as? [UIImage] {
                                 reviewViewModel.photoReviewTableViewModel.images.accept(imagesArray)
-                                
-                               
                             }
-                            
-                            
                             cell.bind(photoReviewTableViewModel: reviewViewModel.photoReviewTableViewModel)
                             return cell
                         case 2:
                             let cell = table.dequeueReusableCell(withIdentifier: "SortTableViewCell") as! SortTableViewCell
                             let sortTableViewModel = SortTableViewModel(localizationManager: LocalizationManager.shared)
                             cell.bind(sortTableViewModel: sortTableViewModel)
-                            
+
+                            return cell
+                        case 3:
+                            let cell = table.dequeueReusableCell(withIdentifier: "ReviewTableViewCell") as! ReviewTableViewCell
+                            cell.configure(with: (item as? ReviewList)!)
+
                             return cell
                         default:
                             fatalError("Unknown section")
@@ -63,13 +66,17 @@ class ReviewView: UIView {
                     }
                 )
         
+        reviewTableView.dataSource = nil
+        reviewTableView.delegate = nil
+        
         reviewViewModel.cellData
             .map { sections in
                
                 return [
                     SectionModel(model: "A", items: sections[0]),
                     SectionModel(model: "B", items: sections[1]),
-                    SectionModel(model: "B", items: sections[2])
+                    SectionModel(model: "C", items: sections[2]),
+                    SectionModel(model: "D", items: sections[3])
                 ]
             }
             .drive(reviewTableView.rx.items(dataSource: dataSource))
@@ -87,6 +94,7 @@ class ReviewView: UIView {
         reviewTableView.register(RatingTableViewCell.self, forCellReuseIdentifier: "RatingTableViewCell")
         reviewTableView.register(PhotoReviewTableViewCell.self, forCellReuseIdentifier: "PhotoReviewTableViewCell")
         reviewTableView.register(SortTableViewCell.self, forCellReuseIdentifier: "SortTableViewCell")
+        reviewTableView.register(ReviewTableViewCell.self, forCellReuseIdentifier: "ReviewTableViewCell")
         reviewTableView.rowHeight = UITableView.automaticDimension
     }
     

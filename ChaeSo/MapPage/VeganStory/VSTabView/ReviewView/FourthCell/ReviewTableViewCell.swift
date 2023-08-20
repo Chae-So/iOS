@@ -8,15 +8,15 @@ import ImageSlideshow
 class ReviewTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
     
-    private let userImage = UIImageView()
-    private let userName = UILabel()
-    private let setButton = UIButton()
-    private let starButton = UIButton()
-    private let userTypeButton = UIButton()
-    private let withTypeButton = UIButton()
-    private let otherTypeButton = UIButton()
-    private let imageSlideShow = ImageSlideshow()
-    private let contentLabel = UILabel()
+    let userImage = UIImageView()
+    let userName = UILabel()
+    let setButton = UIButton()
+    let starButton = UIButton()
+    let userTypeButton = UIButton()
+    let withTypeButton = UIButton()
+    let otherTypeButton = UIButton()
+    let imageSlideShow = ImageSlideshow()
+    let contentLabel = UILabel()
     
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -35,7 +35,39 @@ class ReviewTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
+    func configure(with reviewList: ReviewList){
+        userImage.image = reviewList.userImage
+        userName.text = reviewList.userName
+        starButton.setTitle(reviewList.starPoint, for: .normal)
+        userTypeButton.setTitle(reviewList.userType, for: .normal)
+        withTypeButton.setTitle(reviewList.withType, for: .normal)
+        otherTypeButton.setTitle(reviewList.otherType, for: .normal)
+        if reviewList.otherType == ""{
+            otherTypeButton.isHidden = true
+        }
+        configureImageSlideshow(with: reviewList.reviewImages)
+        contentLabel.text = reviewList.content
+        
+    }
+    
+    func configureImageSlideshow(with images: [UIImage?]) {
+        // nil이 아닌 UIImage 인스턴스만 추출
+        let nonOptionalImages = images.compactMap { $0 }
+        
+        // ImageSource 배열 생성
+        let imageSources = nonOptionalImages.map { ImageSource(image: $0) }
+        
+        // ImageSlideshow에 이미지 설정
+        imageSlideShow.setImageInputs(imageSources)
+        
+        // 사용자 상호 작용 활성화
+        imageSlideShow.isUserInteractionEnabled = true
+    }
     
     func attribute(){
         
@@ -54,19 +86,24 @@ class ReviewTableViewCell: UITableViewCell {
         }
         
         starButton.do{
+            $0.isEnabled = false
             $0.setImage(UIImage(named: "starFill"), for: .normal)
             $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 13)
             $0.layer.cornerRadius = 4 * Constants.standardHeight
+            $0.backgroundColor = .white
+            $0.setTitleColor(.black, for: .normal)
             $0.contentEdgeInsets = UIEdgeInsets(top: 4*Constants.standardHeight, left: 8*Constants.standardWidth, bottom: 4*Constants.standardHeight, right: 8*Constants.standardWidth)
         }
         
         [userTypeButton,withTypeButton,otherTypeButton].forEach{
+            $0.isEnabled = false
             $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 13)
             $0.layer.cornerRadius = 4 * Constants.standardHeight
+            $0.backgroundColor = .white
+            $0.setTitleColor(.black, for: .normal)
             $0.contentEdgeInsets = UIEdgeInsets(top: 4*Constants.standardHeight, left: 8*Constants.standardWidth, bottom: 4*Constants.standardHeight, right: 8*Constants.standardWidth)
         }
         
-        otherTypeButton.isHidden = true
         
         imageSlideShow.do{
             let pageIndicator = UIPageControl()
@@ -78,147 +115,72 @@ class ReviewTableViewCell: UITableViewCell {
         
         contentLabel.do{
             $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.numberOfLines = 0
         }
         
         
     }
     
     func layout(){
-        [userImage,userName,setButton,starButton,userTypeButton,withTypeButton]
+        [userImage,userName,setButton,starButton,userTypeButton,withTypeButton,otherTypeButton,imageSlideShow,contentLabel]
             .forEach { UIView in
                 contentView.addSubview(UIView)
             }
         
-        starImageView.snp.makeConstraints { make in
-            make.width.equalTo(28*Constants.standardWidth)
-            make.height.equalTo(28*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(25*Constants.standardWidth)
-            make.top.equalToSuperview().offset(14*Constants.standardHeight)
+        userImage.snp.makeConstraints { make in
+            make.width.equalTo(44*Constants.standardWidth)
+            make.height.equalTo(44*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalToSuperview().offset(17*Constants.standardHeight)
         }
         
-        ratingLabel.snp.makeConstraints { make in
-            make.width.equalTo(50*Constants.standardWidth)
-            make.height.equalTo(19*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(61*Constants.standardWidth)
-            make.top.equalToSuperview().offset(18*Constants.standardHeight)
+        userName.snp.makeConstraints { make in
+            make.leading.equalTo(userImage.snp.trailing).offset(12*Constants.standardWidth)
+            make.centerY.equalTo(userImage)
         }
         
-        fiveLabel.snp.makeConstraints { make in
-            make.width.equalTo(10*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(35*Constants.standardWidth)
-            make.top.equalToSuperview().offset(57*Constants.standardHeight)
+        setButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardWidth)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.trailing.equalToSuperview().offset(-10*Constants.standardWidth)
+            make.centerY.equalTo(userImage)
+            
         }
         
-        fourLabel.snp.makeConstraints { make in
-            make.width.equalTo(10*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(34*Constants.standardWidth)
-            make.top.equalTo(fiveLabel.snp.bottom).offset(8*Constants.standardHeight)
+        starButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(userImage.snp.bottom).offset(9*Constants.standardHeight)
         }
         
-        threeLabel.snp.makeConstraints { make in
-            make.width.equalTo(10*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(34*Constants.standardWidth)
-            make.top.equalTo(fourLabel.snp.bottom).offset(8*Constants.standardHeight)
+        userTypeButton.snp.makeConstraints { make in
+            make.leading.equalTo(starButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(userImage.snp.bottom).offset(9*Constants.standardHeight)
         }
         
-        twoLabel.snp.makeConstraints { make in
-            make.width.equalTo(10*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(34*Constants.standardWidth)
-            make.top.equalTo(threeLabel.snp.bottom).offset(8*Constants.standardHeight)
+        withTypeButton.snp.makeConstraints { make in
+            make.leading.equalTo(userTypeButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(userImage.snp.bottom).offset(9*Constants.standardHeight)
         }
         
-        oneLabel.snp.makeConstraints { make in
-            make.width.equalTo(10*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(34*Constants.standardWidth)
-            make.top.equalTo(twoLabel.snp.bottom).offset(8*Constants.standardHeight)
+        otherTypeButton.snp.makeConstraints { make in
+            make.leading.equalTo(withTypeButton.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(userImage.snp.bottom).offset(9*Constants.standardHeight)
         }
         
-        firstGaugeView.snp.makeConstraints { make in
-            make.width.equalTo(298*Constants.standardWidth)
-            make.height.equalTo(10*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(61*Constants.standardWidth)
-            make.top.equalToSuperview().offset(60*Constants.standardHeight)
-        }
-        
-        secondGaugeView.snp.makeConstraints { make in
-            make.width.equalTo(298*Constants.standardWidth)
-            make.height.equalTo(10*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(61*Constants.standardWidth)
-            make.top.equalTo(firstGaugeView.snp.bottom).offset(14*Constants.standardHeight)
-        }
-        
-        thirdGaugeView.snp.makeConstraints { make in
-            make.width.equalTo(298*Constants.standardWidth)
-            make.height.equalTo(10*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(61*Constants.standardWidth)
-            make.top.equalTo(secondGaugeView.snp.bottom).offset(14*Constants.standardHeight)
-        }
-        
-        fourthGaugeView.snp.makeConstraints { make in
-            make.width.equalTo(298*Constants.standardWidth)
-            make.height.equalTo(10*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(61*Constants.standardWidth)
-            make.top.equalTo(thirdGaugeView.snp.bottom).offset(14*Constants.standardHeight)
-        }
-        
-        fifthGaugeView.snp.makeConstraints { make in
-            make.width.equalTo(298*Constants.standardWidth)
-            make.height.equalTo(10*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(61*Constants.standardWidth)
-            make.top.equalTo(fourthGaugeView.snp.bottom).offset(14*Constants.standardHeight)
-        }
-        
-        writeReviewButton.snp.makeConstraints { make in
-            make.width.equalTo(120*Constants.standardWidth)
-            //make.height.equalTo(35*Constants.standardHeight)
+        imageSlideShow.snp.makeConstraints { make in
+            make.width.equalTo(343*Constants.standardHeight)
+            make.height.equalTo(343*Constants.standardHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(fifthGaugeView.snp.bottom).offset(20*Constants.standardHeight)
-            make.bottom.equalToSuperview().offset(-17*Constants.standardHeight)
+            make.top.equalTo(otherTypeButton.snp.bottom).offset(8*Constants.standardHeight)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.width.equalTo(imageSlideShow.snp.width)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(imageSlideShow.snp.bottom).offset(24*Constants.standardHeight)
+            make.bottom.equalToSuperview().offset(-19*Constants.standardHeight)
         }
         
     }
 
 }
-
-//#if DEBUG
-//import SwiftUI
-//
-//struct TableViewCellPreview: UIViewRepresentable {
-//
-//    func makeUIView(context: Context) -> UITableViewCell {
-//        // 여기에서 원하는 테이블뷰 셀을 생성 및 구성하십시오.
-//        let cell = RatingTableViewCell()
-//
-//        // 추가적인 셀 구성 ...
-//        return cell
-//    }
-//
-//    func updateUIView(_ uiView: UITableViewCell, context: Context) {
-//        // 셀 업데이트는 필요에 따라 구현
-//    }
-//}
-//
-//struct TableViewCellPreviewProvider: PreviewProvider {
-//    static var previews: some View {
-//        TableViewCellPreview()
-//            .edgesIgnoringSafeArea(.all)
-//            .previewDisplayName("Preview")
-//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
-//
-//        TableViewCellPreview()
-//            .previewLayout(.sizeThatFits)
-//            .frame(height: 253) // 셀의 높이를 설정
-//    }
-//}
-//#endif
-
-
-
-
-
-
