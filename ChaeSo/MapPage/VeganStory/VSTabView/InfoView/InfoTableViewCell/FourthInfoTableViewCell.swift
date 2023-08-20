@@ -42,7 +42,9 @@ class FourthInfoTableViewCell: UITableViewCell {
             timeLabels[index].text = time
         }
         
-        let dayIndex = Calendar.current.component(.weekday, from: Date())-2
+        let originalDayIndex = Calendar.current.component(.weekday, from: Date())
+        let dayIndex = (originalDayIndex == 1) ? 6 : originalDayIndex - 2
+        
         dayLabels[dayIndex].font = UIFont(name: "Pretendard-Bold", size: 13)
         timeLabels[dayIndex].font = UIFont(name: "Pretendard-Bold", size: 13)
     }

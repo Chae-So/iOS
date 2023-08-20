@@ -325,9 +325,3 @@ class CommunityTableViewCell: UITableViewCell {
 //    }
 //}
 //#endif
-
-
-
-
-
-

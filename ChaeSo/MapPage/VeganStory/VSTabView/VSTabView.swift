@@ -9,7 +9,7 @@ class VSTabView: UIView {
     private let centerActiveTabIndicator = UIView()
     private let rightActiveTabIndicator = UIView()
     private let infoView = InfoView(infoViewModel: InfoViewModel())
-    private let menuView = MenuView()
+    private let menuView = MenuView(menuViewModel: MenuViewModel())
     private let reviewView = ReviewView(reviewViewModel: ReviewViewModel(localizationManager: LocalizationManager.shared))
     private let vsTabViewModel: VSTabViewModel
     private let disposeBag = DisposeBag()

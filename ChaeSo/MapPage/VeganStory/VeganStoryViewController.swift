@@ -13,7 +13,7 @@ class VeganStoryViewController: UIViewController {
     // MARK: - UI Elements
     private lazy var veganStoryLabel = UILabel()
     private lazy var separateView = UIView()
-    private lazy var photoView = UIView()
+    private lazy var photoView = PhotoView()
     let vsTabView = VSTabView(vsTabViewModel: VSTabViewModel(localizationManager: LocalizationManager.shared))
 
     private var tableView = UITableView()
@@ -65,7 +65,6 @@ class VeganStoryViewController: UIViewController {
                     let writeReviewViewController = WriteReviewViewController(writeReviewViewModel: WriteReviewViewModel(localizationManager: LocalizationManager.shared))
                     writeReviewViewController.modalPresentationStyle = .fullScreen
                     //self?.present(writeReviewViewController, animated: true, completion: nil)
-                    print(123123)
                     self?.show(writeReviewViewController, sender: nil)
                 })
                 .disposed(by: disposeBag)
@@ -84,8 +83,7 @@ class VeganStoryViewController: UIViewController {
         separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
         
         //MARK: photoImage Attribute
-        photoView.backgroundColor = .blue
-        
+        //photoView.backgroundColor = .gray
         
     }
     

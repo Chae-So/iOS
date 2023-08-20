@@ -20,6 +20,12 @@
 		310ADE362A8F474B00C5ADEA /* InfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE352A8F474B00C5ADEA /* InfoHeaderView.swift */; };
 		310ADE382A8F56AF00C5ADEA /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE372A8F56AF00C5ADEA /* InfoViewModel.swift */; };
 		310ADE3A2A8F56B700C5ADEA /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE392A8F56B700C5ADEA /* InfoModel.swift */; };
+		310ADE3C2A90CA5900C5ADEA /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE3B2A90CA5900C5ADEA /* MenuTableViewCell.swift */; };
+		310ADE3F2A91C31400C5ADEA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 310ADE3E2A91C31400C5ADEA /* Kingfisher */; };
+		310ADE412A91C63100C5ADEA /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE402A91C63100C5ADEA /* MenuViewModel.swift */; };
+		310ADE432A91C63900C5ADEA /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE422A91C63900C5ADEA /* MenuModel.swift */; };
+		310ADE462A91CEFA00C5ADEA /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE452A91CEFA00C5ADEA /* PhotoView.swift */; };
+		310ADE492A91E44300C5ADEA /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE482A91E44300C5ADEA /* ReviewTableViewCell.swift */; };
 		3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */; };
 		3165C2252A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */; };
 		3165C2272A769AD000421D05 /* AAAAAA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2262A769AD000421D05 /* AAAAAA.swift */; };
@@ -179,6 +185,11 @@
 		310ADE352A8F474B00C5ADEA /* InfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoHeaderView.swift; sourceTree = "<group>"; };
 		310ADE372A8F56AF00C5ADEA /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 		310ADE392A8F56B700C5ADEA /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
+		310ADE3B2A90CA5900C5ADEA /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		310ADE402A91C63100C5ADEA /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		310ADE422A91C63900C5ADEA /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
+		310ADE452A91CEFA00C5ADEA /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		310ADE482A91E44300C5ADEA /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddFirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2262A769AD000421D05 /* AAAAAA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAAAAA.swift; sourceTree = "<group>"; };
@@ -340,6 +351,7 @@
 				31F5FFF12A6D5F5800E4BCF3 /* SystemConfiguration.framework in Frameworks */,
 				31F5FFEF2A6D5F2900E4BCF3 /* OpenGLES.framework in Frameworks */,
 				317ED7CC2A49567900006F7B /* RxCocoa in Frameworks */,
+				310ADE3F2A91C31400C5ADEA /* Kingfisher in Frameworks */,
 				31C392272A6C0976006C9FFE /* RxDataSources in Frameworks */,
 				31CF47222A5AC6F000A83671 /* Lottie in Frameworks */,
 				31C392162A641009006C9FFE /* GoogleSignIn in Frameworks */,
@@ -377,6 +389,22 @@
 				310ADE352A8F474B00C5ADEA /* InfoHeaderView.swift */,
 			);
 			path = InfoTableViewCell;
+			sourceTree = "<group>";
+		};
+		310ADE442A91CEB400C5ADEA /* PhotoView */ = {
+			isa = PBXGroup;
+			children = (
+				310ADE452A91CEFA00C5ADEA /* PhotoView.swift */,
+			);
+			path = PhotoView;
+			sourceTree = "<group>";
+		};
+		310ADE472A91E3E600C5ADEA /* FourthCell */ = {
+			isa = PBXGroup;
+			children = (
+				310ADE482A91E44300C5ADEA /* ReviewTableViewCell.swift */,
+			);
+			path = FourthCell;
 			sourceTree = "<group>";
 		};
 		3165C2332A7F643300421D05 /* CommentView */ = {
@@ -734,6 +762,7 @@
 		31F500742A70F3DB00E4BCF3 /* VeganStory */ = {
 			isa = PBXGroup;
 			children = (
+				310ADE442A91CEB400C5ADEA /* PhotoView */,
 				31F500772A70F61800E4BCF3 /* VSTabView */,
 				31F500752A70F3FA00E4BCF3 /* VeganStoryViewController.swift */,
 				31F5007E2A70FA3700E4BCF3 /* VeganStoryViewModel.swift */,
@@ -770,6 +799,9 @@
 			isa = PBXGroup;
 			children = (
 				31F500852A7101EA00E4BCF3 /* MenuView.swift */,
+				310ADE3B2A90CA5900C5ADEA /* MenuTableViewCell.swift */,
+				310ADE402A91C63100C5ADEA /* MenuViewModel.swift */,
+				310ADE422A91C63900C5ADEA /* MenuModel.swift */,
 			);
 			path = MenuView;
 			sourceTree = "<group>";
@@ -777,6 +809,7 @@
 		31F500822A7101D200E4BCF3 /* ReviewView */ = {
 			isa = PBXGroup;
 			children = (
+				310ADE472A91E3E600C5ADEA /* FourthCell */,
 				310ADE212A89F48A00C5ADEA /* ThirdCell */,
 				31F500972A73D7B600E4BCF3 /* SecondCell */,
 				31F500962A73D7AB00E4BCF3 /* FirstCell */,
@@ -867,6 +900,7 @@
 				31C392172A641009006C9FFE /* GoogleSignInSwift */,
 				31C392262A6C0976006C9FFE /* RxDataSources */,
 				31F5009D2A74E66F00E4BCF3 /* Then */,
+				310ADE3E2A91C31400C5ADEA /* Kingfisher */,
 			);
 			productName = ChaeSo;
 			productReference = 317ED7A92A49467700006F7B /* ChaeSo.app */;
@@ -906,6 +940,7 @@
 				31C392142A641009006C9FFE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				31C392252A6C0976006C9FFE /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				31F5009C2A74E66F00E4BCF3 /* XCRemoteSwiftPackageReference "Then" */,
+				310ADE3D2A91C31400C5ADEA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 317ED7AA2A49467700006F7B /* Products */;
 			projectDirPath = "";
@@ -1011,6 +1046,8 @@
 				31C392092A62B06A006C9FFE /* TestViewController.swift in Sources */,
 				317ED7D92A498DBE00006F7B /* Extensions.swift in Sources */,
 				31F500052A6E353F00E4BCF3 /* KLDocument.swift in Sources */,
+				310ADE462A91CEFA00C5ADEA /* PhotoView.swift in Sources */,
+				310ADE412A91C63100C5ADEA /* MenuViewModel.swift in Sources */,
 				31F5008A2A72395C00E4BCF3 /* ListTableViewCell.swift in Sources */,
 				31C4B2122A56FC7000BABD62 /* TosViewController.swift in Sources */,
 				31C4B1FD2A55529B00BABD62 /* MyPageViewController.swift in Sources */,
@@ -1040,6 +1077,7 @@
 				317ED7C62A4954F700006F7B /* LoginViewController.swift in Sources */,
 				317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */,
 				31F500942A73D1F200E4BCF3 /* ReviewViewModel.swift in Sources */,
+				310ADE3C2A90CA5900C5ADEA /* MenuTableViewCell.swift in Sources */,
 				3165C2352A7F645B00421D05 /* CommentViewController.swift in Sources */,
 				310ADE2B2A8A257C00C5ADEA /* VeganCollectionViewCell.swift in Sources */,
 				317ED7AF2A49467700006F7B /* SceneDelegate.swift in Sources */,
@@ -1056,6 +1094,7 @@
 				31F500902A728F0C00E4BCF3 /* PhotoReviewTableViewCell.swift in Sources */,
 				31C4B1FF2A55531800BABD62 /* CommunityViewModel.swift in Sources */,
 				317ED7EA2A49CF1200006F7B /* StartViewModel.swift in Sources */,
+				310ADE492A91E44300C5ADEA /* ReviewTableViewCell.swift in Sources */,
 				31F500732A70DCE500E4BCF3 /* PlaceViewModel.swift in Sources */,
 				31C4B2222A5AC26F00BABD62 /* SearchingViewModel.swift in Sources */,
 				31F5007D2A70F6A700E4BCF3 /* VSTabCell.swift in Sources */,
@@ -1093,6 +1132,7 @@
 				31F5000B2A6E35A700E4BCF3 /* DetailListCell.swift in Sources */,
 				31C4B21B2A5AA69E00BABD62 /* NicknameViewController.swift in Sources */,
 				31C392242A6BEEA8006C9FFE /* MyPageTableViewCell.swift in Sources */,
+				310ADE432A91C63900C5ADEA /* MenuModel.swift in Sources */,
 				3165C2582A827A3E00421D05 /* ButtonCollectionViewCell.swift in Sources */,
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
 				3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */,
@@ -1345,6 +1385,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		310ADE3D2A91C31400C5ADEA /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		317ED7C02A4946A700006F7B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1412,6 +1460,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		310ADE3E2A91C31400C5ADEA /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 310ADE3D2A91C31400C5ADEA /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		317ED7C12A4946A700006F7B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 317ED7C02A4946A700006F7B /* XCRemoteSwiftPackageReference "SnapKit" */;

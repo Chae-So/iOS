@@ -16,7 +16,9 @@ class SortTableViewCell: UITableViewCell {
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
     })
-    private let secondCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then{
+    private let secondCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then {
+        $0.sectionInset = UIEdgeInsets(top: $0.sectionInset.top, left: 0, bottom: $0.sectionInset.bottom, right: $0.sectionInset.right)
+
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
     })
@@ -117,7 +119,7 @@ class SortTableViewCell: UITableViewCell {
         }
         
         secondCollectionView.snp.makeConstraints { make in
-            make.width.equalTo(350*Constants.standardWidth)
+            make.width.equalTo(250*Constants.standardWidth)
             make.height.equalTo(38*Constants.standardHeight)
             //make.leading.equalToSuperview().offset(100*Constants.standardWidth)
             make.leading.equalTo(firstCollectionView.snp.leading)
@@ -152,6 +154,38 @@ extension SortTableViewCell: UICollectionViewDelegateFlowLayout {
         let width = textSize.width + 16 * 2 * Constants.standardWidth  // 좌우 패딩
         let height = textSize.height + 8 * 2 * Constants.standardHeight // 상하 패딩
         
-        return CGSize(width: width, height: height)
+        return CGSize(width: width, height: height-2)
     }
 }
+
+//#if DEBUG
+//import SwiftUI
+//
+//struct TableViewCellPreview: UIViewRepresentable {
+//
+//    func makeUIView(context: Context) -> UITableViewCell {
+//        // 여기에서 원하는 테이블뷰 셀을 생성 및 구성하십시오.
+//        let cell = SortTableViewCell()
+//
+//        // 추가적인 셀 구성 ...
+//        return cell
+//    }
+//
+//    func updateUIView(_ uiView: UITableViewCell, context: Context) {
+//        // 셀 업데이트는 필요에 따라 구현
+//    }
+//}
+//
+//struct TableViewCellPreviewProvider: PreviewProvider {
+//    static var previews: some View {
+//        TableViewCellPreview()
+//            .edgesIgnoringSafeArea(.all)
+//            .previewDisplayName("Preview")
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+//
+//        TableViewCellPreview()
+//            .previewLayout(.sizeThatFits)
+//            .frame(height: 253) // 셀의 높이를 설정
+//    }
+//}
+//#endif

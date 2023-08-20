@@ -321,7 +321,7 @@ extension VeganViewController: UICollectionViewDelegateFlowLayout {
         let width = textSize.width + imageSize.width + 20 * 2 * Constants.standardWidth  // 좌우 패딩
         let height = textSize.height + 8 * 2 * Constants.standardHeight // 이미지와 텍스트 간의 간격 및 상하 패딩
         
-        return CGSize(width: width, height: height)
+        return CGSize(width: width, height: height-2)
     }
 }
 

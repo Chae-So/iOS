@@ -14,24 +14,13 @@ class ButtonCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//            setNeedsLayout()
-//            layoutIfNeeded()
-//            let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
-//            var frame = layoutAttributes.frame
-//            frame.size.height = ceil(size.height)
-//            frame.size.width = ceil(size.width)
-//            layoutAttributes.frame = frame
-//            return layoutAttributes
-//        }
-    
+
     func attribute(){
         tabButton.isUserInteractionEnabled = false
         tabButton.adjustsImageWhenHighlighted = false
         tabButton.clipsToBounds = true
         tabButton.titleLabel?.textAlignment = .center
-        tabButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 14)
+        tabButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 14 * Constants.standardWidth)
         tabButton.setTitleColor(UIColor.black, for: .normal)
         tabButton.sizeToFit()
         tabButton.layer.cornerRadius = tabButton.frame.size.height / 2
@@ -50,8 +39,7 @@ class ButtonCollectionViewCell: UICollectionViewCell {
     func layout(){
         contentView.addSubview(tabButton)
         tabButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.top.leading.bottom.trailing.equalToSuperview()
         }
         
 //        contentView.addSubview(titleLabel)
@@ -61,3 +49,35 @@ class ButtonCollectionViewCell: UICollectionViewCell {
 //        }
     }
 }
+
+#if DEBUG
+import SwiftUI
+
+struct CollectionViewCellPreview: UIViewRepresentable {
+
+    func makeUIView(context: Context) -> UIView {
+        let cell = ButtonCollectionViewCell()
+        // 추가적인 셀 구성 ...
+        return cell.contentView
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {
+        // 셀 업데이트는 필요에 따라 구현
+    }
+}
+
+@available(iOS 13.0, *)
+struct CollectionViewCellPreviewProvider: PreviewProvider {
+    static var previews: some View {
+        CollectionViewCellPreview()
+            .edgesIgnoringSafeArea(.all)
+            .previewDisplayName("Preview")
+            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+
+        CollectionViewCellPreview()
+            .previewLayout(.sizeThatFits)
+            .frame(height: 253) // 셀의 높이를 설정
+    }
+}
+#endif
+

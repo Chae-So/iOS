@@ -344,7 +344,7 @@ extension WriteChaesoLogViewController: UICollectionViewDelegateFlowLayout {
         let width = textSize.width + 16 * 2 * Constants.standardWidth  // 좌우 패딩
         let height = textSize.height + 8 * 2 * Constants.standardHeight // 상하 패딩
         
-        return CGSize(width: width, height: height)
+        return CGSize(width: width, height: height-2)
     }
 }
 

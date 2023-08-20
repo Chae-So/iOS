@@ -9,8 +9,8 @@ class InfoViewModel{
     }
     
     func loadInitialData() {
-        let currentDayIndex = Calendar.current.component(.weekday, from: Date()) - 2
-        let days = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"]
+        let currentDayIndex = Calendar.current.component(.weekday, from: Date()) - 1
+        let days = ["일요일","월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
         let currentDay = days[currentDayIndex]
         
         let initialSections: [TableViewSection] = [
