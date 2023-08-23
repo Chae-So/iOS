@@ -69,5 +69,15 @@ class MainPTCollectionVewCell: UICollectionViewCell {
             selectionLabel.backgroundColor = UIColor.clear
         }
     }
+    
+    func onlyOneUpdateSelection(isSelected: Bool) {
+        if isSelected {
+            selectionLabel.text = "1"
+            selectionLabel.backgroundColor = UIColor(named: "prColor")
+        } else {
+            selectionLabel.text = ""
+            selectionLabel.backgroundColor = UIColor.clear
+        }
+    }
 
 }

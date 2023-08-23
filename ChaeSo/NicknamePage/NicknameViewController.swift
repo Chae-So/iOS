@@ -21,10 +21,9 @@ class NicknameViewController: UIViewController {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    init(nicknameViewModel: NicknameViewModel!, ptCollectionViewModel: PTCollectionViewModel) {
+    init(nicknameViewModel: NicknameViewModel!) {
         super.init(nibName: nil, bundle: nil)
         self.nicknameViewModel = nicknameViewModel
-        self.ptCollectionViewModel = ptCollectionViewModel
 
     }
     
@@ -42,58 +41,7 @@ class NicknameViewController: UIViewController {
     }
 
     
-    private func showCollectionAlert() {
-        let collectionVC = PTCollectionViewController(ptCollectionViewModel: self.ptCollectionViewModel)
-        collectionVC.modalPresentationStyle = .overFullScreen
-        self.present(collectionVC, animated: true)
-    }
-    
     func bind(){
-        
-        
-        // Bind PHPicker result to update nickname button image
-        ptCollectionViewModel.pickerResult
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .single(let image):
-                    self.nicknameButton.setImage(image, for: .normal)
-                    self.nicknameButton.imageView?.contentMode = .scaleAspectFill
-                case .multiple:
-                    break // do nothing
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        
-        // Bind alert action to show alert controller
-        ptCollectionViewModel.alertAction
-            .subscribe(onNext: { [weak self] action in
-                guard let self = self else { return }
-                switch action {
-                case .showCollectionAlert:
-                    self.showCollectionAlert()
-                case .showPickerAlert:
-                    break
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        // Bind picker configuration to present PHPicker
-        ptCollectionViewModel.pickerConfiguration
-            .subscribe(onNext: { [weak self] configuration in
-                guard let self = self else { return }
-                let picker = PHPickerViewController(configuration: configuration)
-                picker.delegate = self.ptCollectionViewModel!
-                self.present(picker, animated: true, completion: nil)
-            })
-            .disposed(by: disposeBag)
-        
-        
-        
-        
-        ////////////
         
         nicknameViewModel.NkText
             .asDriver(onErrorDriveWith: .empty())
@@ -120,18 +68,12 @@ class NicknameViewController: UIViewController {
             .disposed(by: disposeBag)
         
         plusButton.rx.tap
-            .bind(to: ptCollectionViewModel.nicknameButtonTapped)
+            .bind(to: nicknameViewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
         
         nicknameButton.rx.tap
-            .bind(to: ptCollectionViewModel.nicknameButtonTapped)
+            .bind(to: nicknameViewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
-        
-//
-        
-        
-        
-        
         
         nicknameViewModel.nkLengthValid
             .asDriver(onErrorDriveWith: .empty())
@@ -172,17 +114,20 @@ class NicknameViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        ptCollectionViewModel.selectedImageRelay
-            .observe(on: MainScheduler.instance)
+        nicknameViewModel.nicknameButtonTapped
+            .subscribe(onNext: {
+                let mainPTCollectionViewController = MainPTCollectionViewController(mainPTCollectionViewModel: MainPTCollectionViewModel(photoViewModelProtocol: self.nicknameViewModel))
+                mainPTCollectionViewController.modalPresentationStyle = .fullScreen
+                mainPTCollectionViewController.type = "nickname"
+                self.present(mainPTCollectionViewController, animated: true)
+            })
+            .disposed(by: disposeBag)
+  
+        nicknameViewModel.selectedPhotosRelay
+            .map { $0.first }
             .bind(to: nicknameButton.rx.image(for: .normal))
             .disposed(by: disposeBag)
         
-        print("Starting to subscribe to selectedImageRelay")
-        ptCollectionViewModel.selectedImageRelay
-            .subscribe(onNext: {_ in
-                print("Image received from selectedImageRelay")
-            })
-            .disposed(by: disposeBag)
     }
     
     func attribute(){
@@ -304,16 +249,6 @@ class NicknameViewController: UIViewController {
     }
 
 }
-
-//extension ViewController: PHPickerViewControllerDelegate {
-//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//        // dismiss the picker
-//        picker.dismiss(animated: true)
-//        // trigger the view model input pickedImages event with the results
-//        viewModel.input.pickedImages.onNext(results)
-//    }
-//}
-
 
 
 //#if DEBUG

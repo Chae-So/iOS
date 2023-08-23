@@ -67,9 +67,6 @@
 		31C392102A62B992006C9FFE /* RxKakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 31C3920F2A62B992006C9FFE /* RxKakaoSDKUser */; };
 		31C392162A641009006C9FFE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 31C392152A641009006C9FFE /* GoogleSignIn */; };
 		31C392182A641009006C9FFE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31C392172A641009006C9FFE /* GoogleSignInSwift */; };
-		31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */; };
-		31C392202A658289006C9FFE /* PTCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */; };
-		31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */; };
 		31C392242A6BEEA8006C9FFE /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */; };
 		31C392272A6C0976006C9FFE /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 31C392262A6C0976006C9FFE /* RxDataSources */; };
 		31C4B1EE2A54115000BABD62 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C4B1ED2A54115000BABD62 /* Constants.swift */; };
@@ -229,9 +226,6 @@
 		317ED7EF2A4D69CF00006F7B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		31C392082A62B06A006C9FFE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		31C392112A62CD99006C9FFE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewController.swift; sourceTree = "<group>"; };
-		31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewModel.swift; sourceTree = "<group>"; };
-		31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCollectionViewCell.swift; sourceTree = "<group>"; };
 		31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
 		31C4B1ED2A54115000BABD62 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		31C4B1F02A5551EF00BABD62 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -483,7 +477,6 @@
 				31CF472B2A5AF6AE00A83671 /* VeganPage */,
 				31CF47252A5AF62000A83671 /* SearchingPage */,
 				31F5009F2A74F0A900E4BCF3 /* MainPTCollectionViewPage */,
-				31F500012A6E350400E4BCF3 /* PTCollectionPage */,
 				31C4B20D2A5558B000BABD62 /* TabBar */,
 				31C4B20E2A5558E300BABD62 /* CommunityPage */,
 				31C4B20F2A5558F500BABD62 /* MapPage */,
@@ -659,16 +652,6 @@
 				310ADE2C2A8B46EC00C5ADEA /* LeftAlignedCollectionViewFlowLayout.swift */,
 			);
 			path = VeganPage;
-			sourceTree = "<group>";
-		};
-		31F500012A6E350400E4BCF3 /* PTCollectionPage */ = {
-			isa = PBXGroup;
-			children = (
-				31C3921D2A658258006C9FFE /* PTCollectionViewController.swift */,
-				31C3921F2A658289006C9FFE /* PTCollectionViewModel.swift */,
-				31C392212A658C5F006C9FFE /* PTCollectionViewCell.swift */,
-			);
-			path = PTCollectionPage;
 			sourceTree = "<group>";
 		};
 		31F500152A6E3B3D00E4BCF3 /* DaumMap.embeddedframework */ = {
@@ -1118,7 +1101,6 @@
 				31F500A12A74F0D000E4BCF3 /* MainPTCollectionViewController.swift in Sources */,
 				310ADE1E2A88960500C5ADEA /* StarCollectionViewCell.swift in Sources */,
 				31F5006C2A70048300E4BCF3 /* PlaceView.swift in Sources */,
-				31C392202A658289006C9FFE /* PTCollectionViewModel.swift in Sources */,
 				31F5000F2A6E35F500E4BCF3 /* DetailListBackgroundViewModel.swift in Sources */,
 				31F500922A73CFE200E4BCF3 /* PhotoReviewCollectionViewCell.swift in Sources */,
 				31C4B1F32A55520000BABD62 /* TabBarViewModel.swift in Sources */,
@@ -1141,9 +1123,7 @@
 				31C4B1FB2A55527D00BABD62 /* MapViewController.swift in Sources */,
 				3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */,
 				3165C2372A7F646600421D05 /* CommentViewModel.swift in Sources */,
-				31C392222A658C5F006C9FFE /* PTCollectionViewCell.swift in Sources */,
 				31F500882A7101F200E4BCF3 /* ReviewView.swift in Sources */,
-				31C3921E2A658258006C9FFE /* PTCollectionViewController.swift in Sources */,
 				310ADE342A8F472B00C5ADEA /* FourthInfoTableViewCell.swift in Sources */,
 				31F5FFFE2A6E34D300E4BCF3 /* LocalAPI.swift in Sources */,
 				31F5006F2A7004A900E4BCF3 /* ChaesoLogView.swift in Sources */,

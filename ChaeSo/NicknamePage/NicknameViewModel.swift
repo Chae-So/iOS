@@ -3,7 +3,7 @@ import PhotosUI
 import RxCocoa
 import RxSwift
 
-class NicknameViewModel{
+class NicknameViewModel:PhotoViewModelProtocol{
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
 
@@ -16,6 +16,8 @@ class NicknameViewModel{
     
     let NkInput = BehaviorRelay<String>(value: "")
     let nicknameButtonTapped = PublishSubject<Void>()
+    var selectedPhotosRelay: BehaviorRelay<[UIImage]> = BehaviorRelay(value: [])
+
     
     // Output
     var nkLengthValid = Observable<Bool>.just(false)
@@ -30,7 +32,6 @@ class NicknameViewModel{
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
         self.updateLocalization()
-
         
         nkLengthValid = NkInput.map{ $0.count >= 2 && $0.count <= 10}
         

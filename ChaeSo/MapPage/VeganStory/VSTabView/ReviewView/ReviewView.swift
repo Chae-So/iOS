@@ -66,8 +66,6 @@ class ReviewView: UIView {
                     }
                 )
         
-        reviewTableView.dataSource = nil
-        reviewTableView.delegate = nil
         
         reviewViewModel.cellData
             .map { sections in

@@ -29,12 +29,7 @@ class PTCollectionViewModel: PHPickerViewControllerDelegate{
     private let disposeBag = DisposeBag()
     
     init() {
-        
-        selectedImageRelay
-            .subscribe(onNext: { aa in
-                print("피티뷰모델",aa)
-            })
-            .disposed(by: disposeBag)
+
         
         nicknameButtonTapped
             .subscribe(onNext: { [weak self] in

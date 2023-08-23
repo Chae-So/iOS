@@ -24,10 +24,6 @@ class MainPTCollectionViewModel: NSObject, PHPhotoLibraryChangeObserver{
         saveSelectedAssetsIdentifiers(assets: updatedAssets)
     }
     
-    enum PickerResult {
-        case single(UIImage)
-        case multiple([UIImage])
-    }
     
     // 선택한 아이템의 IndexPath와 순서를 저장합니다.
     var selectedItemsOrder: [IndexPath: Int] = [:]
@@ -39,12 +35,12 @@ class MainPTCollectionViewModel: NSObject, PHPhotoLibraryChangeObserver{
     let selectedImageRelay = BehaviorRelay<UIImage?>(value: nil)
     
     let nicknameButtonTapped = PublishSubject<Void>()
-    let pickerResult = PublishSubject<PickerResult>()
     let alertAction = PublishSubject<String>()
     let pickerConfiguration = PublishSubject<PHPickerConfiguration>()
     let images = BehaviorSubject<[UIImage]>(value: [])
     
     let doneButtonTapped = PublishSubject<Void>()
+    let viewTypeRelay = BehaviorRelay<String?>(value: nil)
     private let disposeBag = DisposeBag()
     private let photoViewModelProtocol: PhotoViewModelProtocol
     
@@ -52,16 +48,46 @@ class MainPTCollectionViewModel: NSObject, PHPhotoLibraryChangeObserver{
         self.photoViewModelProtocol = photoViewModelProtocol
         super.init()
         PHPhotoLibrary.shared().register(self)
+        
+//        doneButtonTapped
+//            .map { [weak self] in
+//                return self?.getSelectedPhotos().compactMap { self?.getImage(from: $0) } ?? []
+//            }
+//            .do(onNext: { [weak self] images in
+//                self?.photoViewModelProtocol.selectedPhotosRelay.accept(images)
+//            })
+//            .bind(to: selectedPhotos)
+//            .disposed(by: disposeBag)
         doneButtonTapped
-            .map { [weak self] in
-                return self?.getSelectedPhotos().compactMap { self?.getImage(from: $0) } ?? []
+            .withLatestFrom(viewTypeRelay)
+            .flatMap { [weak self] type -> Observable<[UIImage]> in
+                guard let self = self else { return .empty() }
+                let selectedPhotos = self.getSelectedPhotos()
+                print(selectedPhotos)
+                if type == "nickname" {
+                    // 닉네임 타입일 때는 첫 번째 이미지만 가져옵니다.
+                    
+                    if let firstPhoto = selectedPhotos.first,
+                       let firstImage = self.getImage(from: firstPhoto) {
+                        return .just([firstImage])
+                    } else {
+                        return .empty()
+                    }
+                } else {
+                    // 기본 동작: 모든 선택된 이미지를 가져옵니다.
+                    let images = selectedPhotos.compactMap { self.getImage(from: $0) }
+                    return .just(images)
+                }
             }
             .do(onNext: { [weak self] images in
                 self?.photoViewModelProtocol.selectedPhotosRelay.accept(images)
             })
-                .bind(to: selectedPhotos)
-                .disposed(by: disposeBag)
-                }
+            .bind(to: selectedPhotos)
+            .disposed(by: disposeBag)
+
+
+
+    }
     
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
@@ -155,7 +181,6 @@ class MainPTCollectionViewModel: NSObject, PHPhotoLibraryChangeObserver{
             return selectedAssets.value[index.item]
         }
     }
-    
     
     func getImage(from asset: PHAsset) -> UIImage? {
         let manager = PHImageManager.default()

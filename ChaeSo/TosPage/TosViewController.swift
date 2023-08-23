@@ -113,7 +113,7 @@ class TosViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 let nicknameViewModel = NicknameViewModel(localizationManager: LocalizationManager.shared)
-                let nicknameViewController = NicknameViewController(nicknameViewModel: nicknameViewModel, ptCollectionViewModel: PTCollectionViewModel())
+                let nicknameViewController = NicknameViewController(nicknameViewModel: nicknameViewModel)
                 self.navigationController?.pushViewController(nicknameViewController, animated: true)
             })
             .disposed(by: disposeBag)

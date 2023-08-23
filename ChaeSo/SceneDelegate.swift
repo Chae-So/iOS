@@ -27,9 +27,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         //let rootViewController = VeganViewController(veganViewModel: VeganViewModel(localizationManager: LocalizationManager.shared))
         
-        let rootViewController = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
+        //let rootViewController = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = TabBarController(viewModel: TabBarViewModel())
+        
+        let rootViewController = NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = MainPTCollectionViewController(mainPTCollectionViewModel: MainPTCollectionViewModel())
         

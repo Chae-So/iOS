@@ -21,9 +21,8 @@ class MainPTCollectionViewController: UIViewController {
         $0.minimumInteritemSpacing = 1
     })
     var selectedPhotoAssets: [PHAsset] = []
-    
-    
-    
+    var previousSelectedIndexPath: IndexPath?
+    var type = ""
     var status = ""
     
     
@@ -125,6 +124,8 @@ class MainPTCollectionViewController: UIViewController {
     
     private func bind() {
         
+        mainPTCollectionViewModel.viewTypeRelay.accept(type)
+        
         mainPTCollectionViewModel.alertAction
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] status in
@@ -137,8 +138,6 @@ class MainPTCollectionViewController: UIViewController {
         
         mainPTCollectionViewModel.checkPhotoPermissionAndLoad()
         
-        
-        
         cancelButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else {return}
@@ -149,10 +148,7 @@ class MainPTCollectionViewController: UIViewController {
         doneButton.rx.tap
             .bind(to: mainPTCollectionViewModel.doneButtonTapped)
             .disposed(by: disposeBag)
-        
-        doneButton.rx.tap
-            .bind(to: mainPTCollectionViewModel.doneButtonTapped)
-            .disposed(by: disposeBag)
+
         
         mainPTCollectionViewModel.selectedPhotos
             .subscribe(onNext: { [weak self] _ in
@@ -173,42 +169,32 @@ class MainPTCollectionViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        collectionView.rx.itemSelected
-            .bind(onNext: { [weak self] indexPath in
-                self?.mainPTCollectionViewModel.selectItem(at: indexPath)
-                // 갱신된 순서로 모든 셀을 업데이트합니다.
-                let updatedIndexPaths = self?.mainPTCollectionViewModel.selectedIndexArray.map { IndexPath(item: $0, section: 0) } ?? []
-                self?.collectionView.reloadItems(at: updatedIndexPaths + [indexPath])
-            })
-            .disposed(by: disposeBag)
-        
-        
-        // 추가 버튼에 바인딩하여 선택한 이미지들을 가져와 다음 뷰 컨트롤러에 전달하는 로직 추가
-        doneButton.rx.tap
-            .bind(onNext: { [weak self] in
-                let selectedAssets = self?.mainPTCollectionViewModel.getSelectedAssets()
-                // 이제 selectedAssets를 사용하여 다음 뷰 컨트롤러에 전달할 수 있습니다.
-                // 예: let images = selectedAssets.map { self?.getImage(from: $0) }.compactMap { $0 }
-            })
-            .disposed(by: disposeBag)
-        
-        
-        
-        
-        //        collectionView.rx.itemSelected
-        //            .map{ _ in true }
-        //            .asDriver(onErrorDriveWith: .empty())
-        //            .drive(doneButton.rx.isEnabled)
-        //            .disposed(by: disposeBag)
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        if type == "nickname" {
+            collectionView.rx.itemSelected
+                .subscribe(onNext: { [weak self] indexPath in
+                    guard let cell = self?.collectionView.cellForItem(at: indexPath) as? MainPTCollectionVewCell else { return }
+                    cell.onlyOneUpdateSelection(isSelected: true)
+                    
+                    if let previousSelectedIndexPath = self?.previousSelectedIndexPath, previousSelectedIndexPath != indexPath {
+                        guard let previousCell = self?.collectionView.cellForItem(at: previousSelectedIndexPath) as? MainPTCollectionVewCell else { return }
+                        previousCell.onlyOneUpdateSelection(isSelected: false)
+                    }
+                    self?.previousSelectedIndexPath = indexPath
+                    self?.mainPTCollectionViewModel.selectItem(at: (self?.previousSelectedIndexPath!)!)
+                })
+                .disposed(by: disposeBag)
+        }
+        else {
+            collectionView.rx.itemSelected
+                .subscribe(onNext: { [weak self] indexPath in
+                    self?.mainPTCollectionViewModel.selectItem(at: indexPath)
+                    // 갱신된 순서로 모든 셀을 업데이트합니다.
+                    let updatedIndexPaths = self?.mainPTCollectionViewModel.selectedIndexArray.map { IndexPath(item: $0, section: 0) } ?? []
+                    self?.collectionView.reloadItems(at: updatedIndexPaths + [indexPath])
+                })
+                .disposed(by: disposeBag)
+        }
+
         
     }
     
