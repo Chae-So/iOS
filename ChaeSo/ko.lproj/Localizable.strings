@@ -111,4 +111,9 @@
 //MARK: PlaceView
 "Restaurant" = "음식점";
 "Cafe" = "카페";
-"Store" = "스토어";
+"tourist attraction" = "관광 명소";
+
+//MARK: LanguageSetView
+"언어 설정" = "언어 설정";
+"한국어" = "한국어";
+"영어" = "영어";

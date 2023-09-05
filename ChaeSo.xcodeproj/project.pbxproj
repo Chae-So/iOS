@@ -27,6 +27,13 @@
 		310ADE462A91CEFA00C5ADEA /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE452A91CEFA00C5ADEA /* PhotoView.swift */; };
 		310ADE492A91E44300C5ADEA /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE482A91E44300C5ADEA /* ReviewTableViewCell.swift */; };
 		310ADE4B2A9222A100C5ADEA /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE4A2A9222A100C5ADEA /* ReviewModel.swift */; };
+		310ADE502A961EDD00C5ADEA /* LanguageSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE4F2A961EDD00C5ADEA /* LanguageSetViewController.swift */; };
+		310ADE522A961F5400C5ADEA /* LanguageSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE512A961F5400C5ADEA /* LanguageSetViewModel.swift */; };
+		3116B2902AA35F4300308CDA /* ecoLocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3116B28F2AA35F4300308CDA /* ecoLocationData.swift */; };
+		3116B2922AA3665800308CDA /* BBBBB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3116B2912AA3665800308CDA /* BBBBB.swift */; };
+		312006A72AA6F54E00501128 /* DetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006A62AA6F54E00501128 /* DetailListView.swift */; };
+		312006A92AA6F94100501128 /* DetailListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006A82AA6F94100501128 /* DetailListViewModel.swift */; };
+		312006AB2AA6FA4C00501128 /* TourListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006AA2AA6FA4C00501128 /* TourListTableViewCell.swift */; };
 		3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */; };
 		3165C2252A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */; };
 		3165C2272A769AD000421D05 /* AAAAAA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2262A769AD000421D05 /* AAAAAA.swift */; };
@@ -189,6 +196,13 @@
 		310ADE452A91CEFA00C5ADEA /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		310ADE482A91E44300C5ADEA /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		310ADE4A2A9222A100C5ADEA /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		310ADE4F2A961EDD00C5ADEA /* LanguageSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSetViewController.swift; sourceTree = "<group>"; };
+		310ADE512A961F5400C5ADEA /* LanguageSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSetViewModel.swift; sourceTree = "<group>"; };
+		3116B28F2AA35F4300308CDA /* ecoLocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ecoLocationData.swift; sourceTree = "<group>"; };
+		3116B2912AA3665800308CDA /* BBBBB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBBBB.swift; sourceTree = "<group>"; };
+		312006A62AA6F54E00501128 /* DetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailListView.swift; sourceTree = "<group>"; };
+		312006A82AA6F94100501128 /* DetailListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailListViewModel.swift; sourceTree = "<group>"; };
+		312006AA2AA6FA4C00501128 /* TourListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourListTableViewCell.swift; sourceTree = "<group>"; };
 		3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddFirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2262A769AD000421D05 /* AAAAAA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAAAAA.swift; sourceTree = "<group>"; };
@@ -403,6 +417,23 @@
 			path = FourthCell;
 			sourceTree = "<group>";
 		};
+		310ADE4E2A961EAC00C5ADEA /* MyPageTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				310ADE4F2A961EDD00C5ADEA /* LanguageSetViewController.swift */,
+				310ADE512A961F5400C5ADEA /* LanguageSetViewModel.swift */,
+			);
+			path = MyPageTableViewCells;
+			sourceTree = "<group>";
+		};
+		3116B28E2AA35F0500308CDA /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				3116B28F2AA35F4300308CDA /* ecoLocationData.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		3165C2332A7F643300421D05 /* CommentView */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,6 +530,7 @@
 				31F5000C2A6E35E200E4BCF3 /* DetailListBackgroundView.swift */,
 				31F5000E2A6E35F500E4BCF3 /* DetailListBackgroundViewModel.swift */,
 				3165C2262A769AD000421D05 /* AAAAAA.swift */,
+				3116B2912AA3665800308CDA /* BBBBB.swift */,
 			);
 			path = ChaeSo;
 			sourceTree = "<group>";
@@ -595,10 +627,14 @@
 		31C4B20F2A5558F500BABD62 /* MapPage */ = {
 			isa = PBXGroup;
 			children = (
+				3116B28E2AA35F0500308CDA /* Entities */,
 				31F500742A70F3DB00E4BCF3 /* VeganStory */,
 				31C4B1FA2A55527D00BABD62 /* MapViewController.swift */,
 				31C4B2022A55533500BABD62 /* MapViewModel.swift */,
 				31C4B2042A55534200BABD62 /* MapModel.swift */,
+				312006A62AA6F54E00501128 /* DetailListView.swift */,
+				312006A82AA6F94100501128 /* DetailListViewModel.swift */,
+				312006AA2AA6FA4C00501128 /* TourListTableViewCell.swift */,
 			);
 			path = MapPage;
 			sourceTree = "<group>";
@@ -606,6 +642,7 @@
 		31C4B2102A55590700BABD62 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				310ADE4E2A961EAC00C5ADEA /* MyPageTableViewCells */,
 				31F500632A6E762F00E4BCF3 /* BookmarkView */,
 				31C4B1FC2A55529B00BABD62 /* MyPageViewController.swift */,
 				31C4B2062A55535800BABD62 /* MyPageViewModel.swift */,
@@ -1046,10 +1083,13 @@
 				310ADE362A8F474B00C5ADEA /* InfoHeaderView.swift in Sources */,
 				31F5000D2A6E35E200E4BCF3 /* DetailListBackgroundView.swift in Sources */,
 				310ADE322A8F357800C5ADEA /* SecondInfoTableViewCell.swift in Sources */,
+				310ADE502A961EDD00C5ADEA /* LanguageSetViewController.swift in Sources */,
 				317ED7EC2A49D67B00006F7B /* SignUpViewModel.swift in Sources */,
+				312006A92AA6F94100501128 /* DetailListViewModel.swift in Sources */,
 				317ED7E82A499CFC00006F7B /* SignUpViewController.swift in Sources */,
 				31C4B2052A55534200BABD62 /* MapModel.swift in Sources */,
 				317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */,
+				312006AB2AA6FA4C00501128 /* TourListTableViewCell.swift in Sources */,
 				31C4B2202A5AC26200BABD62 /* SearchingViewController.swift in Sources */,
 				3165C2392A7F647100421D05 /* CommentModel.swift in Sources */,
 				310ADE382A8F56AF00C5ADEA /* InfoViewModel.swift in Sources */,
@@ -1062,6 +1102,7 @@
 				3165C24F2A820FA300421D05 /* WriteChaesoLogViewModel.swift in Sources */,
 				317ED7C62A4954F700006F7B /* LoginViewController.swift in Sources */,
 				317CDD822A50338100F9320B /* LocalizationManager.swift in Sources */,
+				3116B2902AA35F4300308CDA /* ecoLocationData.swift in Sources */,
 				31F500942A73D1F200E4BCF3 /* ReviewViewModel.swift in Sources */,
 				310ADE3C2A90CA5900C5ADEA /* MenuTableViewCell.swift in Sources */,
 				3165C2352A7F645B00421D05 /* CommentViewController.swift in Sources */,
@@ -1098,7 +1139,10 @@
 				317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */,
 				31CF47312A61088400A83671 /* IdLoginViewController.swift in Sources */,
 				310ADE272A89F96900C5ADEA /* SortTableViewModel.swift in Sources */,
+				310ADE522A961F5400C5ADEA /* LanguageSetViewModel.swift in Sources */,
 				31F500A12A74F0D000E4BCF3 /* MainPTCollectionViewController.swift in Sources */,
+				312006A72AA6F54E00501128 /* DetailListView.swift in Sources */,
+				3116B2922AA3665800308CDA /* BBBBB.swift in Sources */,
 				310ADE1E2A88960500C5ADEA /* StarCollectionViewCell.swift in Sources */,
 				31F5006C2A70048300E4BCF3 /* PlaceView.swift in Sources */,
 				31F5000F2A6E35F500E4BCF3 /* DetailListBackgroundViewModel.swift in Sources */,

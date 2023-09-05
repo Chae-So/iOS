@@ -23,15 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         //let rootViewController = StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
-        //let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
+        //let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
 
         //let rootViewController = VeganViewController(veganViewModel: VeganViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
         
-        //let rootViewController = TabBarController(viewModel: TabBarViewModel())
+        let rootViewController = TabBarController(viewModel: TabBarViewModel())
         
-        let rootViewController = NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
+        //let rootViewController = NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = MainPTCollectionViewController(mainPTCollectionViewModel: MainPTCollectionViewModel())
         
@@ -42,6 +42,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //let rootViewController = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = CommentViewController(commentViewModel: CommentViewModel(localizationManager: LocalizationManager.shared))
+        
+        //let rootViewController = MapViewController(mapViewModel: MapViewModel(localizationManager: LocalizationManager.shared) )
+        
+        //let rootViewController = BBBBB()
         
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         

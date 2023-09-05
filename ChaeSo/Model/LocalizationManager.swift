@@ -1,13 +1,13 @@
-import Foundation
+import RxCocoa
 
 class LocalizationManager {
     static let shared = LocalizationManager()
     var language: String = ""
+    var rxLanguage: BehaviorRelay<String> = BehaviorRelay<String>(value: "ko")
     private init() {
-        // Private initialization to ensure just one instance is created.
-        // Read the device language from Info.plist and set it to language property
         if let appLanguage = Bundle.main.preferredLocalizations.first {
             language = appLanguage
+            rxLanguage = BehaviorRelay<String>(value: appLanguage)
         }
     }
     

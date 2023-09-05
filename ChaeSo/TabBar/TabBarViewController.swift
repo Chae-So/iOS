@@ -26,11 +26,15 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tabBarHeight = self.tabBar.frame.size.height
+            print(tabBarHeight,328468237467)
         
         // Set up the view controllers
         let communityVC = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
-        let mapVC = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
-        let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared), ptCollectionViewModel: PTCollectionViewModel())
+        //let mapVC = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
+        let mapVC = MapViewController(mapViewModel: MapViewModel(localizationManager: LocalizationManager.shared))
+
+        let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
         
         communityVC.tabBarItem = UITabBarItem(title: "커뮤니티", image: UIImage(systemName: "house"), tag: 0)
         mapVC.tabBarItem = UITabBarItem(title: "지도", image: UIImage(systemName: "map"), tag: 1)

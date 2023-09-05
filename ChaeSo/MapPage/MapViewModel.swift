@@ -1,98 +1,74 @@
 import RxSwift
 import RxCocoa
+import Alamofire
 
-struct MapViewModel {
+class MapViewModel {
     let disposeBag = DisposeBag()
+    var localizationManager: LocalizationManager
     
-    //subViewModels
-    let detailListBackgroundViewModel = DetailListBackgroundViewModel()
+    let categoryItems = BehaviorRelay<[String]>(value: [])
+    let categorySelectedIndexPath = BehaviorRelay<IndexPath?>(value: nil)
     
-    //viewModel -> view
-    let setMapCenter: Signal<MTMapPoint>
-    let errorMessage: Signal<String>
-    let detailListCellData: Driver<[DetailListCellData]>
-    let scrollToSelectedLocation: Signal<Int>
+    let restaurantText = BehaviorRelay<String>(value: "")
+    let cafeText = BehaviorRelay<String>(value: "")
+    let tourText = BehaviorRelay<String>(value: "")
     
-    //view -> viewModel
-    let currentLocation = PublishRelay<MTMapPoint>()
-    let mapCenterPoint = PublishRelay<MTMapPoint>()
-    let selectPOIItem = PublishRelay<MTMapPOIItem>()
-    let mapViewError = PublishRelay<String>()
-    let curentLocationButtonTapped = PublishRelay<Void>()
-    let detailListItemSelected = PublishRelay<Int>()
+    let places: BehaviorRelay<[Place]> = BehaviorRelay(value: [])
     
-    private let documentData = PublishSubject<[KLDocument]>()
     
-    init(model: MapModel = MapModel()) {
-        //MARK: 네트워크 통신으로 데이터 불러오기
-        let cvsLocationDataResult = mapCenterPoint
-            .flatMapLatest(model.getLocation)
-            .share()
+    init(localizationManager: LocalizationManager) {
+        self.localizationManager = localizationManager
+        self.updateLocalization()
         
-        let cvsLocationDataValue = cvsLocationDataResult
-            .compactMap { data -> LocationData? in
-                guard case let .success(value) = data else {
-                    return nil
-                }
-                return value
-            }
-        
-        let cvsLocationDataErrorMessage = cvsLocationDataResult
-            .compactMap { data -> String? in
-                switch data {
-                case let .success(data) where data.documents.isEmpty:
-                    return """
-                    500m 근처에 이용할 수 있는 편의점이 없어요.
-                    지도 위치를 옮겨서 재검색해주세요.
-                    """
-                case let .failure(error):
-                    return error.localizedDescription
-                default:
-                    return nil
-                }
-            }
-        
-        cvsLocationDataValue
-            .map { $0.documents }
-            .bind(to: documentData)
+        Observable.combineLatest(restaurantText, cafeText, tourText)
+            .subscribe(onNext: { [weak self] a, b, c in
+                self?.categoryItems.accept([a, b, c])
+            })
             .disposed(by: disposeBag)
         
-        //MARK: 지도 중심점 설정
-        let selectDetailListItem = detailListItemSelected
-            .withLatestFrom(documentData) { $1[$0] }
-            .map(model.documentToMTMapPoint)
-        
-        let moveToCurrentLocation = curentLocationButtonTapped
-            .withLatestFrom(currentLocation)
-        
-        let currentMapCenter = Observable
-            .merge(
-                selectDetailListItem,
-                currentLocation.take(1),
-                moveToCurrentLocation
-            )
-        
-        setMapCenter = currentMapCenter
-            .asSignal(onErrorSignalWith: .empty())
-        
-        errorMessage = Observable
-            .merge(
-                cvsLocationDataErrorMessage,
-                mapViewError.asObservable()
-            )
-            .asSignal(onErrorJustReturn: "잠시 후 다시 시도해주세요.")
-        
-        detailListCellData = documentData
-            .map(model.documentsToCellData)
-            .asDriver(onErrorDriveWith: .empty())
-        
-        documentData
-            .map { !$0.isEmpty }
-            .bind(to: detailListBackgroundViewModel.shouldHideStatusLabel)
-            .disposed(by: disposeBag)
-        
-        scrollToSelectedLocation  = selectPOIItem
-            .map { $0.tag }
-            .asSignal(onErrorJustReturn: 0)
     }
+    
+    func fetchData() {
+        let baseURL = "https://apis.data.go.kr/B551011/GreenTourService1/areaBasedList1"
+        let parameters: [String: String] = [
+            "MobileOS": "IOS",
+            "MobileApp": "Chaeso",
+            "areaCode": "6",
+            "_type": "json",
+            "serviceKey": "baUzHe88eAYK43DCQFlep1DxNZUQyLnobW3qM0mq9o1IL2h5CAZTaQsiF+hyXr8NJVJvYs5lQnCh+CQft6zuZQ=="
+        ]
+        
+        AF.request(baseURL,
+                   method: .get,
+                   parameters: parameters,
+                   encoding: URLEncoding.default)
+        .responseDecodable(of: Response.self) { response in
+            switch response.result {
+            case .success(let response):
+                var placesFromServer: [Place] = []
+                
+                let places = response.response.body.items.item
+                for place in places {
+                    placesFromServer.append(place)
+                    //print(place)
+                }
+                
+                // Update the places BehaviorRelay
+                self.places.accept(placesFromServer)
+                
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+            
+        }
+    }
+    
+    private func updateLocalization() {
+
+        restaurantText.accept(localizationManager.localizedString(forKey: "Restaurant"))
+        cafeText.accept(localizationManager.localizedString(forKey: "Cafe"))
+        tourText.accept(localizationManager.localizedString(forKey: "tourist attraction"))
+        
+    }
+    
 }

@@ -1,10 +1,3 @@
-//
-//  Constants.swift
-//  ChaeSo
-//
-//  Created by 박중선 on 2023/07/04.
-//
-
 import UIKit
 
 struct Constants {

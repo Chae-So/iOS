@@ -44,6 +44,7 @@ class VeganStoryViewController: UIViewController {
 
         // 구독 설정
         bind()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,6 +60,14 @@ class VeganStoryViewController: UIViewController {
             .asDriver(onErrorDriveWith: .empty())
             .drive(veganStoryLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        veganStoryViewModel.veganStoryText
+            .subscribe(onNext: { [self] title in
+                print(123123123,veganStoryViewModel.localizationManager.language)
+                print(title)
+            })
+            .disposed(by: disposeBag)
+     
         
         vsTabView.presentWriteReviewRelay
                 .subscribe(onNext: { [weak self] in
@@ -78,6 +87,7 @@ class VeganStoryViewController: UIViewController {
         
         //MARK: myChaesoLabel Attribute
         veganStoryLabel.font = UIFont(name: "Pretendard-Medium", size: 20)
+        veganStoryLabel.text = veganStoryViewModel.aa
         
         //MARK: separateView Attribute
         separateView.backgroundColor = UIColor(hexCode: "D9D9D9")

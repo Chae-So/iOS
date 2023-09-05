@@ -8,7 +8,6 @@ class NicknameViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
     var nicknameViewModel: NicknameViewModel!
-    var ptCollectionViewModel: PTCollectionViewModel!
     
     private lazy var nicknameButton = UIButton()
     private lazy var plusButton = UIButton()

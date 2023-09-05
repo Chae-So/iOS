@@ -7,22 +7,16 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Properties
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     var myPageviewModel: MyPageViewModel
-    var ptCollectionViewModel: PTCollectionViewModel
     let bookmarkView = BookmarkView(bookmarkViewModel: BookmarkViewModel(localizationManager: LocalizationManager.shared))
     
     // MARK: - UI Elements
-    private lazy var myChaesoLabel = UILabel()
+    private lazy var titleLabel = UILabel()
+    private lazy var leftButton = UIButton()
     private lazy var nicknameButton = UIButton()
     private lazy var plusButton = UIButton()
     private lazy var nicknameLabel = UILabel()
-    private lazy var postNumberLabel = UILabel()
-    private lazy var followingNumberLabel = UILabel()
-    private lazy var followerNumberLabel = UILabel()
-    private lazy var postLabel = UILabel()
-    private lazy var followingLabel = UILabel()
-    private lazy var followerLabel = UILabel()
     private lazy var separateView = UIView()
     private lazy var separateSecondView = UIView()
     
@@ -30,9 +24,8 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Initializers
     
-    init(myPageviewModel: MyPageViewModel, ptCollectionViewModel: PTCollectionViewModel) {
+    init(myPageviewModel: MyPageViewModel) {
         self.myPageviewModel = myPageviewModel
-        self.ptCollectionViewModel = ptCollectionViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,34 +37,51 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         
         bind()
         attribute()
         layout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("마이페이지 뷰일어피어")
+        myPageviewModel.titleText
+            .subscribe { title in
+                print(title,123123123)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     
     func bind(){
-        myPageviewModel.myChaesoText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(myChaesoLabel.rx.text)
+        
+        myPageviewModel.titleText
+            .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        myPageviewModel.postText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(postLabel.rx.text)
+        plusButton.rx.tap
+            .bind(to: myPageviewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
         
-        myPageviewModel.followingText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(followingLabel.rx.text)
+        nicknameButton.rx.tap
+            .bind(to: myPageviewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
         
-        myPageviewModel.followerText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(followerLabel.rx.text)
+        myPageviewModel.nicknameButtonTapped
+            .subscribe(onNext: {
+                let mainPTCollectionViewController = MainPTCollectionViewController(mainPTCollectionViewModel: MainPTCollectionViewModel(photoViewModelProtocol: self.myPageviewModel))
+                mainPTCollectionViewController.modalPresentationStyle = .fullScreen
+                mainPTCollectionViewController.type = "nickname"
+                self.present(mainPTCollectionViewController, animated: true)
+            })
             .disposed(by: disposeBag)
-        
+  
+        myPageviewModel.selectedPhotosRelay
+            .map { $0.first }
+            .bind(to: nicknameButton.rx.image(for: .normal))
+            .disposed(by: disposeBag)
         
         myPageviewModel.items
             .bind(to: tableView.rx.items(cellIdentifier: "MyPageTableViewCell", cellType: MyPageTableViewCell.self)){ [weak self] (row, element, cell) in
@@ -103,18 +113,32 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
             .subscribe(onNext: { [weak self] (index) in
                 guard let self = self else { return }
                 let row = index.row
-                print(row)
-                if row == 1 {
+                switch row{
+                case 1:
                     self.showBookmarkView()
-                    //self.show(bookmarkView)
+                    self.leftButton.isHidden = false
+                case 5:
+                    let languageSetViewController = LanguageSetViewController(languageSetViewModel: LanguageSetViewModel(localizationManager: LocalizationManager.shared))
+                    self.show(languageSetViewController, sender: nil)
+                default:
+                    break
                 }
+                
+            })
+            .disposed(by: disposeBag)
+        
+        leftButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.showMyPage()
+                self.leftButton.isHidden = true
             })
             .disposed(by: disposeBag)
         
     }
     
     private func shouldShowSeparator(at index: Int) -> Bool {
-        return index == 2 || index == 6  // "좋아요"와 "설정" 셀 바로 아래에 구분뷰가 옵니다.
+        return index == 1 || index == 5  
     }
     
     private func showBookmarkView() {
@@ -140,13 +164,45 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
 
         })
     }
+    
+    private func showMyPage() {
+        UIView.animate(withDuration: 0.3, animations: {
+            // tableView를 원래 위치로 복원
+            self.tableView.snp.remakeConstraints { make in
+                // 원래의 tableView 제약 조건을 여기에 다시 설정하세요.
+                // 예:
+                make.left.right.equalTo(self.view)
+                make.top.equalTo(self.separateSecondView.snp.bottom)
+                make.bottom.equalTo(self.view)
+                // 기타 필요한 제약 조건을 추가하세요.
+            }
+            
+            // bookmarkView를 원래 위치로 복원
+            self.bookmarkView.snp.remakeConstraints { make in
+                // 원래의 bookmarkView 제약 조건을 여기에 다시 설정하세요.
+                // 예:
+                make.left.equalTo(self.view.snp.right) // 화면 밖으로 이동
+                make.top.equalTo(self.separateSecondView.snp.bottom)
+                make.width.equalTo(self.view)
+                make.bottom.equalTo(self.view)
+            }
+            
+            // 레이아웃을 즉시 업데이트
+            self.view.layoutIfNeeded()
+        })
+    }
+
 
     
     func attribute(){
         view.backgroundColor = .white
         
         //MARK: myChaesoLabel Attribute
-        myChaesoLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
+        titleLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
+        //titleLabel.text = myPageviewModel.myChaesoText
+        
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
+        leftButton.isHidden = true
         
         //MARK: separateView Attribute
         separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
@@ -174,19 +230,6 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
         //ToDo: 닉네임 실제걸로 변경
         nicknameLabel.text = "씩씩한 시금치님"
         
-        //MARK: post,following,followerNumberLabel Attribute
-        //ToDo: 숫자 실제걸로 변경
-        postNumberLabel.font = UIFont(name: "Pretendard-Bold", size: 13)
-        postNumberLabel.text = "20"
-        followingNumberLabel.font = UIFont(name: "Pretendard-Bold", size: 13)
-        followingNumberLabel.text = "80"
-        followerNumberLabel.font = UIFont(name: "Pretendard-Bold", size: 13)
-        followerNumberLabel.text = "100"
-        
-        //MARK: post,following,followerLabel Attribute
-        postLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        followingLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        followerLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
         
         tableView.tableFooterView = UIView()
         tableView.isScrollEnabled = false
@@ -199,16 +242,23 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func layout(){
-        [myChaesoLabel,separateView,nicknameButton,plusButton,nicknameLabel,separateSecondView,postNumberLabel,followingNumberLabel,followerNumberLabel,postLabel,followingLabel,followerLabel,tableView,bookmarkView]
+        [titleLabel,leftButton,separateView,nicknameButton,plusButton,nicknameLabel,separateSecondView,tableView,bookmarkView]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
         
-        myChaesoLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             //make.width.equalTo(100*Constants.standardWidth)
             make.height.equalTo(19*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(20*Constants.standardWidth)
+            make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(54*Constants.standardHeight)
+        }
+        
+        leftButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardHeight)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardHeight)
+            make.centerY.equalTo(titleLabel)
         }
         
         separateView.snp.makeConstraints { make in
@@ -239,53 +289,11 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
             make.top.equalToSuperview().offset(122*Constants.standardHeight)
         }
         
-        postNumberLabel.snp.makeConstraints { make in
-            //make.width.equalTo(17*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(55*Constants.standardWidth)
-            make.top.equalToSuperview().offset(188*Constants.standardHeight)
-        }
-        
-        postLabel.snp.makeConstraints { make in
-            //make.width.equalTo(34*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.centerX.equalTo(postNumberLabel.snp.centerX)
-            make.top.equalTo(postNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
-        }
-        
-        followingNumberLabel.snp.makeConstraints { make in
-            //make.width.equalTo(17*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalTo(postNumberLabel.snp.trailing).offset(107*Constants.standardWidth)
-            make.top.equalToSuperview().offset(188*Constants.standardHeight)
-        }
-        
-        followingLabel.snp.makeConstraints { make in
-            //make.width.equalTo(34*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.centerX.equalTo(followingNumberLabel.snp.centerX)
-            make.top.equalTo(followingNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
-        }
-        
-        followerNumberLabel.snp.makeConstraints { make in
-            //make.width.equalTo(17*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalTo(followingNumberLabel.snp.trailing).offset(107*Constants.standardWidth)
-            make.top.equalToSuperview().offset(188*Constants.standardHeight)
-        }
-        
-        followerLabel.snp.makeConstraints { make in
-            //make.width.equalTo(34*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.centerX.equalTo(followerNumberLabel.snp.centerX)
-            make.top.equalTo(followerNumberLabel.snp.bottom).offset(8*Constants.standardHeight)
-        }
-        
         separateSecondView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.height.equalTo(5*Constants.standardHeight)
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(244*Constants.standardHeight)
+            make.top.equalTo(nicknameButton.snp.bottom).offset(15*Constants.standardHeight)
         }
 
         tableView.snp.makeConstraints { make in

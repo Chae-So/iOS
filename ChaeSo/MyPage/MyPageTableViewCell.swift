@@ -32,7 +32,7 @@ class MyPageTableViewCell: UITableViewCell {
             make.height.equalTo(3)
         }
         
-        titleLabel.font = UIFont(name: "Pretendard-Bold", size: 14)
+        titleLabel.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)

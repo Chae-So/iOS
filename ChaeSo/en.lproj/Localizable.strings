@@ -68,7 +68,6 @@
 "Vegan Story" = "Vegan Story";
 "Write review" = "Write review";
 "View photo reviews" = "View photo reviews";
-"Follow" = "Follow";
 
 //MARK: VSTabView
 "Info" = "Info";
@@ -94,9 +93,6 @@
 
 //MARK: MyPage
 "My Chaeso" = "My Chaeso";
-"Post" = "Post";
-"Following" = "Following";
-"Follower" = "Follower";
 "My Story" = "My Story";
 "Bookmark" = "Bookmark";
 "Like" = "Like";
@@ -114,4 +110,9 @@
 //MARK: PlaceView
 "Restaurant" = "Restaurant";
 "Cafe" = "Cafe";
-"Store" = "Store";
+"tourist attraction" = "tourist attraction";
+
+//MARK: LanguageSetView
+"언어 설정" = "Language Set";
+"한국어" = "Korean";
+"영어" = "English";
