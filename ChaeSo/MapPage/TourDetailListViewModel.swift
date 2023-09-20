@@ -1,7 +1,7 @@
 import RxSwift
 import RxCocoa
 
-class DetailListViewModel{
+class TourDetailListViewModel{
     let disposeBag = DisposeBag()
     var localizationManager: LocalizationManager
     

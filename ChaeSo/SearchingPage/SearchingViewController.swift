@@ -6,15 +6,15 @@ import Lottie
 
 class SearchingViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
-    var searchingViewModel: SearchingViewModel!
+    let disposeBag = DisposeBag()
+    var searchingViewModel: SearchingViewModel
     
-    private lazy var animationView = LottieAnimationView(name: "FlowTomato")
-    private lazy var searchingLabel = UILabel()
+    var animationView = LottieAnimationView(name: "AniTomato")
+    lazy var searchingLabel = UILabel()
     
-    init(searchingViewModel: SearchingViewModel!) {
-        super.init(nibName: nil, bundle: nil)
+    init(searchingViewModel: SearchingViewModel) {
         self.searchingViewModel = searchingViewModel
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -23,10 +23,9 @@ class SearchingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.hidesBackButton = true
-        
+
         animationView.loopMode = .loop
-        animationView.play() // 애미메이션뷰 실행
+        animationView.play() 
         
         bind()
         attribute()
@@ -45,13 +44,10 @@ class SearchingViewController: UIViewController {
     
     func attribute(){
         
-        //MARK: 바탕색
         self.view.backgroundColor = UIColor(named: "bgColor")
         
-        //MARK: searchingLabel Attribute
         searchingLabel.textColor = UIColor.black
-        searchingLabel.font = UIFont(name: "Pretendard-Bold", size: 20)
-        //searchingLabel.textAlignment = .center
+        searchingLabel.font = UIFont(name: "Pretendard-Bold", size: 20*Constants.standartFont)
     }
     
     func layout(){
@@ -68,7 +64,6 @@ class SearchingViewController: UIViewController {
         }
         
         searchingLabel.snp.makeConstraints { make in
-            make.height.equalTo(21*Constants.standardHeight)
             make.centerX.equalToSuperview().offset(0.5*Constants.standardWidth)
             make.top.equalToSuperview().offset(530*Constants.standardHeight)
         }

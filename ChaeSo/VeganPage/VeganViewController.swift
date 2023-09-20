@@ -2,46 +2,45 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
-import RxDataSources
 import Then
 
 class VeganViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
-    var veganViewModel: VeganViewModel!
+    let disposeBag = DisposeBag()
+    var veganViewModel: VeganViewModel
     
-    private lazy var progressView = UIProgressView()
-    private lazy var titleLabel = UILabel()
-    private let veganCollectionView: UICollectionView = {
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 15
-        layout.minimumLineSpacing = 10
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        return collectionView
-    }()
+    let progressView = UIProgressView()
+    let leftButton = UIButton()
+    lazy var titleLabel = UILabel()
+    lazy var veganCollectionView = UICollectionView(frame: .zero, collectionViewLayout: LeftAlignedCollectionViewFlowLayout().then {
+        $0.scrollDirection = .vertical
+        $0.minimumInteritemSpacing = 15*Constants.standardWidth
+        $0.minimumLineSpacing = 10*Constants.standardHeight
+    })
     
-    private lazy var startButton = UIButton()
+    lazy var startButton = UIButton()
     
-    private lazy var whiteView = UIView()
-    private lazy var smallView = UIView()
-    private lazy var veganLabel = UILabel()
-    private lazy var lactoLabel = UILabel()
-    private lazy var ovoLabel = UILabel()
-    private lazy var pescoLabel = UILabel()
-    private lazy var polloLabel = UILabel()
-    private lazy var flexitarianLabel = UILabel()
+    let whiteView = UIView()
+    let smallView = UIView()
+    lazy var veganLabel = UILabel()
+    lazy var lactoLabel = UILabel()
+    lazy var ovoLabel = UILabel()
+    lazy var pescoLabel = UILabel()
+    lazy var polloLabel = UILabel()
+    lazy var flexitarianLabel = UILabel()
     
-    private lazy var firstImageView = UIImageView()
-    private lazy var secondImageView = UIImageView()
-    private lazy var thirdImageView = UIImageView()
-    private lazy var fourthImageView = UIImageView()
-    private lazy var fifthImageView = UIImageView()
-    private lazy var sixthImageView = UIImageView()
+    lazy var firstImageView = UIImageView()
+    lazy var secondImageView = UIImageView()
+    lazy var thirdImageView = UIImageView()
+    lazy var fourthImageView = UIImageView()
+    lazy var fifthImageView = UIImageView()
+    lazy var sixthImageView = UIImageView()
     
-    init(veganViewModel: VeganViewModel!) {
-        super.init(nibName: nil, bundle: nil)
+    var lastSelectedIndexPath: IndexPath?
+    
+    init(veganViewModel: VeganViewModel) {
         self.veganViewModel = veganViewModel
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -50,8 +49,7 @@ class VeganViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.hidesBackButton = true
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.navigationBar.isHidden = true
         bind()
         layout()
         attribute()
@@ -60,6 +58,33 @@ class VeganViewController: UIViewController {
     
     func bind(){
         
+        leftButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        veganViewModel.startText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(startButton.rx.title())
+            .disposed(by: disposeBag)
+        
+        veganViewModel.startButtonEnabled
+            .bind(to: startButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        veganViewModel.startButtonEnabled
+            .asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor(named: "prColor") : UIColor(named: "bgColor") }
+            .drive(startButton.rx.backgroundColor)
+            .disposed(by: disposeBag)
+        
+        veganViewModel.startButtonEnabled
+            .asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor.white : UIColor(named: "prColor")! }
+            .drive(startButton.rx.titleColor(for: .normal))
+            .disposed(by: disposeBag)
+        
         veganViewModel.cellData
             .drive(veganCollectionView.rx.items(cellIdentifier: "VeganCollectionViewCell", cellType: VeganCollectionViewCell.self)) { row, element, cell in
                 cell.tabButton.setImage(element.image, for: .normal)
@@ -67,20 +92,26 @@ class VeganViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
-        
-        veganCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        
-        veganViewModel.firstSelectedIndexPath
-                .bind(to: veganCollectionView.rx.updateSelectedCellBorderColor)
-                .disposed(by: disposeBag)
-        
         veganCollectionView.rx.itemSelected
-            .bind(to: veganViewModel.firstSelectedIndexPath)
+            .bind(to: veganViewModel.itemSelected)
             .disposed(by: disposeBag)
         
+        veganCollectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                
+                if let lastIndexPath = self.lastSelectedIndexPath, let lastCell = self.veganCollectionView.cellForItem(at: lastIndexPath) as? VeganCollectionViewCell {
+                    lastCell.updateBorderColor(to: .clear)
+                }
+                
+                if let cell = self.veganCollectionView.cellForItem(at: indexPath) as? VeganCollectionViewCell {
+                    cell.updateBorderColor(to: UIColor(named: "prColor")!)
+                }
+                
+                self.lastSelectedIndexPath = indexPath
+            })
+            .disposed(by: disposeBag)
         
-        
-
         startButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -92,18 +123,19 @@ class VeganViewController: UIViewController {
     }
     
     func attribute(){
-        //MARK: 바탕색
+
         self.view.backgroundColor = UIColor(named: "bgColor")
         
         progressView.do{
             $0.backgroundColor = UIColor(hexCode: "D9D9D9")
             $0.progressTintColor = UIColor(named: "prColor")
             $0.progress = 1
-            
         }
         
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
+        
         titleLabel.do{
-            $0.font = UIFont(name: "Pretendard-Bold", size: 24)
+            $0.font = UIFont(name: "Pretendard-Bold", size: 24*Constants.standartFont)
             $0.text = veganViewModel.titleText
             $0.numberOfLines = 2
         }
@@ -119,11 +151,10 @@ class VeganViewController: UIViewController {
             $0.backgroundColor = UIColor(hexCode: "F5F5F5")
             $0.sizeToFit()
             $0.layer.cornerRadius = 16 * Constants.standardHeight
-            $0.layer.shadowColor = UIColor.black.cgColor // 색깔
-            //$0.layer.masksToBounds = false  // 내부에 속한 요소들이 UIView 밖을 벗어날 때, 잘라낼 것인지. 그림자는 밖에 그려지는 것이므로 false 로 설정
-            $0.layer.shadowOffset = CGSize(width: 0, height: -4) // 위치조정
-            $0.layer.shadowRadius = 10 // 반경
-            $0.layer.shadowOpacity = 0.1 // alpha값
+            $0.layer.shadowColor = UIColor.black.cgColor
+            $0.layer.shadowOffset = CGSize(width: 0, height: -4*Constants.standardHeight)
+            $0.layer.shadowRadius = 10*Constants.standardHeight
+            $0.layer.shadowOpacity = 0.1
         }
         
         smallView.do{
@@ -134,7 +165,7 @@ class VeganViewController: UIViewController {
         
         [veganLabel,lactoLabel,ovoLabel,pescoLabel,polloLabel,flexitarianLabel]
             .forEach {
-                $0.font = UIFont(name: "Pretendard-Medium", size: 20)
+                $0.font = UIFont(name: "Pretendard-Medium", size: 20*Constants.standartFont)
             }
         
         veganLabel.text = veganViewModel.veganText
@@ -153,19 +184,18 @@ class VeganViewController: UIViewController {
         
         startButton.do{
             $0.titleLabel?.textAlignment = .center
-            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
             $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
-            $0.setTitle("start", for: .normal)
-            $0.backgroundColor = UIColor(hexCode: "F5F5F5")
-            $0.layer.cornerRadius = 8 * Constants.standardHeight
+            $0.layer.cornerRadius = 8*Constants.standardHeight
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+            $0.isEnabled = false
         }
     }
     
     func layout(){
         
-        [progressView,titleLabel,veganCollectionView,whiteView]
+        [progressView,leftButton,titleLabel,veganCollectionView,whiteView]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
@@ -175,6 +205,13 @@ class VeganViewController: UIViewController {
             make.height.equalTo(5*Constants.standardHeight)
             make.leading.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        leftButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardHeight)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardHeight)
+            make.top.equalToSuperview().offset(63*Constants.standardHeight)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -208,43 +245,31 @@ class VeganViewController: UIViewController {
         }
         
         veganLabel.snp.makeConstraints { make in
-            //make.width.equalTo(99*Constants.standardWidth)
-            make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(48*Constants.standardHeight)
         }
         
         lactoLabel.snp.makeConstraints { make in
-            //make.width.equalTo(99*Constants.standardWidth)
-            make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(veganLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
         
         ovoLabel.snp.makeConstraints { make in
-            //make.width.equalTo(99*Constants.standardWidth)
-            make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(lactoLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
         
         pescoLabel.snp.makeConstraints { make in
-            //make.width.equalTo(99*Constants.standardWidth)
-            make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(ovoLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
         
         polloLabel.snp.makeConstraints { make in
-            //make.width.equalTo(99*Constants.standardWidth)
-            make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(pescoLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
         
         flexitarianLabel.snp.makeConstraints { make in
-            //make.width.equalTo(99*Constants.standardWidth)
-            make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(polloLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
@@ -304,26 +329,6 @@ class VeganViewController: UIViewController {
 
 }
 
-extension VeganViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let items = veganViewModel.currentCellData
-        
-        // 텍스트 크기 계산
-        let text = items[indexPath.item].text
-        let font = UIFont(name: "Pretendard-Medium", size: 20 * Constants.standardWidth)
-        let textSize = text.size(withAttributes: [NSAttributedString.Key.font: font])
-        
-        // 이미지 크기 계산
-        let image = items[indexPath.item].image
-        let imageSize = image?.size ?? CGSize.zero
-        
-        // 총 너비 및 높이 계산
-        let width = textSize.width + imageSize.width + 20 * 2 * Constants.standardWidth  // 좌우 패딩
-        let height = textSize.height + 8 * 2 * Constants.standardHeight // 이미지와 텍스트 간의 간격 및 상하 패딩
-        
-        return CGSize(width: width, height: height-2)
-    }
-}
 
 
 //#if DEBUG

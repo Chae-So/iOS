@@ -2,28 +2,28 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Then
 import PhotosUI
 
 class NicknameViewController: UIViewController {
 
-    private let disposeBag = DisposeBag()
-    var nicknameViewModel: NicknameViewModel!
+    let disposeBag = DisposeBag()
+    var nicknameViewModel: NicknameViewModel
     
-    private lazy var nicknameButton = UIButton()
-    private lazy var plusButton = UIButton()
-    private lazy var nicknameLabel = UILabel()
-    private lazy var checkButton = UIButton()
-    private lazy var nicknameTextField = UITextField()
-    private lazy var isValidNkFirstLabel = UILabel()
-    private lazy var isValidNkSecondLabel = UILabel()
-    private lazy var nextButton = UIButton()
-    
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
-    init(nicknameViewModel: NicknameViewModel!) {
-        super.init(nibName: nil, bundle: nil)
+    let progressView = UIProgressView()
+    lazy var leftButton = UIButton()
+    lazy var nicknameButton = UIButton()
+    lazy var plusButton = UIButton()
+    lazy var nicknameLabel = UILabel()
+    lazy var checkButton = UIButton()
+    let nicknameTextField = UITextField()
+    lazy var isValidNkFirstLabel = UILabel()
+    lazy var isValidNkSecondLabel = UILabel()
+    lazy var nextButton = UIButton()
+        
+    init(nicknameViewModel: NicknameViewModel) {
         self.nicknameViewModel = nicknameViewModel
-
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -32,7 +32,7 @@ class NicknameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.isHidden = true
 
         bind()
         attribute()
@@ -41,6 +41,17 @@ class NicknameViewController: UIViewController {
 
     
     func bind(){
+        
+        leftButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        nicknameViewModel.nextText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(nextButton.rx.title())
+            .disposed(by: disposeBag)
         
         nicknameViewModel.NkText
             .asDriver(onErrorDriveWith: .empty())
@@ -130,67 +141,90 @@ class NicknameViewController: UIViewController {
     }
     
     func attribute(){
-        
-        //MARK: 바탕색
+
         self.view.backgroundColor = UIColor(named: "bgColor")
         
-        //MARK: nicknameButton Attribute
-        nicknameButton.setImage(UIImage(named: "userImage"), for: .normal)
-        //nicknameButton.imageView!.contentMode = .scaleAspectFill
-        nicknameButton.backgroundColor = .white
-        nicknameButton.clipsToBounds = true
-        nicknameButton.layer.cornerRadius = 50*Constants.standardWidth //(imageButton.bounds.size.width*Constants.standardWidth) / 2
-        nicknameButton.adjustsImageWhenHighlighted = false
+        progressView.do{
+            $0.backgroundColor = UIColor(hexCode: "D9D9D9")
+            $0.progressTintColor = UIColor(named: "prColor")
+            $0.progress = 0.66
+        }
         
-        //MARK: plusButton Attribute
-        plusButton.setImage(UIImage(named: "plusButton"), for: .normal)
-        plusButton.backgroundColor = UIColor(named: "gray10")
-        plusButton.layer.cornerRadius = 12*Constants.standardHeight //(plusButton.frame.height*Constants.standardHeight) / 2
-        plusButton.adjustsImageWhenHighlighted = false
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
         
-        //MARK: nicknameLabel attribute
-        nicknameLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        nicknameLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
+        nicknameButton.do{
+            $0.setImage(UIImage(named: "userImage"), for: .normal)
+            $0.backgroundColor = .white
+            $0.clipsToBounds = true
+            $0.sizeToFit()
+            $0.layer.cornerRadius = $0.frame.size.height / 2
+        }
         
-        //MARK: nicknameTextField attribute
-        nicknameTextField.alpha = 0.56
-        nicknameTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        nicknameTextField.layer.cornerRadius = 8
-        nicknameTextField.layer.borderWidth = 1
-        nicknameTextField.layer.borderColor = UIColor.clear.cgColor
-        nicknameTextField.addLeftPadding()
+        plusButton.do{
+            $0.setImage(UIImage(named: "plusButton"), for: .normal)
+            $0.backgroundColor = UIColor(named: "gray10")
+            $0.sizeToFit()
+            $0.layer.cornerRadius = $0.frame.size.height / 2
+        }
         
-        //MARK: checkButton attribute
-        checkButton.titleLabel?.textAlignment = .center
-        checkButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        checkButton.tintColor = .white
-        checkButton.backgroundColor = UIColor(named: "prColor")
-        checkButton.layer.cornerRadius = 8
+        nicknameLabel.do{
+            $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+        }
         
-        //MARK: isValidNkFirstLabel attribute
-        isValidNkFirstLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidNkFirstLabel.textColor = UIColor(named: "gray20")
+        nicknameTextField.do{
+            $0.alpha = 0.56
+            $0.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.clear.cgColor
+            $0.addLeftPadding()
+        }
         
-        //MARK: isValidNkSecondLabel attribute
-        isValidNkSecondLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidNkSecondLabel.textColor = UIColor(named: "gray20")
+        checkButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.tintColor = .white
+            $0.backgroundColor = UIColor(named: "prColor")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+        }
         
-        //MARK: nextButton attribute
-        nextButton.titleLabel?.textAlignment = .center
-        nextButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        nextButton.setTitleColor(UIColor(named: "prColor"), for: .normal)
-        nextButton.setTitle("next", for: .normal)
-        nextButton.backgroundColor = UIColor(named: "bgColor")
-        nextButton.layer.cornerRadius = 8
-        nextButton.layer.borderWidth = 1
-        nextButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
+        [isValidNkFirstLabel,isValidNkSecondLabel]
+            .forEach{
+                $0.font = UIFont(name: "Pretendard-Medium", size: 13*Constants.standartFont)
+                $0.textColor = UIColor(named: "gray20")
+            }
+        
+        nextButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
+            $0.backgroundColor = UIColor(named: "bgColor")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+        }
     }
     
     func layout(){
-        [nicknameButton,plusButton,nicknameLabel,nicknameTextField,checkButton,isValidNkFirstLabel,isValidNkSecondLabel,nextButton]
+        [progressView,leftButton,nicknameButton,plusButton,nicknameLabel,nicknameTextField,checkButton,isValidNkFirstLabel,isValidNkSecondLabel,nextButton]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
+        
+        progressView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(5*Constants.standardHeight)
+            make.leading.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        leftButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardHeight)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardHeight)
+            make.top.equalToSuperview().offset(63*Constants.standardHeight)
+        }
         
         nicknameButton.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
@@ -207,7 +241,6 @@ class NicknameViewController: UIViewController {
         }
         
         nicknameLabel.snp.makeConstraints { make in
-            make.height.equalTo(17*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(296*Constants.standardHeight)
         }
@@ -227,13 +260,11 @@ class NicknameViewController: UIViewController {
         }
         
         isValidNkFirstLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(nicknameTextField.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         isValidNkSecondLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(isValidNkFirstLabel.snp.bottom).offset(8*Constants.standardHeight)
         }

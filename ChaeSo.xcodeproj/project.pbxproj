@@ -31,8 +31,8 @@
 		310ADE522A961F5400C5ADEA /* LanguageSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310ADE512A961F5400C5ADEA /* LanguageSetViewModel.swift */; };
 		3116B2902AA35F4300308CDA /* ecoLocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3116B28F2AA35F4300308CDA /* ecoLocationData.swift */; };
 		3116B2922AA3665800308CDA /* BBBBB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3116B2912AA3665800308CDA /* BBBBB.swift */; };
-		312006A72AA6F54E00501128 /* DetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006A62AA6F54E00501128 /* DetailListView.swift */; };
-		312006A92AA6F94100501128 /* DetailListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006A82AA6F94100501128 /* DetailListViewModel.swift */; };
+		312006A72AA6F54E00501128 /* TourDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006A62AA6F54E00501128 /* TourDetailListView.swift */; };
+		312006A92AA6F94100501128 /* TourDetailListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006A82AA6F94100501128 /* TourDetailListViewModel.swift */; };
 		312006AB2AA6FA4C00501128 /* TourListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312006AA2AA6FA4C00501128 /* TourListTableViewCell.swift */; };
 		3165C2232A76730E00421D05 /* PhotoAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */; };
 		3165C2252A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */; };
@@ -68,6 +68,7 @@
 		317ED7EC2A49D67B00006F7B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EB2A49D67B00006F7B /* SignUpViewModel.swift */; };
 		317ED7EE2A49D6FB00006F7B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */; };
 		317ED7F02A4D69CF00006F7B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ED7EF2A4D69CF00006F7B /* Validator.swift */; };
+		31C33F8F2ABAB82500A99D7E /* AniTomato.json in Resources */ = {isa = PBXBuildFile; fileRef = 31C33F8E2ABAB82500A99D7E /* AniTomato.json */; };
 		31C392092A62B06A006C9FFE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C392082A62B06A006C9FFE /* TestViewController.swift */; };
 		31C3920C2A62B992006C9FFE /* RxKakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 31C3920B2A62B992006C9FFE /* RxKakaoSDKAuth */; };
 		31C3920E2A62B992006C9FFE /* RxKakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 31C3920D2A62B992006C9FFE /* RxKakaoSDKCommon */; };
@@ -200,8 +201,8 @@
 		310ADE512A961F5400C5ADEA /* LanguageSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSetViewModel.swift; sourceTree = "<group>"; };
 		3116B28F2AA35F4300308CDA /* ecoLocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ecoLocationData.swift; sourceTree = "<group>"; };
 		3116B2912AA3665800308CDA /* BBBBB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBBBB.swift; sourceTree = "<group>"; };
-		312006A62AA6F54E00501128 /* DetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailListView.swift; sourceTree = "<group>"; };
-		312006A82AA6F94100501128 /* DetailListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailListViewModel.swift; sourceTree = "<group>"; };
+		312006A62AA6F54E00501128 /* TourDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailListView.swift; sourceTree = "<group>"; };
+		312006A82AA6F94100501128 /* TourDetailListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailListViewModel.swift; sourceTree = "<group>"; };
 		312006AA2AA6FA4C00501128 /* TourListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourListTableViewCell.swift; sourceTree = "<group>"; };
 		3165C2222A76730E00421D05 /* PhotoAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		3165C2242A76741100421D05 /* PhotoAddFirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAddFirstCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 		317ED7EB2A49D67B00006F7B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		317ED7ED2A49D6FB00006F7B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		317ED7EF2A4D69CF00006F7B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		31C33F8E2ABAB82500A99D7E /* AniTomato.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = AniTomato.json; path = "../../../iOS-21e2064021a653cb2f57400c454c01e959d9858b/ChaeSo/SearchingPage/AniTomato.json"; sourceTree = "<group>"; };
 		31C392082A62B06A006C9FFE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		31C392112A62CD99006C9FFE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		31C392232A6BEEA8006C9FFE /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
@@ -308,7 +310,6 @@
 		31F500392A6E3B3D00E4BCF3 /* daum_th_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daum_th_line.png; sourceTree = "<group>"; };
 		31F5003A2A6E3B3D00E4BCF3 /* map_pin_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_shadow.png; sourceTree = "<group>"; };
 		31F5003B2A6E3B3D00E4BCF3 /* DaumMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DaumMap.framework; sourceTree = "<group>"; };
-		31F500602A6E440A00E4BCF3 /* FlowTomato.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = FlowTomato.json; path = ../../../../Downloads/FlowTomato.json; sourceTree = "<group>"; };
 		31F500612A6E762900E4BCF3 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		31F500642A6E764D00E4BCF3 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 		31F5006B2A70048300E4BCF3 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
@@ -632,8 +633,8 @@
 				31C4B1FA2A55527D00BABD62 /* MapViewController.swift */,
 				31C4B2022A55533500BABD62 /* MapViewModel.swift */,
 				31C4B2042A55534200BABD62 /* MapModel.swift */,
-				312006A62AA6F54E00501128 /* DetailListView.swift */,
-				312006A82AA6F94100501128 /* DetailListViewModel.swift */,
+				312006A62AA6F54E00501128 /* TourDetailListView.swift */,
+				312006A82AA6F94100501128 /* TourDetailListViewModel.swift */,
 				312006AA2AA6FA4C00501128 /* TourListTableViewCell.swift */,
 			);
 			path = MapPage;
@@ -675,7 +676,7 @@
 			children = (
 				31C4B21F2A5AC26200BABD62 /* SearchingViewController.swift */,
 				31C4B2212A5AC26F00BABD62 /* SearchingViewModel.swift */,
-				31F500602A6E440A00E4BCF3 /* FlowTomato.json */,
+				31C33F8E2ABAB82500A99D7E /* AniTomato.json */,
 			);
 			path = SearchingPage;
 			sourceTree = "<group>";
@@ -1005,6 +1006,7 @@
 				317ED7E62A49976200006F7B /* Pretendard-SemiBold.otf in Resources */,
 				31F5003D2A6E3B3D00E4BCF3 /* map_pin_custom.png in Resources */,
 				31F500552A6E3B3D00E4BCF3 /* daum_th_line.png in Resources */,
+				31C33F8F2ABAB82500A99D7E /* AniTomato.json in Resources */,
 				31F5004F2A6E3B3D00E4BCF3 /* noimage256.png in Resources */,
 				31F500432A6E3B3D00E4BCF3 /* map_pin_shadow@3x.png in Resources */,
 				317ED7B62A49467800006F7B /* Assets.xcassets in Resources */,
@@ -1085,7 +1087,7 @@
 				310ADE322A8F357800C5ADEA /* SecondInfoTableViewCell.swift in Sources */,
 				310ADE502A961EDD00C5ADEA /* LanguageSetViewController.swift in Sources */,
 				317ED7EC2A49D67B00006F7B /* SignUpViewModel.swift in Sources */,
-				312006A92AA6F94100501128 /* DetailListViewModel.swift in Sources */,
+				312006A92AA6F94100501128 /* TourDetailListViewModel.swift in Sources */,
 				317ED7E82A499CFC00006F7B /* SignUpViewController.swift in Sources */,
 				31C4B2052A55534200BABD62 /* MapModel.swift in Sources */,
 				317ED7AD2A49467700006F7B /* AppDelegate.swift in Sources */,
@@ -1141,7 +1143,7 @@
 				310ADE272A89F96900C5ADEA /* SortTableViewModel.swift in Sources */,
 				310ADE522A961F5400C5ADEA /* LanguageSetViewModel.swift in Sources */,
 				31F500A12A74F0D000E4BCF3 /* MainPTCollectionViewController.swift in Sources */,
-				312006A72AA6F54E00501128 /* DetailListView.swift in Sources */,
+				312006A72AA6F54E00501128 /* TourDetailListView.swift in Sources */,
 				3116B2922AA3665800308CDA /* BBBBB.swift in Sources */,
 				310ADE1E2A88960500C5ADEA /* StarCollectionViewCell.swift in Sources */,
 				31F5006C2A70048300E4BCF3 /* PlaceView.swift in Sources */,

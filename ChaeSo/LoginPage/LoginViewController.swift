@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Then
 import GoogleSignIn
 import AuthenticationServices
 
@@ -12,21 +13,22 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
     }
     
     private let disposeBag = DisposeBag()
-    var loginViewModel: LoginViewModel!
+    var loginViewModel: LoginViewModel
 
+    private lazy var leftButton = UIButton()
     private lazy var loginLabel = UILabel()
     private lazy var imageView = UIImageView()
     private lazy var appleLoginButton = UIButton()
     private lazy var googleLoginButton = UIButton()
     private lazy var kakaoLoginButton = UIButton()
-    private lazy var tomatoLoginButton = UIButton()
+    private lazy var emailLoginButton = UIButton()
     private lazy var lineView = UIView()
     private lazy var isFirstVisitLabel = UILabel()
     private lazy var signupButton = UIButton()
     
-    init(loginViewModel: LoginViewModel!) {
-        super.init(nibName: nil, bundle: nil)
+    init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -35,7 +37,7 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.isHidden = true
         bind()
         attribute()
         layout()
@@ -43,6 +45,12 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
     
     func bind(){
         loginViewModel.navigationControllerSubject.onNext(self.navigationController)
+        
+        leftButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
         
         loginViewModel.loginText
             .asDriver(onErrorDriveWith: .empty())
@@ -66,7 +74,7 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
         
         loginViewModel.tomatoLoginButtonText
             .asDriver(onErrorDriveWith: .empty())
-            .drive(tomatoLoginButton.rx.title())
+            .drive(emailLoginButton.rx.title())
             .disposed(by: disposeBag)
                 
         loginViewModel.isFirstVisitLabelText
@@ -87,7 +95,7 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
                 request.requestedScopes = [.fullName, .email]
                 
                 let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-                authorizationController.delegate = self.loginViewModel  // ViewModel handles the delegation
+                authorizationController.delegate = self.loginViewModel
                 authorizationController.presentationContextProvider = self
                 authorizationController.performRequests()
             })
@@ -96,7 +104,6 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
         loginViewModel.loginError
             .subscribe(onNext: { [weak self] error in
                 print("login failed - \(error.localizedDescription)")
-                // You can also show some alert or other UI changes here
             })
             .disposed(by: disposeBag)
         
@@ -107,6 +114,17 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
         kakaoLoginButton.rx.tap
             .bind(to: loginViewModel.kakaoButtonTapped)
             .disposed(by: disposeBag)
+        
+        emailLoginButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let signUpViewModel = SignUpViewModel(localizationManager: LocalizationManager.shared)
+                let idLoginViewController = IdLoginViewController(signUpViewModel: signUpViewModel)
+                self.navigationController?.pushViewController(idLoginViewController, animated: true)
+
+            })
+            .disposed(by: disposeBag)
+                
 
         signupButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -122,85 +140,91 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
 
     
     func attribute(){
-        //MARK: login Attribute
-        loginLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        loginLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
-        loginLabel.textAlignment = .center
-        
-        
-        //MARK: 바탕색
         self.view.backgroundColor = UIColor(named: "bgColor")
         
-        //MARK: imageView Attribute
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
+        
+        loginLabel.do{
+            $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.font = UIFont(name: "Pretendard-SemiBold", size: 20*Constants.standartFont)
+            $0.textAlignment = .center
+        }
+        
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        //MARK: appleLoginButton Attribute
-        appleLoginButton.titleLabel?.textAlignment = .center
-        appleLoginButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
-        appleLoginButton.setTitleColor(UIColor.white, for: .normal)
-        appleLoginButton.layer.cornerRadius = 8
-        appleLoginButton.backgroundColor = UIColor.black
-        appleLoginButton.setImage(UIImage(named: "apple"), for: .normal)
-        appleLoginButton.adjustsImageWhenHighlighted = false
+        appleLoginButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor.white, for: .normal)
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.backgroundColor = UIColor.black
+            $0.setImage(UIImage(named: "apple"), for: .normal)
+        }
+        
+        googleLoginButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor.black, for: .normal)
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.backgroundColor = UIColor.white
+            $0.setImage(UIImage(named: "google"), for: .normal)
+        }
+        
+        kakaoLoginButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor.black, for: .normal)
+            $0.backgroundColor = UIColor(hexCode: "FEE500")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.setImage(UIImage(named: "kakao"), for: .normal)
+        }
 
-        //MARK: googleLoginButton Attribute
-        googleLoginButton.titleLabel?.textAlignment = .center
-        googleLoginButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
-        googleLoginButton.setTitleColor(UIColor.black, for: .normal)
-        googleLoginButton.layer.cornerRadius = 8
-        googleLoginButton.backgroundColor = UIColor.white
-        googleLoginButton.setImage(UIImage(named: "google"), for: .normal)
-        googleLoginButton.adjustsImageWhenHighlighted = false
-        
-        //MARK: kakaoLoginButton Attribute
-        kakaoLoginButton.titleLabel?.textAlignment = .center
-        kakaoLoginButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
-        kakaoLoginButton.setTitleColor(UIColor.black, for: .normal)
-        kakaoLoginButton.backgroundColor = UIColor(hexCode: "FEE500")
-        kakaoLoginButton.layer.cornerRadius = 8
-        kakaoLoginButton.setImage(UIImage(named: "kakao"), for: .normal)
-        kakaoLoginButton.adjustsImageWhenHighlighted = false
-        
-        //MARK: tomatoLoginButton Attribute
-        tomatoLoginButton.titleLabel?.textAlignment = .center
-        tomatoLoginButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
-        tomatoLoginButton.setTitleColor(UIColor.black, for: .normal)
-        tomatoLoginButton.layer.cornerRadius = 8
-        tomatoLoginButton.backgroundColor = UIColor.white
-        tomatoLoginButton.setImage(UIImage(named: "tomato"), for: .normal)
-        tomatoLoginButton.adjustsImageWhenHighlighted = false
-        
-        //MARK: lineView Attribute
+        emailLoginButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor.black, for: .normal)
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.backgroundColor = UIColor.white
+            $0.setImage(UIImage(named: "email"), for: .normal)
+        }
+
         lineView.backgroundColor = UIColor(hexCode: "#DEDEDE")
         
-        //MARK: isFirstVisitLabel Attribute
-        isFirstVisitLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        isFirstVisitLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        isFirstVisitLabel.textAlignment = .center
+        isFirstVisitLabel.do{
+            $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.textAlignment = .center
+        }
         
-        
-        //MARK: signupButton Attribute
-        signupButton.titleLabel?.textAlignment = .center
-        signupButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        signupButton.setTitleColor(UIColor(named: "prColor"), for: .normal)
-        signupButton.layer.cornerRadius = 8
-        signupButton.layer.borderWidth = 1
-        signupButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
-
+        signupButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor.white, for: .normal)
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+            $0.backgroundColor = UIColor(named: "prColor")
+        }
 
                 
     }
     
     func layout(){
-        [loginLabel,imageView,appleLoginButton,googleLoginButton,kakaoLoginButton,tomatoLoginButton,lineView,isFirstVisitLabel,signupButton]
+        [leftButton,loginLabel,imageView,appleLoginButton,googleLoginButton,kakaoLoginButton,emailLoginButton,lineView,isFirstVisitLabel,signupButton]
             .forEach {
                 view.addSubview($0)
             }
         
-        //MARK: login Layout
-        loginLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+        leftButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardHeight)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardHeight)
             make.top.equalToSuperview().offset(53*Constants.standardHeight)
+        }
+        
+        loginLabel.snp.makeConstraints { make in
+            make.leading.equalTo(leftButton.snp.trailing).offset(10*Constants.standardWidth)
+            make.centerY.equalTo(leftButton)
         }
         
         //MARK: imageView Layout
@@ -272,14 +296,14 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
         }
         
         //MARK: tomatoLoginButton Layout
-        tomatoLoginButton.snp.makeConstraints { make in
+        emailLoginButton.snp.makeConstraints { make in
             make.width.equalTo(343*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(581*Constants.standardHeight)
         }
         
-        tomatoLoginButton.imageView!.snp.makeConstraints { make in
+        emailLoginButton.imageView!.snp.makeConstraints { make in
             make.width.equalTo(24*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(26*Constants.standardWidth)
@@ -287,7 +311,7 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
         }
         
         
-        tomatoLoginButton.titleLabel?.snp.makeConstraints { make in
+        emailLoginButton.titleLabel?.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
         }
         

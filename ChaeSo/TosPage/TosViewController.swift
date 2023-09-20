@@ -2,28 +2,31 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Then
 
 class TosViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
-    var tosViewModel: TosViewModel!
+    let disposeBag = DisposeBag()
+    var tosViewModel: TosViewModel
     
-    private lazy var imageView = UIImageView()
-    private lazy var firstLabel = UILabel()
-    private lazy var secondLabel = UILabel()
+    let progressView = UIProgressView()
+    lazy var leftButton = UIButton()
+    lazy var imageView = UIImageView()
+    lazy var firstLabel = UILabel()
+    lazy var secondLabel = UILabel()
     
-    private lazy var allSelectLabel = UILabel()
-    private lazy var serviceTosLabel = UILabel()
-    private lazy var infoTosLabel = UILabel()
+    lazy var allSelectLabel = UILabel()
+    lazy var serviceTosLabel = UILabel()
+    lazy var infoTosLabel = UILabel()
     
-    private lazy var allSelectButton = UIButton()
-    private lazy var serviceTosButton = UIButton()
-    private lazy var infoTosButton = UIButton()
-    private lazy var nextButton = UIButton()
+    let allSelectButton = UIButton()
+    let serviceTosButton = UIButton()
+    let infoTosButton = UIButton()
+    lazy var nextButton = UIButton()
 
-    init(tosViewModel: TosViewModel!) {
-        super.init(nibName: nil, bundle: nil)
+    init(tosViewModel: TosViewModel) {
         self.tosViewModel = tosViewModel
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -32,7 +35,7 @@ class TosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.isHidden = true
         
         bind()
         attribute()
@@ -40,6 +43,17 @@ class TosViewController: UIViewController {
     }
     
     func bind(){
+        leftButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        tosViewModel.nextText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(nextButton.rx.title())
+            .disposed(by: disposeBag)
+        
         tosViewModel.firstLabelText
             .asDriver(onErrorDriveWith: .empty())
             .drive(firstLabel.rx.text)
@@ -121,87 +135,83 @@ class TosViewController: UIViewController {
     }
     
     func attribute(){
-        
-        //MARK: 바탕색
+
         self.view.backgroundColor = UIColor(named: "bgColor")
         
-        //MARK: imageView Attribute
+        progressView.do{
+            $0.backgroundColor = UIColor(hexCode: "D9D9D9")
+            $0.progressTintColor = UIColor(named: "prColor")
+            $0.progress = 0.33
+        }
+        
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
+
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        //MARK: firstLabel Attribute
-        firstLabel.textColor = UIColor.black
-        firstLabel.font = UIFont(name: "Pretendard-Bold", size: 24)
-        firstLabel.textAlignment = .center
+        firstLabel.do{
+            $0.textColor = UIColor.black
+            $0.font = UIFont(name: "Pretendard-Bold", size: 24*Constants.standartFont)
+            $0.textAlignment = .center
+        }
         
-        //MARK: secondLabel Attribute
-        secondLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        secondLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        secondLabel.textAlignment = .center
+        secondLabel.do{
+            $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.textAlignment = .center
+        }
         
-        //MARK: allSelectLabel Attribute
-        allSelectLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        allSelectLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        allSelectLabel.textAlignment = .left
-        
-        //MARK: serviceTosLabel Attribute
-        serviceTosLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        serviceTosLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        serviceTosLabel.textAlignment = .left
-        
-        //MARK: infoTosLabel Attribute
-        infoTosLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        infoTosLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        infoTosLabel.textAlignment = .left
-        
-        
-        //MARK: allSelectButton Attribute
-        let checkmarkSymbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .heavy)
+        [allSelectLabel,serviceTosLabel,infoTosLabel]
+            .forEach{
+                $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+                $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+                $0.textAlignment = .left
+            }
+
+        let checkmarkSymbolConfig = UIImage.SymbolConfiguration(pointSize: 20*Constants.standartFont, weight: .heavy)
         let checkmarkImage = UIImage(systemName: "checkmark", withConfiguration: checkmarkSymbolConfig)
         
-        allSelectButton.layer.cornerRadius = 2
-        allSelectButton.layer.borderWidth = 2
-        allSelectButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
-        allSelectButton.setImage(checkmarkImage, for: .selected)
-        allSelectButton.imageView?.tintColor = .white
-        allSelectButton.imageView?.backgroundColor = UIColor(named: "prColor")
-        allSelectButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        [allSelectButton,serviceTosButton,infoTosButton]
+            .forEach{
+                $0.layer.cornerRadius = 2*Constants.standardHeight
+                $0.layer.borderWidth = 2
+                $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+                $0.setImage(checkmarkImage, for: .selected)
+                $0.imageView?.tintColor = .white
+                $0.imageView?.backgroundColor = UIColor(named: "prColor")
+                $0.contentEdgeInsets = UIEdgeInsets(top: 2*Constants.standardHeight, left: 2*Constants.standardWidth, bottom: 2*Constants.standardHeight, right: 2*Constants.standardWidth)
+            }
 
-        
-        //MARK: serviceTosButton Attribute
-        serviceTosButton.layer.cornerRadius = 2
-        serviceTosButton.layer.borderWidth = 2
-        serviceTosButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
-        serviceTosButton.setImage(checkmarkImage, for: .selected)
-        serviceTosButton.imageView?.tintColor = .white
-        serviceTosButton.imageView?.backgroundColor = UIColor(named: "prColor")
-        serviceTosButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-        
-        //MARK: infoTosButton Attribute
-        infoTosButton.layer.cornerRadius = 2
-        infoTosButton.layer.borderWidth = 2
-        infoTosButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
-        infoTosButton.setImage(checkmarkImage, for: .selected)
-        infoTosButton.imageView?.tintColor = .white
-        infoTosButton.imageView?.backgroundColor = UIColor(named: "prColor")
-        infoTosButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-
-        //MARK: nextButton attribute
-        nextButton.titleLabel?.textAlignment = .center
-        nextButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        nextButton.setTitleColor(UIColor(named: "prColor"), for: .normal)
-        nextButton.setTitle("next", for: .normal)
-        nextButton.backgroundColor = UIColor(named: "bgColor")
-        nextButton.layer.cornerRadius = 8
-        nextButton.layer.borderWidth = 1
-        nextButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
+        nextButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
+            $0.backgroundColor = UIColor(named: "bgColor")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+        }
         
     }
     
     func layout(){
-        [imageView,firstLabel,secondLabel]
+        [progressView,leftButton,imageView,firstLabel,secondLabel]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
+        
+        progressView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(5*Constants.standardHeight)
+            make.leading.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        leftButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardHeight)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardHeight)
+            make.top.equalToSuperview().offset(63*Constants.standardHeight)
+        }
         
         imageView.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
@@ -211,13 +221,11 @@ class TosViewController: UIViewController {
         }
         
         firstLabel.snp.makeConstraints { make in
-            make.height.equalTo(96.41*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(311*Constants.standardHeight)
         }
         
         secondLabel.snp.makeConstraints { make in
-            make.height.equalTo(96.41*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(355*Constants.standardHeight)
         }
@@ -229,24 +237,19 @@ class TosViewController: UIViewController {
 
         
         allSelectLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(76*Constants.standardWidth)
-            //make.top.equalTo(secondLabel.snp.bottom).offset(32*Constants.standardHeight)
             make.top.equalToSuperview().offset(437*Constants.standardHeight)
         }
 
         serviceTosLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(76*Constants.standardWidth)
             make.top.equalTo(allSelectLabel.snp.bottom).offset(45*Constants.standardHeight)
         }
 
         infoTosLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(76*Constants.standardWidth)
             make.top.equalTo(serviceTosLabel.snp.bottom).offset(45*Constants.standardHeight)
         }
-        
         
         allSelectButton.snp.makeConstraints { make in
             make.width.equalTo(20*Constants.standardWidth)

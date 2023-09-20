@@ -89,12 +89,6 @@ class WriteReviewViewModel: PhotoViewModelProtocol{
             })
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(yesText, noText)
-            .subscribe(onNext: { [weak self] a, b in
-                self?.thirdItems.accept([a, b])
-            })
-            .disposed(by: disposeBag)
-        
     }
     
     private func updateLocalization() {
@@ -109,8 +103,6 @@ class WriteReviewViewModel: PhotoViewModelProtocol{
         pescoText.accept(localizationManager.localizedString(forKey: "Pollo"))
         flexitarianText.accept(localizationManager.localizedString(forKey: "Flexitarian"))
         nonVeganText.accept(localizationManager.localizedString(forKey: "Non-Vegan"))
-        yesText.accept(localizationManager.localizedString(forKey: "Yes"))
-        noText.accept(localizationManager.localizedString(forKey: "No"))
         
     }
     

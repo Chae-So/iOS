@@ -14,6 +14,7 @@ class TosViewModel{
     let allSelectLabelText = BehaviorRelay<String>(value: "")
     let serviceTosLabelText = BehaviorRelay<String>(value: "")
     let infoTosLabelText = BehaviorRelay<String>(value: "")
+    let nextText = BehaviorRelay<String>(value: "")
     
     let allSelectButtonTapped = PublishRelay<Void>()
     let serviceTosButtonTapped = PublishRelay<Void>()
@@ -28,13 +29,7 @@ class TosViewModel{
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
-        
-        firstLabelText.accept(localizationManager.localizedString(forKey: "Nice to meet you"))
-        secondLabelText.accept(localizationManager.localizedString(forKey: "Please accept the ToS for using the service"))
-        
-        allSelectLabelText.accept(localizationManager.localizedString(forKey: "To select all"))
-        serviceTosLabelText.accept(localizationManager.localizedString(forKey: "Agree to use the service (required)"))
-        infoTosLabelText.accept(localizationManager.localizedString(forKey: "Agree with privacy policy (required)"))
+        self.updateLocalization()
         
         allSelectButtonTapped.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
@@ -75,5 +70,14 @@ class TosViewModel{
         
     }
     
+    private func updateLocalization() {
+        firstLabelText.accept(localizationManager.localizedString(forKey: "Nice to meet you"))
+        secondLabelText.accept(localizationManager.localizedString(forKey: "Please accept the ToS for using the service"))
+        
+        allSelectLabelText.accept(localizationManager.localizedString(forKey: "To select all"))
+        serviceTosLabelText.accept(localizationManager.localizedString(forKey: "Agree to use the service (required)"))
+        infoTosLabelText.accept(localizationManager.localizedString(forKey: "Agree with privacy policy (required)"))
+        nextText.accept(localizationManager.localizedString(forKey: "Next"))
+    }
 }
 

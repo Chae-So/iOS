@@ -37,19 +37,19 @@ class VeganViewModel{
     var flexitarianText: String{
         return localizationManager.localizedString(forKey: "Flexitarian")
     }
-    let signupButtonText = BehaviorRelay<String>(value: "")
+    let startText = BehaviorRelay<String>(value: "")
 
     
     // Output
-    let firstSelectedIndexPath = BehaviorRelay<IndexPath?>(value: nil)
-    
+    let itemSelected = PublishRelay<IndexPath?>()
+    let startButtonEnabled = PublishRelay<Bool>()
     var cellData = Driver<[VeganStage]>.just([])
     var currentCellData: [VeganStage] = []
 
     
     init(localizationManager: LocalizationManager) {
         self.localizationManager = localizationManager
-        self.updateLocalization()
+        self.startText.accept(localizationManager.localizedString(forKey: "Start"))
         
         cellData = Driver.just(
             [VeganStage(image: UIImage(named: "firstVegan"), text: veganText),
@@ -68,14 +68,14 @@ class VeganViewModel{
             .disposed(by: disposeBag)
 
         
-        
+        itemSelected
+            .map{_ in true}
+            .bind(to: startButtonEnabled)
+            .disposed(by: disposeBag)
         
         
     }
     
-    private func updateLocalization() {
-
-    }
 }
 
 

@@ -17,9 +17,9 @@ class MapViewController: UIViewController {
         $0.minimumLineSpacing = 10
     })
     let currentLocationButton = UIButton()
-    let detailListViewModel = DetailListViewModel(localizationManager: LocalizationManager.shared)
-    lazy var detailListView: DetailListView = {
-        return DetailListView(detailListViewModel: self.detailListViewModel)
+    let detailListViewModel = TourDetailListViewModel(localizationManager: LocalizationManager.shared)
+    lazy var detailListView: TourDetailListView = {
+        return TourDetailListView(detailListViewModel: self.detailListViewModel)
     }()
     let detailListBackgroundView = DetailListBackgroundView()
     
@@ -72,16 +72,13 @@ class MapViewController: UIViewController {
                     return
                 }
 
-                // view에서 움직인 정보
                 let transition = sender.translation(in: view)
                 let proposedY = senderView.center.y + transition.y
-                //print(proposedY)
-                // Apply constraints
                 if proposedY >= 482 && proposedY <= 1061 {
                     senderView.center = CGPoint(x: senderView.center.x, y: proposedY)
                 }
 
-                sender.setTranslation(.zero, in: view) // 움직인 값을 0으로 초기화
+                sender.setTranslation(.zero, in: view)
             })
         .disposed(by: disposeBag)
 
@@ -110,21 +107,21 @@ class MapViewController: UIViewController {
                 guard let self = self else { return }
                 if indexPath.item == 2 {
                     self.mapViewModel.fetchData()
-                    self.detailListView.isHidden = false
+                    
                 }
             })
             .disposed(by: disposeBag)
         
         mapViewModel.places
-            //.skip(1)
             .subscribe(onNext: { [weak self] places in
                 guard let self = self else { return }
-                print("플레이스데이탕아아아ㅏ아아ㅏㅏ아아아아아")
                 if !places.isEmpty {
                     
                     self.detailListViewModel.placeList.accept(places)
                     self.detailListViewModel.categoryType.accept("c")
-                    
+                    if self.detailListView.isHidden{
+                        self.detailListView.isHidden = false
+                    }
                     
                 }
             })

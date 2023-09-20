@@ -88,7 +88,6 @@ class LoginViewModel: NSObject, ASAuthorizationControllerDelegate{
                             guard let self = self else {return}
                             print("loginWithKakaoTalk() success.")
                         
-                            //do something
                             _ = oauthToken
                             print("oauthToken",oauthToken)
                             self.getKakaoUserInfo()
@@ -158,7 +157,7 @@ class LoginViewModel: NSObject, ASAuthorizationControllerDelegate{
         appleLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Apple"))
         googleLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Google"))
         kakaoLoginButtonText.accept(localizationManager.localizedString(forKey: "Sign in with Kakao"))
-        tomatoLoginButtonText.accept(localizationManager.localizedString(forKey: "Login in with ID"))
+        tomatoLoginButtonText.accept(localizationManager.localizedString(forKey: "Login in with Email"))
 
         isFirstVisitLabelText.accept(localizationManager.localizedString(forKey: "Is this your first visit to CHAESO?"))
         signupButtonText.accept(localizationManager.localizedString(forKey: "Sign Up"))

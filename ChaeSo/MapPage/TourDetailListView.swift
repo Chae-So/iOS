@@ -5,17 +5,17 @@ import SnapKit
 import Then
 import Kingfisher
 
-class DetailListView: UIView {
+class TourDetailListView: UIView {
     private let disposeBag = DisposeBag()
-    var detailListViewModel: DetailListViewModel
+    var tourDetailListViewModel: TourDetailListViewModel
     
     private let grayView = UIView()
     private let titleLabel = UILabel()
     private let separateView = UIView()
     private lazy var tableView = UITableView()
 
-    init(detailListViewModel: DetailListViewModel) {
-        self.detailListViewModel = detailListViewModel
+    init(detailListViewModel: TourDetailListViewModel) {
+        self.tourDetailListViewModel = detailListViewModel
         super.init(frame: .zero)
         
         bind()
@@ -30,18 +30,18 @@ class DetailListView: UIView {
   
     
     func bind(){
-        detailListViewModel.titleText
+        tourDetailListViewModel.titleText
             .subscribe(onNext: { aa in
                 print(aa,1231232137812638712)
             })
             .disposed(by: disposeBag)
         
-        detailListViewModel.titleText
+        tourDetailListViewModel.titleText
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
 
-        detailListViewModel.placeList
+        tourDetailListViewModel.placeList
             .bind(to: tableView.rx.items(cellIdentifier: "TourListTableViewCell", cellType: TourListTableViewCell.self)){ [weak self] (row, element, cell) in
                 guard let self = self else {return}
                 
@@ -111,12 +111,13 @@ class DetailListView: UIView {
         
         tableView.snp.makeConstraints { make in
             make.width.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.height.equalTo(580*Constants.standardHeight)
             make.leading.equalToSuperview()
             make.top.equalTo(separateView.snp.bottom)
         }
         
         
     }
+   
 
 }

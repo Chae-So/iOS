@@ -3,28 +3,21 @@ import RxSwift
 import RxCocoa
 
 class TabBarViewModel {
+    var localizationManager: LocalizationManager
     
-    // MARK: - Properties
-    
-    //let model: TabBarModel
-    
-    // MARK: - Inputs
+    var chaesoLogText: String{
+        return localizationManager.localizedString(forKey: "chaesoLog")
+    }
+    var mapText: String{
+        return localizationManager.localizedString(forKey: "map")
+    }
+    var myPageText: String{
+        return localizationManager.localizedString(forKey: "myPage")
+    }
     
     let selectedIndex = BehaviorRelay<Int>(value: 0)
     
-    // MARK: - Outputs
-    
-    
-//    let communityViewModel: CommunityViewModel
-//    let mapViewModel: MapViewModel
-//    let myPageViewModel: MyPageViewModel
-//
-//    init(communityViewModel: CommunityViewModel, mapViewModel: MapViewModel, myPageViewModel: MyPageViewModel) {
-//        self.model = model
-//        self.communityViewModel = communityViewModel
-//        self.mapViewModel = mapViewModel
-//        self.myPageViewModel = myPageViewModel
-//    }
-    
-    
+    init(localizationManager: LocalizationManager) {
+        self.localizationManager = localizationManager
+    }
 }

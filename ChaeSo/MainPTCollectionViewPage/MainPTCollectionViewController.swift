@@ -15,7 +15,7 @@ class MainPTCollectionViewController: UIViewController {
     private lazy var doneButton = UIButton()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then {
         let screenWidth = UIScreen.main.bounds.width
-        let cellWidth = (screenWidth - 3) / 4  // 2는 셀 간 간격이므로 총 2번 고려해야 합니다.
+        let cellWidth = ((screenWidth - 3) / 4)
         $0.itemSize = CGSize(width: cellWidth, height: cellWidth)
         $0.minimumLineSpacing = 1
         $0.minimumInteritemSpacing = 1
@@ -65,17 +65,17 @@ class MainPTCollectionViewController: UIViewController {
         
         titleLabel.do{
             $0.textAlignment = .center
-            $0.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
             $0.text = "사진고르기"
         }
         
         
         doneButton.do{
             $0.setTitle("완료", for: .normal)
-            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
             $0.setTitleColor(.black, for: .normal)
             $0.backgroundColor = UIColor(hexCode: "F5F5F5")
-            $0.layer.cornerRadius = 8
+            $0.layer.cornerRadius = 8*Constants.standardHeight
         }
         
         collectionView.do {
@@ -97,8 +97,6 @@ class MainPTCollectionViewController: UIViewController {
         }
         
         titleLabel.snp.makeConstraints { make in
-            //make.width.equalTo(44*Constants.standardWidth)
-            make.height.equalTo(26*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(53*Constants.standardHeight)
         }
@@ -109,8 +107,6 @@ class MainPTCollectionViewController: UIViewController {
             make.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(44*Constants.standardHeight)
         }
-        
-        
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(cancelButton.snp.bottom)
@@ -210,7 +206,6 @@ class MainPTCollectionViewController: UIViewController {
             }
         }))
         alert.addAction(UIAlertAction(title: "현재 선택 항목 유지", style: .cancel))
-        //alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     

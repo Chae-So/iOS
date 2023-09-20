@@ -7,12 +7,12 @@ class TabBarController: UITabBarController {
     // MARK: - Properties
     
     let disposeBag = DisposeBag()
-    let viewModel: TabBarViewModel
+    let tabBarViewModel: TabBarViewModel
     
     // MARK: - Initializers
     
-    init(viewModel: TabBarViewModel) {
-        self.viewModel = viewModel
+    init(tabBarViewModel: TabBarViewModel) {
+        self.tabBarViewModel = tabBarViewModel
         super.init(nibName: nil, bundle: nil)
         tabBar.backgroundColor = .white
     }
@@ -26,27 +26,29 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tabBarHeight = self.tabBar.frame.size.height
-            print(tabBarHeight,328468237467)
-        
-        // Set up the view controllers
-        let communityVC = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
-        //let mapVC = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
-        let mapVC = MapViewController(mapViewModel: MapViewModel(localizationManager: LocalizationManager.shared))
 
+        let communityVC = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
+        let mapVC = MapViewController(mapViewModel: MapViewModel(localizationManager: LocalizationManager.shared))
         let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
         
-        communityVC.tabBarItem = UITabBarItem(title: "커뮤니티", image: UIImage(systemName: "house"), tag: 0)
-        mapVC.tabBarItem = UITabBarItem(title: "지도", image: UIImage(systemName: "map"), tag: 1)
-        myPageVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person"), tag: 2)
+        communityVC.tabBarItem = UITabBarItem(title: tabBarViewModel.chaesoLogText, image: UIImage(named: "cheasoLog"), tag: 0)
+        mapVC.tabBarItem = UITabBarItem(title: tabBarViewModel.mapText, image: UIImage(named: "map"), tag: 1)
+        myPageVC.tabBarItem = UITabBarItem(title: tabBarViewModel.myPageText, image: UIImage(named: "myPage"), tag: 2)
         
-        viewControllers = [communityVC, mapVC,myPageVC]
+        viewControllers = [communityVC, mapVC, myPageVC]
         
-        // Bind the selected index to the view model
+
         rx.didSelect
             .map { $0.view.tag }
-            .bind(to: viewModel.selectedIndex)
+            .bind(to: tabBarViewModel.selectedIndex)
             .disposed(by: disposeBag)
+        
+        tabBarViewModel.selectedIndex
+            .subscribe(onNext: { [weak self] index in
+                self?.tabBar.tintColor = UIColor(named: "prColor")
+            })
+            .disposed(by: disposeBag)
+        
     }
 }
 
@@ -57,7 +59,7 @@ class TabBarController: UITabBarController {
 //
 //    // 여기 ViewController를 변경해주세요
 //    func makeUIViewController(context: Context) -> UIViewController {
-//        TabBarController(viewModel: TabBarViewModel(model: TabBarModel(), communityViewModel: CommunityViewModel(model: CommunityModel()), mapViewModel: MapViewModel(), myPageViewModel: MyPageViewModel(localizationManager: LocalizationManager.shared)))
+//        TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
 //    }
 //
 //    func updateUIViewController(_ uiView: UIViewController,context: Context) {

@@ -1,10 +1,12 @@
 //MARK: LoginPage
-
+"Select Language" = "Select Language";
+"Start" = "Start";
+"Next" = "Next";
 "Login" = "Login";
 "Sign in with Apple" = "Sign in with Apple";
 "Sign in with Google" = "Sign in with Google";
 "Sign in with Kakao" = "Sign in with Kakao";
-"Login in with ID" = "Login in with ID";
+"Login in with Email" = "Login in with Email";
 "Is this your first visit to CHAESO?" = "Is this your first visit to CHAESO?";
 "Sign Up" = "Sign Up";
 
@@ -52,8 +54,12 @@
 //MARK: SearchingPage
 "Looking for a good restaurant near you" = "Looking for a good restaurant near you";
 
+//MARK: TabBar
+"map" = "map";
+"myPage" = "myPage";
+
 //MARK: CommunityPage
-"Chaeso Log" = "Chaeso Log";
+"ChaesoLog" = "ChaesoLog";
 "Recommend" = "Recommend";
 "Latest" = "Latest";
 "replies" = "replies";
@@ -105,7 +111,6 @@
 
 //MARK: BookmarkView
 "Place" = "Place";
-"ChaesoLog" = "ChaesoLog";
 
 //MARK: PlaceView
 "Restaurant" = "Restaurant";

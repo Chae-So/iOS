@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
                 
-        let nativeKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] ?? ""
+        let nativeKey = Bundle.main.infoDictionary?["KAKAO_APP_KEY"] ?? ""
         RxKakaoSDK.initSDK(appKey: nativeKey as! String)
         
         return true

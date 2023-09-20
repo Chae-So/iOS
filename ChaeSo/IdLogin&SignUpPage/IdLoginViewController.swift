@@ -2,22 +2,21 @@ import UIKit
 import SnapKit
 import RxCocoa
 import RxSwift
+import Then
 
 class IdLoginViewController: UIViewController {
     
-    var disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     var signUpViewModel: SignUpViewModel!
     
-    private lazy var loginLabel = UILabel()
-    private lazy var imageView = UIImageView()
-    
-    private lazy var idLabel = UILabel()
-    private lazy var idTextField = UITextField()
+    lazy var loginLabel = UILabel()
+    var imageView = UIImageView()
+    lazy var idLabel = UILabel()
+    let idTextField = UITextField()
+    lazy var pwLabel = UILabel()
+    let pwTextField = UITextField()
 
-    private lazy var pwLabel = UILabel()
-    private lazy var pwTextField = UITextField()
-
-    private let loginButton = UIButton()
+    lazy var loginButton = UIButton()
     
     init(signUpViewModel: SignUpViewModel!) {
         self.signUpViewModel = signUpViewModel
@@ -96,7 +95,7 @@ class IdLoginViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 //ToDo: 메인 페이지 연결 및 아이디 비번 맞는지 확인
                 guard let self = self else { return }
-                let tabBarViewController = TabBarController(viewModel: TabBarViewModel())
+                let tabBarViewController = TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
                 self.navigationController?.pushViewController(tabBarViewController, animated: true)
             })
             .disposed(by: disposeBag)
@@ -104,54 +103,47 @@ class IdLoginViewController: UIViewController {
     }
     
     func attribute(){
-        //MARK: signUpLabel Attribute
-        loginLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        loginLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
-        loginLabel.textAlignment = .center
         
-        //MARK: 바탕색
         self.view.backgroundColor = UIColor(named: "bgColor")
         
-        //MARK: imageView attribute
+        loginLabel.do{
+            $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.font = UIFont(name: "Pretendard-SemiBold", size: 20*Constants.standartFont)
+            $0.textAlignment = .center
+        }
+        
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        //MARK: idlLabel attribute
-        idLabel.textColor = UIColor.black
-        idLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        idLabel.textAlignment = .center
+        [idLabel,pwLabel]
+            .forEach{
+                $0.textColor = UIColor.black
+                $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+                $0.textAlignment = .center
+            }
         
-        //MARK: idTextField attribute
-        idTextField.alpha = 0.56
-        idTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        idTextField.layer.cornerRadius = 8
-        idTextField.layer.borderWidth = 1
-        idTextField.layer.borderColor = UIColor.clear.cgColor
-        idTextField.addLeftPadding()
+        [idTextField,pwTextField]
+            .forEach{
+                $0.alpha = 0.56
+                $0.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
+                $0.layer.cornerRadius = 8*Constants.standardHeight
+                $0.layer.borderWidth = 1
+                $0.layer.borderColor = UIColor.clear.cgColor
+                $0.addLeftPadding()
+                
+            }
+        
         idTextField.keyboardType = .emailAddress
-        
-        //MARK: pwLabel attribute
-        pwLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        pwLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        
-        
-        //MARK: pwTextField attribute
-        pwTextField.alpha = 0.56
-        pwTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        pwTextField.layer.cornerRadius = 8
-        pwTextField.layer.borderWidth = 1
-        pwTextField.layer.borderColor = UIColor.clear.cgColor
-        pwTextField.addLeftPadding()
-        
-        
-        //MARK: loginButton attribute
-        loginButton.titleLabel?.textAlignment = .center
-        loginButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        loginButton.setTitleColor(UIColor(named: "prColor"), for: .normal)
-        loginButton.setTitle("next", for: .normal)
-        loginButton.backgroundColor = UIColor(named: "bgColor")
-        loginButton.layer.cornerRadius = 8
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
+       
+        loginButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
+            $0.setTitle("next", for: .normal)
+            $0.backgroundColor = UIColor(named: "bgColor")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+        }
 
     }
     
@@ -162,7 +154,6 @@ class IdLoginViewController: UIViewController {
             }
         
         loginLabel.snp.makeConstraints { make in
-            make.height.equalTo(30.55*Constants.standardHeight)
             make.leading.equalToSuperview().offset(22*Constants.standardWidth)
             make.top.equalToSuperview().offset(55*Constants.standardHeight)
         }
@@ -175,7 +166,6 @@ class IdLoginViewController: UIViewController {
         }
         
         idLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(337*Constants.standardHeight)
         }
@@ -188,7 +178,6 @@ class IdLoginViewController: UIViewController {
         }
         
         pwLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(460*Constants.standardHeight)
         }

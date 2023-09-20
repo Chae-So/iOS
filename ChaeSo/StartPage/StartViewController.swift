@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Then
 import DropDown
 import KakaoSDKAuth
 import RxKakaoSDKAuth
@@ -9,22 +10,22 @@ import KakaoSDKUser
 import RxKakaoSDKUser
 
 class StartViewController: UIViewController {
-    private let disposeBag = DisposeBag()
-    var startViewModel: StartViewModel!
+    let disposeBag = DisposeBag()
+    var languageButtonDisPoseBag = DisposeBag()
+    var startViewModel: StartViewModel
     
-    private lazy var imageView = UIImageView()
-    private lazy var chaesoLabel = UILabel()
-    private lazy var languageButton = UIButton()
-    private lazy var startButton = UIButton()
+    lazy var imageView = UIImageView()
+    let chaesoLabel = UILabel()
+    let languageButton = UIButton()
+    let downButton = UIButton()
+    let startButton = UIButton()
     
     let languages = ["한국어", "English"]
     let dropDown = DropDown()
     
-    
-    
-    init(startViewModel: StartViewModel!) {
-        super.init(nibName: nil, bundle: nil)
+    init(startViewModel: StartViewModel) {
         self.startViewModel = startViewModel
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -80,22 +81,53 @@ class StartViewController: UIViewController {
     
     func bind(){
         
+        startViewModel.startText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(startButton.rx.title())
+            .disposed(by: disposeBag)
+        
+        startViewModel.selectLanguageText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(languageButton.rx.title())
+            .disposed(by: languageButtonDisPoseBag)
         
         dropDown.rx.itemSelected
             .asDriver(onErrorDriveWith: .empty())
             .drive(onNext: { [weak self] index, item in
+                self?.languageButtonDisPoseBag = DisposeBag()
                 self?.languageButton.setTitle(item, for: .normal)
                 self?.startViewModel.languageSelected.onNext(item)
             })
             .disposed(by: disposeBag)
         
+        startViewModel.startButtonEnable
+            .bind(to: startButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        startViewModel.startButtonEnable
+            .asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor(named: "prColor") : UIColor(named: "bgColor") }
+            .drive(startButton.rx.backgroundColor)
+            .disposed(by: disposeBag)
+        
+        startViewModel.startButtonEnable
+            .asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor.white : UIColor(named: "prColor")! }
+            .drive(startButton.rx.titleColor(for: .normal))
+            .disposed(by: disposeBag)
+        
         languageButton.rx.tap
-            .subscribe(onNext: { [weak dropDown] in
-                // Dropdown 표시
-                dropDown?.show()
+            .subscribe(onNext: { [weak self] in
+                self?.dropDown.show()
             })
             .disposed(by: disposeBag)
-
+        
+        downButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.dropDown.show()
+            })
+            .disposed(by: disposeBag)
+        
         startButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -113,55 +145,64 @@ class StartViewController: UIViewController {
         
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        chaesoLabel.textColor = .black
-        chaesoLabel.font = UIFont(name: "Barriecito-Regular", size: 40*Constants.standardWidth)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1
-        let attributedText = NSMutableAttributedString(string: "CHAESO", attributes: [NSAttributedString.Key.kern: 4, NSAttributedString.Key.paragraphStyle: paragraphStyle])
-        chaesoLabel.attributedText = attributedText
+        chaesoLabel.do{
+            $0.textColor = .black
+            $0.font = UIFont(name: "Barriecito-Regular", size: 40*Constants.standartFont)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1
+            let attributedText = NSMutableAttributedString(string: "CHAESO", attributes: [NSAttributedString.Key.kern: 4, NSAttributedString.Key.paragraphStyle: paragraphStyle])
+            $0.attributedText = attributedText
+        }
         
-        languageButton.setTitle("select Language", for: .normal)
-        languageButton.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
-        languageButton.setTitleColor(UIColor(red: 0.117, green: 0.117, blue: 0.117, alpha: 1), for: .normal)
-        languageButton.contentHorizontalAlignment = .left
-        languageButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-        languageButton.backgroundColor = UIColor.white
-        languageButton.layer.cornerRadius = 8
+        languageButton.do{
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor(red: 0.117, green: 0.117, blue: 0.117, alpha: 1), for: .normal)
+            $0.contentHorizontalAlignment = .left
+            $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16*Constants.standardWidth, bottom: 0, right: 0)
+            $0.backgroundColor = UIColor(named: "slColor")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+        }
         
+        downButton.do{
+            $0.setImage(UIImage(named: "down"), for: .normal)
+        }
         
-        dropDown.anchorView = languageButton
-        dropDown.dataSource = languages
-        dropDown.bottomOffset = CGPoint(x: 0, y: 58 * Constants.standardHeight)
-        dropDown.cornerRadius = 8
-        dropDown.shadowColor = .clear
-        dropDown.backgroundColor = UIColor.white
+        dropDown.do{
+            $0.anchorView = languageButton
+            $0.dataSource = languages
+            $0.bottomOffset = CGPoint(x: 0, y: 58 * Constants.standardHeight)
+            $0.cornerRadius = 8*Constants.standardHeight
+            $0.shadowColor = .clear
+            $0.backgroundColor = UIColor(named: "slColor")
+        }
         
-        startButton.setTitle("Start", for: .normal)
-        startButton.tintColor = .white
-        startButton.backgroundColor = UIColor(named: "prColor")
-        startButton.layer.cornerRadius = 8
+        startButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+            $0.isEnabled = false
+        }
     }
     
     func layout(){
         
         
-        [imageView,chaesoLabel,languageButton,startButton].forEach {
+        [imageView,chaesoLabel,languageButton,downButton,startButton].forEach {
             view.addSubview($0)
         }
         
         imageView.snp.makeConstraints { make in
             make.width.equalTo(251*Constants.standardHeight)
-            //make.height.equalTo(imageView.snp.width)
             make.height.equalTo(242*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(230*Constants.standardHeight)
         }
         
         chaesoLabel.snp.makeConstraints { make in
-            make.width.equalTo(161*Constants.standardWidth)
-            make.height.equalTo(48*Constants.standardHeight)
             make.leading.equalToSuperview().offset(112*Constants.standardWidth)
-            //make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(486*Constants.standardHeight)
         }
         
@@ -170,6 +211,13 @@ class StartViewController: UIViewController {
             make.height.equalTo(48*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(548*Constants.standardHeight)
+        }
+        
+        downButton.snp.makeConstraints { make in
+            make.width.equalTo(44*Constants.standardHeight)
+            make.height.equalTo(44*Constants.standardHeight)
+            make.trailing.equalTo(languageButton.snp.trailing)
+            make.centerY.equalTo(languageButton)
         }
         
         startButton.snp.makeConstraints { make in

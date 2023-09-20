@@ -2,32 +2,34 @@ import UIKit
 import SnapKit
 import RxCocoa
 import RxSwift
+import Then
 
 class SignUpViewController: UIViewController {
     
-    var disposeBag = DisposeBag()
-    var signUpViewModel: SignUpViewModel!
+    let disposeBag = DisposeBag()
+    var signUpViewModel: SignUpViewModel
     
-    private lazy var signUpLabel = UILabel()
-    private lazy var imageView = UIImageView()
+    lazy var signUpLabel = UILabel()
+    lazy var leftButton = UIButton()
+    lazy var imageView = UIImageView()
     
-    private lazy var idLabel = UILabel()
-    private lazy var checkButton = UIButton()
-    private lazy var idTextField = UITextField()
-    private lazy var isValidIdFirstLabel = UILabel()
-    private lazy var isValidIdSecondLabel = UILabel()
-    private lazy var isValidIdThirdLabel = UILabel()
+    lazy var idLabel = UILabel()
+    lazy var checkButton = UIButton()
+    let idTextField = UITextField()
+    lazy var isValidIdFirstLabel = UILabel()
+    lazy var isValidIdSecondLabel = UILabel()
+    lazy var isValidIdThirdLabel = UILabel()
     
-    private lazy var pwLabel = UILabel()
-    private lazy var pwTextField = UITextField()
-    private lazy var isValidPwFirstLabel = UILabel()
-    private lazy var isValidPwSecondLabel = UILabel()
+    lazy var pwLabel = UILabel()
+    let pwTextField = UITextField()
+    lazy var isValidPwFirstLabel = UILabel()
+    lazy var isValidPwSecondLabel = UILabel()
     
-    private lazy var pwConfirmLabel = UILabel()
-    private lazy var pwConfirmTextField = UITextField()
-    private lazy var isValidPwConfirmLabel = UILabel()
+    lazy var pwConfirmLabel = UILabel()
+    let pwConfirmTextField = UITextField()
+    lazy var isValidPwConfirmLabel = UILabel()
 
-    private let nextButton = UIButton()
+    lazy var nextButton = UIButton()
     
     init(signUpViewModel: SignUpViewModel!) {
         self.signUpViewModel = signUpViewModel
@@ -41,7 +43,7 @@ class SignUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.isHidden = true
         
         bind()
         attribute()
@@ -50,6 +52,17 @@ class SignUpViewController: UIViewController {
     
     
     func bind(){
+        
+        leftButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        signUpViewModel.nextText
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(nextButton.rx.title())
+            .disposed(by: disposeBag)
                 
         signUpViewModel.signUpText
             .asDriver(onErrorDriveWith: .empty())
@@ -225,113 +238,91 @@ class SignUpViewController: UIViewController {
     }
     
     func attribute(){
-        //MARK: signUpLabel Attribute
-        signUpLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        signUpLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
-        signUpLabel.textAlignment = .center
         
-        //MARK: 바탕색
         self.view.backgroundColor = UIColor(named: "bgColor")
         
-        //MARK: imageView attribute
+        signUpLabel.do{
+            $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.font = UIFont(name: "Pretendard-SemiBold", size: 20*Constants.standartFont)
+            $0.textAlignment = .center
+        }
+        
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
+        
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        //MARK: idlLabel attribute
-        idLabel.textColor = UIColor.black
-        idLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        idLabel.textAlignment = .center
+        [idLabel,pwLabel,pwConfirmLabel].forEach{
+            $0.textColor = UIColor.black
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
+            $0.textAlignment = .center
+        }
         
-        //MARK: checkButton attribute
-        checkButton.titleLabel?.textAlignment = .center
-        checkButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        checkButton.tintColor = .white
-        checkButton.backgroundColor = UIColor(named: "prColor")
-        checkButton.layer.cornerRadius = 8
+        checkButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.tintColor = .white
+            $0.backgroundColor = UIColor(named: "prColor")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+        }
         
         
-        //MARK: idTextField attribute
-        idTextField.alpha = 0.56
-        idTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        idTextField.layer.cornerRadius = 8
-        idTextField.layer.borderWidth = 1
-        idTextField.layer.borderColor = UIColor.clear.cgColor
-        idTextField.addLeftPadding()
+        [idTextField,pwTextField,pwConfirmTextField]
+            .forEach{
+                $0.alpha = 0.56
+                $0.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
+                $0.layer.cornerRadius = 8*Constants.standardHeight
+                $0.layer.borderWidth = 1
+                $0.layer.borderColor = UIColor.clear.cgColor
+                $0.addLeftPadding()
+                $0.keyboardType = .emailAddress
+            }
         idTextField.keyboardType = .emailAddress
         
-        //MARK: isValidIdFirstLabel attribute
-        isValidIdFirstLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidIdFirstLabel.textColor = UIColor(named: "gray20")
+        [isValidIdFirstLabel,isValidIdSecondLabel,isValidIdThirdLabel]
+            .forEach{
+                $0.font = UIFont(name: "Pretendard-Medium", size: 13*Constants.standartFont)
+                $0.textColor = UIColor(named: "gray20")
+            }
+
         
-        //MARK: isValidIdSecondLabel attribute
-        isValidIdSecondLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidIdSecondLabel.textColor = UIColor(named: "gray20")
+        [isValidPwFirstLabel,isValidPwSecondLabel,isValidPwConfirmLabel]
+            .forEach{
+                $0.font = UIFont(name: "Pretendard-Medium", size: 13*Constants.standartFont)
+                $0.textColor = UIColor(named: "gray20")
+            }
+
         
-        //MARK: isValidIdThirdLabel attribute
-        isValidIdThirdLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidIdThirdLabel.textColor = UIColor(named: "gray20")
-        
-        
-        
-        //MARK: pwLabel attribute
-        pwLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        pwLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        
-        
-        //MARK: pwTextField attribute
-        pwTextField.alpha = 0.56
-        pwTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        pwTextField.layer.cornerRadius = 8
-        pwTextField.layer.borderWidth = 1
-        pwTextField.layer.borderColor = UIColor.clear.cgColor
-        pwTextField.addLeftPadding()
-        
-        //MARK: isValidPwFirstLabel attribute
-        isValidPwFirstLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidPwFirstLabel.textColor = UIColor(named: "gray20")
-        
-        //MARK: isValidPwSecondLabel attribute
-        isValidPwSecondLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidPwSecondLabel.textColor = UIColor(named: "gray20")
-        
-        //MARK: pwConfirmLabel attribute
-        pwConfirmLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        pwConfirmLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        
-        //MARK: pwConfirmTextField attribute
-        pwConfirmTextField.alpha = 0.56
-        pwConfirmTextField.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
-        pwConfirmTextField.layer.cornerRadius = 8
-        pwConfirmTextField.layer.borderWidth = 1
-        pwConfirmTextField.layer.borderColor = UIColor.clear.cgColor
-        pwConfirmTextField.addLeftPadding()
-        
-        //MARK: isValidPwConfirmLabel attribute
-        isValidPwConfirmLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
-        isValidPwConfirmLabel.textColor = UIColor(named: "gray20")
-        
-        //MARK: nextButton attribute
-        nextButton.titleLabel?.textAlignment = .center
-        nextButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        nextButton.setTitleColor(UIColor(named: "prColor"), for: .normal)
-        nextButton.setTitle("next", for: .normal)
-        nextButton.backgroundColor = UIColor(named: "bgColor")
-        nextButton.layer.cornerRadius = 8
-        nextButton.layer.borderWidth = 1
-        nextButton.layer.borderColor = UIColor(named: "prColor")?.cgColor
+        nextButton.do{
+            $0.titleLabel?.textAlignment = .center
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
+            $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
+            $0.backgroundColor = UIColor(named: "bgColor")
+            $0.layer.cornerRadius = 8*Constants.standardHeight
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+        }
 
     }
     
     func layout(){
-        [signUpLabel,imageView]
+        [leftButton,signUpLabel,imageView]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
         
-        signUpLabel.snp.makeConstraints { make in
-            make.height.equalTo(30.55*Constants.standardHeight)
-            make.leading.equalToSuperview().offset(22*Constants.standardWidth)
-            make.top.equalToSuperview().offset(55*Constants.standardHeight)
+        leftButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardHeight)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardHeight)
+            make.top.equalToSuperview().offset(53*Constants.standardHeight)
         }
+        
+        signUpLabel.snp.makeConstraints { make in
+            make.leading.equalTo(leftButton.snp.trailing).offset(10*Constants.standardWidth)
+            make.centerY.equalTo(leftButton)
+        }
+        
+        
         
         imageView.snp.makeConstraints { make in
             make.width.equalTo(100*Constants.standardWidth)
@@ -346,7 +337,6 @@ class SignUpViewController: UIViewController {
             }
         
         idLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(223*Constants.standardHeight)
         }
@@ -366,19 +356,16 @@ class SignUpViewController: UIViewController {
         }
         
         isValidIdFirstLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(idTextField.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         isValidIdSecondLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(isValidIdFirstLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         isValidIdThirdLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(isValidIdSecondLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
@@ -389,7 +376,6 @@ class SignUpViewController: UIViewController {
             }
         
         pwLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(isValidIdThirdLabel.snp.bottom).offset(28*Constants.standardHeight)
         }
@@ -402,19 +388,16 @@ class SignUpViewController: UIViewController {
         }
 
         isValidPwFirstLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(pwTextField.snp.bottom).offset(8*Constants.standardHeight)
         }
 
         isValidPwSecondLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(isValidPwFirstLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
 
         pwConfirmLabel.snp.makeConstraints { make in
-            make.height.equalTo(19*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(isValidPwSecondLabel.snp.bottom).offset(28*Constants.standardHeight)
         }
@@ -427,7 +410,6 @@ class SignUpViewController: UIViewController {
         }
 
         isValidPwConfirmLabel.snp.makeConstraints { make in
-            make.height.equalTo(16*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalTo(pwConfirmTextField.snp.bottom).offset(8*Constants.standardHeight)
         }

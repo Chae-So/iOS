@@ -18,6 +18,7 @@ class SignUpViewModel{
     let pwTextFieldPlaceholder = BehaviorRelay<String>(value: "")
     let pwConfirmText = BehaviorRelay<String>(value: "")
     let pwConfirmTextFieldPlaceholder = BehaviorRelay<String>(value: "")
+    let nextText = BehaviorRelay<String>(value: "")
     
     let idInput = BehaviorRelay<String>(value: "")
     let pwInput = BehaviorRelay<String>(value: "")
@@ -93,17 +94,18 @@ class SignUpViewModel{
         idText.accept(localizationManager.localizedString(forKey: "ID"))
         checkText.accept(localizationManager.localizedString(forKey: "Check"))
         idTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your ID"))
-        idLengthValidText.accept(localizationManager.localizedString(forKey: "Please enter 5-12 letters"))
+        idLengthValidText.accept(localizationManager.localizedString(forKey: "Please enter 5~12 letters"))
         idValidText.accept(localizationManager.localizedString(forKey: "Use only English and number"))
         idCheckValidText.accept(localizationManager.localizedString(forKey: "Please click Duplicate Check"))
         
         pwText.accept(localizationManager.localizedString(forKey: "Password"))
         pwTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your password"))
-        pwLengthValidText.accept(localizationManager.localizedString(forKey: "Please enter 8-15 characters"))
+        pwLengthValidText.accept(localizationManager.localizedString(forKey: "Please enter 8~15 characters"))
         pwValidText.accept(localizationManager.localizedString(forKey: "Use only English, number and special characters"))
         
         pwConfirmText.accept(localizationManager.localizedString(forKey: "Confirm Password"))
         pwConfirmTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your password again"))
         pwConfirmValidText.accept(localizationManager.localizedString(forKey: "Please enter the same password"))
+        nextText.accept(localizationManager.localizedString(forKey: "Next"))
     }
 }

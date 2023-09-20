@@ -1,11 +1,5 @@
-//
-//  SceneDelegate.swift
-//  ChaeSo
-//
-//  Created by 박중선 on 2023/06/26.
-//
-
 import UIKit
+import CoreLocation
 import RxKakaoSDKAuth
 import KakaoSDKAuth
 import Photos
@@ -13,23 +7,25 @@ import GoogleSignIn
 import AuthenticationServices
 
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelegate {
     
     var window: UIWindow?
-    //var rootViewModel = StartViewModel(localizationManager: LocalizationManager.shared)
-    
+    let locationManager = CLLocationManager()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        //let rootViewController = StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
+        //let rootViewController = LoginViewController(loginViewModel: LoginViewModel(localizationManager: LocalizationManager.shared))
+        let rootViewController = StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
+        //let rootViewController = SearchingViewController(searchingViewModel: SearchingViewModel(localizationManager: LocalizationManager.shared))
+        
         //let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
 
         //let rootViewController = VeganViewController(veganViewModel: VeganViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
         
-        let rootViewController = TabBarController(viewModel: TabBarViewModel())
+        //let rootViewController = TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
         
@@ -50,6 +46,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         
         window?.makeKeyAndVisible()
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         
 //        //MARK: appleAutoLogin
 //        if let userID = UserDefaults.getAppleUserID() {
@@ -109,6 +108,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     }
     
+   
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        case .restricted, .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .denied:
+            showSettingsAlert()
+        @unknown default:
+            return
+        }
+    }
+
+    
     
     func photoAuthorization(){
         switch PHPhotoLibrary.authorizationStatus() {
@@ -136,14 +151,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        if let url = URLContexts.first?.url {
-            if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                _ = AuthController.rx.handleOpenUrl(url: url)
-            }
-        }
-    }
-    
     func showSettingsAlert() {
         let alert = UIAlertController(title: "알림", message: "사진 권한이 필요합니다. 설정에서 변경해주세요.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { _ in
@@ -158,7 +165,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
-    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                _ = AuthController.rx.handleOpenUrl(url: url)
+            }
+        }
+    }
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

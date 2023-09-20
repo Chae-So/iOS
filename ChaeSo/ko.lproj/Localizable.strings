@@ -1,9 +1,12 @@
 //MARK: LoginPage
+"Select Language" = "언어를 선택해주세요";
+"Start" = "시작하기";
+"Next" = "다음";
 "Login" = "로그인";
 "Sign in with Apple" = "애플로 로그인";
 "Sign in with Google" = "구글로 로그인";
 "Sign in with Kakao" = "카카오로 로그인";
-"Login in with ID" = "아이디로 로그인";
+"Login in with Email" = "이메일로 로그인";
 "Is this your first visit to CHAESO?" = "채소에 첫 방문이신가요?";
 "Sign Up" = "회원가입";
 
@@ -50,8 +53,12 @@
 //MARK: SearchingPage
 "Looking for a good restaurant near you" = "주변의 맛있는 식당을 찾고 있어요";
 
+//MARK: TabBar
+"map" = "지도";
+"myPage" = "마이페이지";
+
 //MARK: CommunityPage
-"Chaeso Log" = "채소로그";
+"ChaesoLog" = "채소로그";
 "Recommend" = "추천";
 "Latest" = "최신";
 "replies" = "답글 달기";
@@ -106,7 +113,6 @@
 
 //MARK: BookmarkView
 "Place" = "장소";
-"ChaesoLog" = "채소로그";
 
 //MARK: PlaceView
 "Restaurant" = "음식점";

@@ -13,6 +13,7 @@ class NicknameViewModel:PhotoViewModelProtocol{
     let NkTextFieldPlaceholder = BehaviorRelay<String>(value: "")
     let NkValidFirstText = BehaviorRelay<String>(value: "")
     let NkValidSecondText = BehaviorRelay<String>(value: "")
+    let nextText = BehaviorRelay<String>(value: "")
     
     let NkInput = BehaviorRelay<String>(value: "")
     let nicknameButtonTapped = PublishSubject<Void>()
@@ -23,10 +24,7 @@ class NicknameViewModel:PhotoViewModelProtocol{
     var nkLengthValid = Observable<Bool>.just(false)
     var nkCheckValid = Observable<Bool>.just(true)
     var allValid = Observable<Bool>.just(false)
-    
-    //var showImagePicker = Observable<Void>.just(())
-    //let selectedImage = BehaviorRelay<UIImage?>(value: nil)
-    
+
     var buttonImage = BehaviorRelay<UIImage?>(value: nil)
     
     init(localizationManager: LocalizationManager) {
@@ -37,8 +35,6 @@ class NicknameViewModel:PhotoViewModelProtocol{
         
         allValid = Observable.combineLatest(nkLengthValid,nkCheckValid).map{ $0 && $1 }
      
-
-        
     }
  
     
@@ -48,6 +44,6 @@ class NicknameViewModel:PhotoViewModelProtocol{
         NkTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your nickname"))
         NkValidFirstText.accept(localizationManager.localizedString(forKey: "Please enter 2~10 letters"))
         NkValidSecondText.accept(localizationManager.localizedString(forKey: "Please click Duplicate Check"))
-        
+        nextText.accept(localizationManager.localizedString(forKey: "Next"))
     }
 }
