@@ -58,7 +58,7 @@
 "myPage" = "myPage";
 
 //MARK: CommunityPage
-"ChaesoLog" = "ChaesoLog";
+"CheasoLog" = "CheasoLog";
 "Recommend" = "Recommend";
 "Latest" = "Latest";
 "replies" = "replies";
@@ -78,6 +78,8 @@
 "Info" = "Info";
 "Menu" = "Menu";
 "Review" = "Review";
+"parking" = "parking";
+"toilet" = "toilet";
 
 //MARK: WriteReviewView
 "Write a review" = "Write a review";

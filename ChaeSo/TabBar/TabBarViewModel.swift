@@ -6,7 +6,7 @@ class TabBarViewModel {
     var localizationManager: LocalizationManager
     
     var chaesoLogText: String{
-        return localizationManager.localizedString(forKey: "chaesoLog")
+        return localizationManager.localizedString(forKey: "CheasoLog")
     }
     var mapText: String{
         return localizationManager.localizedString(forKey: "map")

@@ -57,7 +57,7 @@
 "myPage" = "마이페이지";
 
 //MARK: CommunityPage
-"ChaesoLog" = "채소로그";
+"CheasoLog" = "채소로그";
 "Recommend" = "추천";
 "Latest" = "최신";
 "replies" = "답글 달기";
@@ -78,6 +78,8 @@
 "Info" = "정보";
 "Menu" = "메뉴";
 "Review" = "리뷰";
+"parking" = "주차";
+"toilet" = "화장실";
 
 //MARK: WriteReviewView
 "Write a review" = "리뷰 작성하기";

@@ -26,9 +26,10 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let communityVC = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
         let mapVC = MapViewController(mapViewModel: MapViewModel(localizationManager: LocalizationManager.shared))
+        let mapNavVC = UINavigationController(rootViewController: mapVC)
+        mapNavVC.isNavigationBarHidden = true
         let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
         
         communityVC.tabBarItem = UITabBarItem(title: tabBarViewModel.chaesoLogText, image: UIImage(named: "cheasoLog"), tag: 0)

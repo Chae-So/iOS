@@ -52,8 +52,6 @@ class MapViewModel {
                     placesFromServer.append(place)
                     //print(place)
                 }
-                print(response)
-                // Update the places BehaviorRelay
                 self.places.accept(placesFromServer)
                 
             case .failure(let error):

@@ -9,8 +9,6 @@ class TourListTableViewCell: UITableViewCell {
     let photo = UIImageView()
     let nameLabel = UILabel()
     let categoryLabel = UILabel()
-    private let starImageView = UIImageView()
-    let pointLabel = UILabel()
     private let bookmarkButton = UIButton()
     private let shareButton = UIButton()
     
@@ -45,13 +43,7 @@ class TourListTableViewCell: UITableViewCell {
         categoryLabel.font = UIFont(name: "Pretendard-Medium", size: 13)
         categoryLabel.textColor = UIColor(named: "gray20")
        
-        
-        pointLabel.textAlignment = .center
-        pointLabel.font = UIFont(name: "Pretendard-Regular", size: 13)
-        pointLabel.textColor = UIColor(named: "gray20")
-        
-        starImageView.image = UIImage(named: "starFill")
-        
+
         //MARK: bookmarkButton Attribute
         bookmarkButton.adjustsImageWhenHighlighted = false
         bookmarkButton.titleLabel?.textAlignment = .center
@@ -77,7 +69,7 @@ class TourListTableViewCell: UITableViewCell {
     }
     
     private func layout(){
-        [photo,nameLabel,categoryLabel,starImageView,pointLabel,bookmarkButton,shareButton]
+        [photo,nameLabel,categoryLabel,bookmarkButton,shareButton]
             .forEach { UIView in
                 addSubview(UIView)
             }
@@ -103,33 +95,18 @@ class TourListTableViewCell: UITableViewCell {
             make.top.equalTo(nameLabel.snp.bottom).offset(2*Constants.standardHeight)
         }
         
-        
-        starImageView.snp.makeConstraints { make in
-            make.width.equalTo(13*Constants.standardWidth)
-            make.height.equalTo(13*Constants.standardHeight)
-            make.leading.equalTo(photo.snp.trailing).offset(21*Constants.standardWidth)
-            make.top.equalTo(categoryLabel.snp.bottom).offset(7*Constants.standardHeight)
-        }
-        
-        pointLabel.snp.makeConstraints { make in
-            //make.width.equalTo(14*Constants.standardWidth)
-            make.height.equalTo(16*Constants.standardHeight)
-            make.leading.equalTo(starImageView.snp.trailing).offset(4*Constants.standardWidth)
-            make.top.equalTo(categoryLabel.snp.bottom).offset(7*Constants.standardHeight)
-        }
-        
         bookmarkButton.snp.makeConstraints { make in
             //make.width.equalTo(50*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalTo(photo.snp.trailing).offset(21*Constants.standardWidth)
-            make.top.equalTo(pointLabel.snp.bottom).offset(15*Constants.standardHeight)
+            make.top.equalTo(categoryLabel.snp.bottom).offset(15*Constants.standardHeight)
         }
         
         shareButton.snp.makeConstraints { make in
             make.width.equalTo(39*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalTo(bookmarkButton.snp.trailing).offset(8*Constants.standardWidth)
-            make.top.equalTo(pointLabel.snp.bottom).offset(15*Constants.standardHeight)
+            make.top.equalTo(categoryLabel.snp.bottom).offset(15*Constants.standardHeight)
         }
         
     }

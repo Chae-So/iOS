@@ -21,7 +21,7 @@ class MapViewController: UIViewController {
     lazy var detailListView: TourDetailListView = {
         return TourDetailListView(detailListViewModel: self.detailListViewModel)
     }()
-    let detailListBackgroundView = DetailListBackgroundView()
+
     
     init(mapViewModel: MapViewModel) {
         self.mapViewModel = mapViewModel
@@ -52,37 +52,19 @@ class MapViewController: UIViewController {
         
         //mapView.delegate = self
         locationManager.delegate = self
-        
+        navigationController?.navigationBar.isHidden = true
         bind()
         layout()
         attribute()
-        
-        setupPanGesture()
-        
+                
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
     
-    private func setupPanGesture() {
-        let panGesture = UIPanGestureRecognizer()
-        detailListView.addGestureRecognizer(panGesture)
 
-        panGesture.rx.event.asDriver { _ in .never() }
-            .drive(onNext: { [weak self] sender in
-                guard let view = self?.view,
-                      let senderView = sender.view else {
-                    return
-                }
-
-                let transition = sender.translation(in: view)
-                let proposedY = senderView.center.y + transition.y
-                if proposedY >= 482 && proposedY <= 1061 {
-                    senderView.center = CGPoint(x: senderView.center.x, y: proposedY)
-                }
-
-                sender.setTranslation(.zero, in: view)
-            })
-        .disposed(by: disposeBag)
-
-        }
     
     private func bind() {
         
@@ -116,7 +98,6 @@ class MapViewController: UIViewController {
             .subscribe(onNext: { [weak self] places in
                 guard let self = self else { return }
                 if !places.isEmpty {
-                    
                     self.detailListViewModel.placeList.accept(places)
                     self.detailListViewModel.categoryType.accept("c")
                     if self.detailListView.isHidden{
@@ -126,7 +107,7 @@ class MapViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
+  
     }
     
     private func attribute() {
@@ -151,7 +132,7 @@ class MapViewController: UIViewController {
             .forEach { view.addSubview($0) }
         
         mapView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()//.equalTo(view.safeAreaLayoutGuide)
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
         
         categoryCollectionView.snp.makeConstraints { make in
@@ -161,19 +142,20 @@ class MapViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16*Constants.standardHeight)
         }
         
-        currentLocationButton.snp.makeConstraints { make in
-            make.width.equalTo(48*Constants.standardHeight)
-            make.height.equalTo(48*Constants.standardHeight)
-            make.centerY.equalTo(categoryCollectionView)
-            make.trailing.equalToSuperview().offset(-16*Constants.standardHeight)
-        }
-        
         detailListView.snp.makeConstraints { make in
             make.width.equalToSuperview()
-            make.height.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.5)
             make.leading.equalToSuperview()
             make.top.equalTo(view.snp.centerY)
         }
+        
+        currentLocationButton.snp.makeConstraints { make in
+            make.width.equalTo(48*Constants.standardHeight)
+            make.height.equalTo(48*Constants.standardHeight)
+            make.bottom.equalTo(detailListView.snp.top).offset(-16*Constants.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*Constants.standardWidth)
+        }
+        
     }
 }
 
@@ -193,15 +175,15 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
+    @available(iOS 14.0, *)
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
         case .authorizedAlways,
-             .authorizedWhenInUse,
-             .notDetermined:
+            .authorizedWhenInUse,
+            .notDetermined:
             return
         default:
-            //viewModel.mapViewError.accept(MTMapViewError.locationAuthorizaationDenied.errorDescription)
-            return
+            break
         }
     }
 }

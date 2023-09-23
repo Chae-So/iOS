@@ -27,8 +27,8 @@ struct Place: Decodable {
     let tel: String
     let title: String
     let content: String
-    let toilet: Int
-    let parking: Int
+    let toilet: Bool
+    let parking: Bool
 
     enum CodingKeys: String, CodingKey {
         case addr, mainimage, summary, tel, title
@@ -48,7 +48,14 @@ struct Place: Decodable {
             .replacingOccurrences(of: "\n\n", with: "")
             .replacingOccurrences(of: "<br />", with: "")
             .replacingOccurrences(of: "<br>", with: "")
-        toilet = summary.contains("화장실 : 있음") ? 1 : 0
-        parking = summary.contains("주차시설 : 있음") ? 1 : 0
+        toilet = summary.contains("화장실 : 있음") ? true : false
+        parking = summary.contains("주차시설 : 있음") ? true : false
     }
+}
+
+class PlaceInfo {
+    static let shared = PlaceInfo()
+    private init() {}
+
+    var selectedPlace: Place?
 }

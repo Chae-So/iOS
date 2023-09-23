@@ -34,7 +34,7 @@ class CommunityViewModel {
     }
     
     private func updateLocalization() {
-        chaesoLogText.accept(localizationManager.localizedString(forKey: "Chaeso Log"))
+        chaesoLogText.accept(localizationManager.localizedString(forKey: "CheasoLog"))
         recommendText.accept(localizationManager.localizedString(forKey: "Recommend"))
         latestText.accept(localizationManager.localizedString(forKey: "Latest"))
     }

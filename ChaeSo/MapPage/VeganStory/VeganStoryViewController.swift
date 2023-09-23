@@ -11,6 +11,7 @@ class VeganStoryViewController: UIViewController {
     var veganStoryViewModel: VeganStoryViewModel
     
     // MARK: - UI Elements
+    lazy var leftButton = UIButton()
     private lazy var veganStoryLabel = UILabel()
     private lazy var separateView = UIView()
     private lazy var photoView = PhotoView()
@@ -56,6 +57,12 @@ class VeganStoryViewController: UIViewController {
     
     
     func bind(){
+        leftButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         veganStoryViewModel.veganStoryText
             .asDriver(onErrorDriveWith: .empty())
             .drive(veganStoryLabel.rx.text)
@@ -85,6 +92,8 @@ class VeganStoryViewController: UIViewController {
     func attribute(){
         view.backgroundColor = UIColor(hexCode: "F5F5F5")
         
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
+        
         //MARK: myChaesoLabel Attribute
         veganStoryLabel.font = UIFont(name: "Pretendard-Medium", size: 20)
         veganStoryLabel.text = veganStoryViewModel.aa
@@ -104,10 +113,15 @@ class VeganStoryViewController: UIViewController {
             }
         
         veganStoryLabel.snp.makeConstraints { make in
-            //make.width.equalTo(100*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(45*Constants.standardWidth)
             make.top.equalToSuperview().offset(56*Constants.standardHeight)
+        }
+        
+        leftButton.snp.makeConstraints { make in
+            make.width.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardWidth)
+            make.centerY.equalTo(veganStoryLabel)
         }
         
         separateView.snp.makeConstraints { make in
