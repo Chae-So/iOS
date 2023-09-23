@@ -16,7 +16,7 @@ class NicknameViewController: UIViewController {
     lazy var plusButton = UIButton()
     lazy var nicknameLabel = UILabel()
     lazy var checkButton = UIButton()
-    let nicknameTextField = UITextField()
+    lazy var nicknameTextField = UITextField()
     lazy var isValidNkFirstLabel = UILabel()
     lazy var isValidNkSecondLabel = UILabel()
     lazy var nextButton = UIButton()

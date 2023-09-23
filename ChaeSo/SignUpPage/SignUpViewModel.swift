@@ -11,34 +11,29 @@ class SignUpViewModel{
     //MARK: - Input
     let loginText = BehaviorRelay<String>(value: "")
     let signUpText = BehaviorRelay<String>(value: "")
-    let idText = BehaviorRelay<String>(value: "")
+    let emailText = BehaviorRelay<String>(value: "")
     let checkText = BehaviorRelay<String>(value: "")
-    let idTextFieldPlaceholder = BehaviorRelay<String>(value: "")
+    let emailTextFieldPlaceholder = BehaviorRelay<String>(value: "")
     let pwText = BehaviorRelay<String>(value: "")
     let pwTextFieldPlaceholder = BehaviorRelay<String>(value: "")
     let pwConfirmText = BehaviorRelay<String>(value: "")
     let pwConfirmTextFieldPlaceholder = BehaviorRelay<String>(value: "")
     let nextText = BehaviorRelay<String>(value: "")
     
-    let idInput = BehaviorRelay<String>(value: "")
+    let emailInput = BehaviorRelay<String>(value: "")
     let pwInput = BehaviorRelay<String>(value: "")
     let pwConfirmInput = BehaviorRelay<String>(value: "")
-    
-    let loginIdInput = BehaviorRelay<String>(value: "")
-    let loginPwInput = BehaviorRelay<String>(value: "")
-    
-    let idLengthValidText = BehaviorRelay<String>(value: "")
-    let idValidText = BehaviorRelay<String>(value: "")
-    let idCheckValidText = BehaviorRelay<String>(value: "")
+
+    let emailFormatValidText = BehaviorRelay<String>(value: "")
+    let emailCheckValidText = BehaviorRelay<String>(value: "")
     let pwValidText = BehaviorRelay<String>(value: "")
     let pwLengthValidText = BehaviorRelay<String>(value: "")
     let pwConfirmValidText = BehaviorRelay<String>(value: "")
     
     // MARK: - Output
-    var idLengthValid: Observable<Bool> = Observable.just(false)
-    var idValid: Observable<Bool> = Observable.just(false)
-    var idCheckValid: Observable<Bool> = Observable.just(false)
-    var idIsValid: Observable<Bool> = Observable.just(false)
+    var emailFormatValid: Observable<Bool> = Observable.just(false)
+    var emailCheckValid: Observable<Bool> = Observable.just(false)
+    var emailIsValid: Observable<Bool> = Observable.just(false)
     
     var pwValid: Observable<Bool> = Observable.just(false)
     var pwLengthValid: Observable<Bool> = Observable.just(false)
@@ -55,16 +50,13 @@ class SignUpViewModel{
         
         updateLocalization()
         
-        idLengthValid = idInput
-            .map { [weak self] in self?.validator.validateLengthId($0) ?? false}
+        emailFormatValid = emailInput
+            .map { [weak self] in self?.validator.validateEmail($0) ?? false}
         
-        idValid = idInput
-            .map { [weak self] in self?.validator.validateId($0) ?? false}
+        emailIsValid = emailFormatValid
         
-        
-        
-        idIsValid = Observable.combineLatest(idLengthValid, idValid)
-            .map{ $0 && $1 }
+//        emailIsValid = Observable.combineLatest(emailFormatValid)
+//            .map{ $0 }
         
         pwLengthValid = pwInput
             .map { [weak self] in self?.validator.validateLengthPassword($0) ?? false}
@@ -78,12 +70,9 @@ class SignUpViewModel{
         pwConfirmValid = pwConfirmInput.withLatestFrom(pwInput){ ($0, $1) }
             .map { $0 == $1 && $0 != "" }
         
-        allValid = Observable.combineLatest(idIsValid, pwIsValid, pwConfirmValid)
+        allValid = Observable.combineLatest(emailIsValid, pwIsValid, pwConfirmValid)
             .map { $0 && $1 && $2 }
             
-        
-        loginValid = Observable.combineLatest(loginIdInput,loginPwInput)
-            .map{ $0 != "" && $1 != "" }
             
     }
     
@@ -91,12 +80,11 @@ class SignUpViewModel{
         loginText.accept(localizationManager.localizedString(forKey: "Login"))
         signUpText.accept(localizationManager.localizedString(forKey: "Sign Up"))
         
-        idText.accept(localizationManager.localizedString(forKey: "ID"))
+        emailText.accept(localizationManager.localizedString(forKey: "Email"))
         checkText.accept(localizationManager.localizedString(forKey: "Check"))
-        idTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your ID"))
-        idLengthValidText.accept(localizationManager.localizedString(forKey: "Please enter 5~12 letters"))
-        idValidText.accept(localizationManager.localizedString(forKey: "Use only English and number"))
-        idCheckValidText.accept(localizationManager.localizedString(forKey: "Please click Duplicate Check"))
+        emailTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your email"))
+        emailFormatValidText.accept(localizationManager.localizedString(forKey: "Please enter in email format"))
+        emailCheckValidText.accept(localizationManager.localizedString(forKey: "Please click Duplicate Check"))
         
         pwText.accept(localizationManager.localizedString(forKey: "Password"))
         pwTextFieldPlaceholder.accept(localizationManager.localizedString(forKey: "Please enter your password"))

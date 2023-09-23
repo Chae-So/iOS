@@ -4,22 +4,23 @@ import RxCocoa
 import RxSwift
 import Then
 
-class IdLoginViewController: UIViewController {
+class EmailLoginViewController: UIViewController {
     
     let disposeBag = DisposeBag()
-    var signUpViewModel: SignUpViewModel!
+    var emailLoginViewModel: EmailLoginViewModel
     
+    lazy var leftButton = UIButton()
     lazy var loginLabel = UILabel()
     var imageView = UIImageView()
-    lazy var idLabel = UILabel()
-    let idTextField = UITextField()
+    lazy var emailLabel = UILabel()
+    lazy var emailTextField = UITextField()
     lazy var pwLabel = UILabel()
-    let pwTextField = UITextField()
+    lazy var pwTextField = UITextField()
 
     lazy var loginButton = UIButton()
     
-    init(signUpViewModel: SignUpViewModel!) {
-        self.signUpViewModel = signUpViewModel
+    init(emailLoginViewModel: EmailLoginViewModel) {
+        self.emailLoginViewModel = emailLoginViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -30,7 +31,7 @@ class IdLoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.isHidden = true
         
         bind()
         attribute()
@@ -39,64 +40,66 @@ class IdLoginViewController: UIViewController {
     
     
     func bind(){
-                
-        signUpViewModel.loginText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(loginLabel.rx.text)
+        leftButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.popViewController(animated: true)
+            })
             .disposed(by: disposeBag)
         
-        signUpViewModel.idText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(idLabel.rx.text)
+        emailLoginViewModel.loginText
+            .bind(to: loginLabel.rx.text)
             .disposed(by: disposeBag)
         
-        signUpViewModel.pwText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(pwLabel.rx.text)
+        emailLoginViewModel.loginText
+            .bind(to: loginButton.rx.title())
             .disposed(by: disposeBag)
         
-        signUpViewModel.idTextFieldPlaceholder
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(idTextField.rx.placeholder)
+        emailLoginViewModel.emailText
+            .bind(to: emailLabel.rx.text)
             .disposed(by: disposeBag)
-
-        signUpViewModel.pwTextFieldPlaceholder
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(pwTextField.rx.placeholder)
+        
+        emailLoginViewModel.emailTextFieldPlaceholder
+            .bind(to: emailTextField.rx.placeholder)
             .disposed(by: disposeBag)
-
-        idTextField.rx.text.orEmpty
-            .bind(to: signUpViewModel.loginIdInput)
+        
+        emailLoginViewModel.pwText
+            .bind(to: pwLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        emailTextField.rx.text.orEmpty
+            .bind(to: emailLoginViewModel.emailInput)
             .disposed(by: disposeBag)
         
         pwTextField.rx.text.orEmpty
-            .bind(to: signUpViewModel.loginPwInput)
+            .bind(to: emailLoginViewModel.pwInput)
             .disposed(by: disposeBag)
         
-        
-        signUpViewModel.loginValid
-            .asDriver(onErrorJustReturn: false)
-            .drive(loginButton.rx.isEnabled)
+        emailLoginViewModel.pwTextFieldPlaceholder
+            .bind(to: pwTextField.rx.placeholder)
             .disposed(by: disposeBag)
-
-        signUpViewModel.loginValid
+        
+        emailLoginViewModel.enableLoginButton
+            .bind(to: loginButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        emailLoginViewModel.enableLoginButton
             .asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor(named: "prColor") : UIColor(named: "bgColor") }
             .drive(loginButton.rx.backgroundColor)
             .disposed(by: disposeBag)
         
-        signUpViewModel.loginValid
+        emailLoginViewModel.enableLoginButton
             .asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor.white : UIColor(named: "prColor")! }
             .drive(loginButton.rx.titleColor(for: .normal))
             .disposed(by: disposeBag)
-        
+                
         loginButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 //ToDo: 메인 페이지 연결 및 아이디 비번 맞는지 확인
                 guard let self = self else { return }
-                let tabBarViewController = TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
-                self.navigationController?.pushViewController(tabBarViewController, animated: true)
+//                let tabBarViewController = TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
+//                self.navigationController?.pushViewController(tabBarViewController, animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -106,6 +109,8 @@ class IdLoginViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(named: "bgColor")
         
+        leftButton.setImage(UIImage(named: "left"), for: .normal)
+        
         loginLabel.do{
             $0.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
             $0.font = UIFont(name: "Pretendard-SemiBold", size: 20*Constants.standartFont)
@@ -114,14 +119,14 @@ class IdLoginViewController: UIViewController {
         
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        [idLabel,pwLabel]
+        [emailLabel,pwLabel]
             .forEach{
                 $0.textColor = UIColor.black
                 $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
                 $0.textAlignment = .center
             }
         
-        [idTextField,pwTextField]
+        [emailTextField,pwTextField]
             .forEach{
                 $0.alpha = 0.56
                 $0.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
@@ -132,30 +137,37 @@ class IdLoginViewController: UIViewController {
                 
             }
         
-        idTextField.keyboardType = .emailAddress
+        emailTextField.keyboardType = .emailAddress
        
         loginButton.do{
             $0.titleLabel?.textAlignment = .center
             $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
             $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
-            $0.setTitle("next", for: .normal)
             $0.backgroundColor = UIColor(named: "bgColor")
             $0.layer.cornerRadius = 8*Constants.standardHeight
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
+            $0.isEnabled = false
         }
 
     }
     
     func layout(){
-        [loginLabel,imageView,idLabel,idTextField,pwLabel,pwTextField,loginButton]
+        [leftButton,loginLabel,imageView,emailLabel,emailTextField,pwLabel,pwTextField,loginButton]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
         
+        leftButton.snp.makeConstraints { make in
+            make.width.equalTo(24*Constants.standardHeight)
+            make.height.equalTo(24*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(10*Constants.standardHeight)
+            make.top.equalToSuperview().offset(53*Constants.standardHeight)
+        }
+        
         loginLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(22*Constants.standardWidth)
-            make.top.equalToSuperview().offset(55*Constants.standardHeight)
+            make.leading.equalTo(leftButton.snp.trailing).offset(10*Constants.standardWidth)
+            make.centerY.equalTo(leftButton)
         }
         
         imageView.snp.makeConstraints { make in
@@ -165,16 +177,16 @@ class IdLoginViewController: UIViewController {
             make.top.equalToSuperview().offset(160*Constants.standardHeight)
         }
         
-        idLabel.snp.makeConstraints { make in
+        emailLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(337*Constants.standardHeight)
         }
 
-        idTextField.snp.makeConstraints { make in
-            make.width.equalTo(223*Constants.standardWidth)
+        emailTextField.snp.makeConstraints { make in
+            make.width.equalTo(343*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalTo(idLabel.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(emailLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         pwLabel.snp.makeConstraints { make in

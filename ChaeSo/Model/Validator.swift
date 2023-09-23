@@ -1,18 +1,11 @@
-//
-//  Validator.swift
-//  ChaeSo
-//
-//  Created by 박중선 on 2023/06/29.
-//
-
 import Foundation
 
 class Validator{
     
-    func validateId(_ id: String) -> Bool {
-        let idRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]*$"
-        let idPredicate = NSPredicate(format: "SELF MATCHES %@", idRegex)
-        return idPredicate.evaluate(with: id)
+    func validateEmail(_ email: String) -> Bool {
+        let emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        return emailTest.evaluate(with: email)
     }
     
     func validateLengthId(_ id: String) -> Bool {

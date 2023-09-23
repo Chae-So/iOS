@@ -13,25 +13,24 @@ class SignUpViewController: UIViewController {
     lazy var leftButton = UIButton()
     lazy var imageView = UIImageView()
     
-    lazy var idLabel = UILabel()
+    lazy var emailLabel = UILabel()
     lazy var checkButton = UIButton()
-    let idTextField = UITextField()
-    lazy var isValidIdFirstLabel = UILabel()
-    lazy var isValidIdSecondLabel = UILabel()
-    lazy var isValidIdThirdLabel = UILabel()
+    lazy var emailTextField = UITextField()
+    lazy var isValidEmailFirstLabel = UILabel()
+    lazy var isValidEmailSecondLabel = UILabel()
     
     lazy var pwLabel = UILabel()
-    let pwTextField = UITextField()
+    lazy var pwTextField = UITextField()
     lazy var isValidPwFirstLabel = UILabel()
     lazy var isValidPwSecondLabel = UILabel()
     
     lazy var pwConfirmLabel = UILabel()
-    let pwConfirmTextField = UITextField()
+    lazy var pwConfirmTextField = UITextField()
     lazy var isValidPwConfirmLabel = UILabel()
 
     lazy var nextButton = UIButton()
     
-    init(signUpViewModel: SignUpViewModel!) {
+    init(signUpViewModel: SignUpViewModel) {
         self.signUpViewModel = signUpViewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -69,9 +68,9 @@ class SignUpViewController: UIViewController {
             .drive(signUpLabel.rx.text)
             .disposed(by: disposeBag)
         
-        signUpViewModel.idText
+        signUpViewModel.emailText
             .asDriver(onErrorDriveWith: .empty())
-            .drive(idLabel.rx.text)
+            .drive(emailLabel.rx.text)
             .disposed(by: disposeBag)
         
         signUpViewModel.checkText
@@ -89,9 +88,9 @@ class SignUpViewController: UIViewController {
             .drive(pwConfirmLabel.rx.text)
             .disposed(by: disposeBag)
         
-        signUpViewModel.idTextFieldPlaceholder
+        signUpViewModel.emailTextFieldPlaceholder
             .asDriver(onErrorDriveWith: .empty())
-            .drive(idTextField.rx.placeholder)
+            .drive(emailTextField.rx.placeholder)
             .disposed(by: disposeBag)
 
         signUpViewModel.pwTextFieldPlaceholder
@@ -104,8 +103,8 @@ class SignUpViewController: UIViewController {
             .drive(pwConfirmTextField.rx.placeholder)
             .disposed(by: disposeBag)
         
-        idTextField.rx.text.orEmpty
-            .bind(to: signUpViewModel.idInput)
+        emailTextField.rx.text.orEmpty
+            .bind(to: signUpViewModel.emailInput)
             .disposed(by: disposeBag)
         
         pwTextField.rx.text.orEmpty
@@ -119,45 +118,33 @@ class SignUpViewController: UIViewController {
         
         
         //MARK: idLengthValid
-        signUpViewModel.idLengthValidText
+        signUpViewModel.emailFormatValidText
             .asDriver(onErrorDriveWith: .empty())
-            .drive(isValidIdFirstLabel.rx.text)
+            .drive(isValidEmailFirstLabel.rx.text)
             .disposed(by: disposeBag)
         
-        signUpViewModel.idLengthValid
+        signUpViewModel.emailFormatValid
             .asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor(named: "prColor") : UIColor(hexCode: "FD4321") }
-            .drive(isValidIdFirstLabel.rx.textColor)
-            .disposed(by: disposeBag)
-        
-        //MARK: idValid
-        signUpViewModel.idValidText
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(isValidIdSecondLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        signUpViewModel.idValid
-            .asDriver(onErrorJustReturn: false)
-            .map { $0 ? UIColor(named: "prColor") : UIColor(hexCode: "FD4321") }
-            .drive(isValidIdSecondLabel.rx.textColor)
+            .drive(isValidEmailFirstLabel.rx.textColor)
             .disposed(by: disposeBag)
         
         //MARK: idCheckValidText
-        signUpViewModel.idCheckValidText
+        signUpViewModel.emailCheckValidText
             .asDriver(onErrorDriveWith: .empty())
-            .drive(isValidIdThirdLabel.rx.text)
+            .drive(isValidEmailSecondLabel.rx.text)
             .disposed(by: disposeBag)
         
-        signUpViewModel.idCheckValid
+        signUpViewModel.emailCheckValid
             .asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor(named: "prColor") : UIColor(hexCode: "FD4321") }
-            .drive(isValidIdThirdLabel.rx.textColor)
+            .drive(isValidEmailSecondLabel.rx.textColor)
             .disposed(by: disposeBag)
         
         //MARK: idIsValid
-        signUpViewModel.idIsValid.asDriver(onErrorJustReturn: false)
+        signUpViewModel.emailIsValid.asDriver(onErrorJustReturn: false)
             .map { $0 ? UIColor(named: "prColor")! : UIColor(hexCode: "FD4321") }
-            .drive(idTextField.rx.borderColor)
+            .drive(emailTextField.rx.borderColor)
             .disposed(by: disposeBag)
         
         //MARK: pwLengthValid
@@ -251,7 +238,7 @@ class SignUpViewController: UIViewController {
         
         imageView = UIImageView(image: UIImage(named: "tomato"))
         
-        [idLabel,pwLabel,pwConfirmLabel].forEach{
+        [emailLabel,pwLabel,pwConfirmLabel].forEach{
             $0.textColor = UIColor.black
             $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
             $0.textAlignment = .center
@@ -266,7 +253,7 @@ class SignUpViewController: UIViewController {
         }
         
         
-        [idTextField,pwTextField,pwConfirmTextField]
+        [emailTextField,pwTextField,pwConfirmTextField]
             .forEach{
                 $0.alpha = 0.56
                 $0.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1).cgColor
@@ -276,9 +263,9 @@ class SignUpViewController: UIViewController {
                 $0.addLeftPadding()
                 $0.keyboardType = .emailAddress
             }
-        idTextField.keyboardType = .emailAddress
+        emailTextField.keyboardType = .emailAddress
         
-        [isValidIdFirstLabel,isValidIdSecondLabel,isValidIdThirdLabel]
+        [isValidEmailFirstLabel,isValidEmailSecondLabel]
             .forEach{
                 $0.font = UIFont(name: "Pretendard-Medium", size: 13*Constants.standartFont)
                 $0.textColor = UIColor(named: "gray20")
@@ -331,43 +318,38 @@ class SignUpViewController: UIViewController {
             make.top.equalToSuperview().offset(97*Constants.standardHeight)
         }
         
-        [idLabel,idTextField,checkButton,isValidIdFirstLabel,isValidIdSecondLabel,isValidIdThirdLabel]
+        [emailLabel,emailTextField,checkButton,isValidEmailFirstLabel,isValidEmailSecondLabel]
             .forEach {
                 view.addSubview($0)
             }
         
-        idLabel.snp.makeConstraints { make in
+        emailLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
             make.top.equalToSuperview().offset(223*Constants.standardHeight)
         }
 
-        idTextField.snp.makeConstraints { make in
+        emailTextField.snp.makeConstraints { make in
             make.width.equalTo(223*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalTo(idLabel.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(emailLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         checkButton.snp.makeConstraints { make in
             make.width.equalTo(112*Constants.standardWidth)
             make.height.equalTo(56*Constants.standardHeight)
-            make.leading.equalTo(idTextField.snp.trailing).offset(8*Constants.standardWidth)
-            make.top.equalTo(idTextField.snp.top)
+            make.leading.equalTo(emailTextField.snp.trailing).offset(8*Constants.standardWidth)
+            make.top.equalTo(emailTextField.snp.top)
         }
         
-        isValidIdFirstLabel.snp.makeConstraints { make in
+        isValidEmailFirstLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalTo(idTextField.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(emailTextField.snp.bottom).offset(8*Constants.standardHeight)
         }
         
-        isValidIdSecondLabel.snp.makeConstraints { make in
+        isValidEmailSecondLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalTo(isValidIdFirstLabel.snp.bottom).offset(8*Constants.standardHeight)
-        }
-        
-        isValidIdThirdLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalTo(isValidIdSecondLabel.snp.bottom).offset(8*Constants.standardHeight)
+            make.top.equalTo(isValidEmailFirstLabel.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         [pwLabel,pwTextField,isValidPwFirstLabel,isValidPwSecondLabel,pwConfirmLabel,pwConfirmTextField,isValidPwConfirmLabel,nextButton]
@@ -377,7 +359,7 @@ class SignUpViewController: UIViewController {
         
         pwLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalTo(isValidIdThirdLabel.snp.bottom).offset(28*Constants.standardHeight)
+            make.top.equalTo(isValidEmailSecondLabel.snp.bottom).offset(28*Constants.standardHeight)
         }
 
         pwTextField.snp.makeConstraints { make in

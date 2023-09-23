@@ -118,9 +118,9 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
         emailLoginButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                let signUpViewModel = SignUpViewModel(localizationManager: LocalizationManager.shared)
-                let idLoginViewController = IdLoginViewController(signUpViewModel: signUpViewModel)
-                self.navigationController?.pushViewController(idLoginViewController, animated: true)
+                let emailLoginViewModel = EmailLoginViewModel(localizationManager: LocalizationManager.shared)
+                let emailLoginViewController = EmailLoginViewController(emailLoginViewModel: emailLoginViewModel)
+                self.navigationController?.pushViewController(emailLoginViewController, animated: true)
 
             })
             .disposed(by: disposeBag)

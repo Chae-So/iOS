@@ -11,12 +11,11 @@
 "Sign Up" = "Sign Up";
 
 //MARK: SignUpPage
-"ID" = "ID";
+"Email" = "Email";
 "Check" = "Check";
-"Please enter your ID" = "Please enter your ID";
+"Please enter your email" = "Please enter your email";
 "duplicate check" = "duplicate check";
-"Please enter 5~12 letters" = "Please enter 5~12 letters";
-"Use only English and number" = "Use only English and number";
+"Please enter in email format" = "Please enter in email format";
 "Please click Duplicate Check" = "Please click Duplicate Check";
 
 "Password" = "Password";

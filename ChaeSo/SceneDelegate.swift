@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+        
         //let rootViewController = LoginViewController(loginViewModel: LoginViewModel(localizationManager: LocalizationManager.shared))
         let rootViewController = StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
         //let rootViewController = SearchingViewController(searchingViewModel: SearchingViewModel(localizationManager: LocalizationManager.shared))

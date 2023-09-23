@@ -11,13 +11,12 @@
 "Sign Up" = "회원가입";
 
 //MARK: SignUpPage
-"ID" = "아이디";
+"Email" = "이메일";
 "Check" = "중복확인";
-"Please enter your ID" = "아이디를 입력해 주세요";
+"Please enter your email" = "이메일을 입력해 주세요";
 "duplicate check" = "중복확인";
-"Please enter 5~12 letters" = "5~12글자로 입력해주세요";
-"Use only English and number" = "영문/숫자를 모두 사용하여 구성해주세요";
-"Please click Duplicate Check" = "아이디 중복확인을 눌러주세요";
+"Please enter in email format" = "이메일 형식으로 입력해주세요";
+"Please click Duplicate Check" = "이메일 중복확인을 눌러주세요";
 
 "Password" = "비밀번호";
 "Please enter your password" = "비밀번호를 입력해 주세요";
