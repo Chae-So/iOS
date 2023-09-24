@@ -241,11 +241,11 @@ class WriteReviewViewController: UIViewController {
         
         registerButton.do{
             $0.titleLabel?.textAlignment = .center
-            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+            $0.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16*Constants.standartFont)
             $0.setTitleColor(UIColor(named: "prColor"), for: .normal)
             $0.setTitle("next", for: .normal)
             $0.backgroundColor = UIColor(hexCode: "F5F5F5")
-            $0.layer.cornerRadius = 8
+            $0.layer.cornerRadius = 8*Constants.standardHeight
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(named: "prColor")?.cgColor
         }
@@ -291,7 +291,7 @@ class WriteReviewViewController: UIViewController {
             //make.width.equalToSuperview()
             //make.height.equalTo(5*Constants.standardHeight)
             make.leading.equalToSuperview().offset(16*Constants.standardWidth)
-            make.top.equalToSuperview().offset(16*Constants.standardHeight)
+            make.top.equalTo(separateFirstView.snp.bottom).offset(16*Constants.standardHeight)
         }
         
         starCollectionView.snp.makeConstraints { make in
@@ -340,7 +340,7 @@ class WriteReviewViewController: UIViewController {
             make.top.equalTo(quesSecondLabel.snp.bottom).offset(16*Constants.standardHeight)
         }
         
-        [quesThirdLabel,secondCollectionView]
+        [quesThirdLabel,secondCollectionView,registerButton]
             .forEach { UIView in
                 view.addSubview(UIView)
             }

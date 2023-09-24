@@ -52,16 +52,13 @@ class MapViewController: UIViewController {
         
         //mapView.delegate = self
         locationManager.delegate = self
-        navigationController?.navigationBar.isHidden = true
+        
         bind()
         layout()
         attribute()
                 
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
+
 
     
 

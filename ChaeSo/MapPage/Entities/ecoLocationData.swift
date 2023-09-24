@@ -1,9 +1,5 @@
 import Foundation
 
-struct ecoLocationData: Decodable{
-    
-}
-
 struct Response: Decodable {
     let response: Body
 }

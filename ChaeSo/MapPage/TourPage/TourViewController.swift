@@ -28,7 +28,6 @@ class TourViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         bind()
         attribute()
         layout()

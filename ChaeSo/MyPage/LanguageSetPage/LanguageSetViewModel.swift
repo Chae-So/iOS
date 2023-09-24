@@ -7,18 +7,10 @@ class LanguageSetViewModel{
     
     let languageSelected = BehaviorRelay<String>(value: LocalizationManager.shared.language)
     
-//    var titleText: String{
-//        return localizationManager.localizedString(forKey: "언어 설정")
-//    }
+
     var titleText = BehaviorRelay(value: "")
-    
-    
-    var koText: String{
-        return localizationManager.localizedString(forKey: "한국어")
-    }
-    var enText: String{
-        return localizationManager.localizedString(forKey: "영어")
-    }
+    var koText = BehaviorRelay(value: "")
+    var enText = BehaviorRelay(value: "")
     
     
     init(localizationManager: LocalizationManager) {
@@ -39,7 +31,11 @@ class LanguageSetViewModel{
         LocalizationManager.shared.rxLanguage
             .subscribe(onNext: { [weak self] language in
                 let newTitle = localizationManager.localizedString(forKey: "언어 설정")
+                let koTitle = localizationManager.localizedString(forKey: "한국어")
+                let enTitle = localizationManager.localizedString(forKey: "영어")
                 self?.titleText.accept(newTitle)
+                self?.koText.accept(koTitle)
+                self?.enText.accept(enTitle)
             })
             .disposed(by: disposeBag)
         

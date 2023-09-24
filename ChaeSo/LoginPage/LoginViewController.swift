@@ -14,7 +14,7 @@ class LoginViewController: UIViewController,ASAuthorizationControllerPresentatio
     
     private let disposeBag = DisposeBag()
     var loginViewModel: LoginViewModel
-
+    
     private lazy var leftButton = UIButton()
     private lazy var loginLabel = UILabel()
     private lazy var imageView = UIImageView()

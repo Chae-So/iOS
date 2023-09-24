@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
         
         //let rootViewController = LoginViewController(loginViewModel: LoginViewModel(localizationManager: LocalizationManager.shared))
         //let rootViewController = StartViewController(startViewModel: StartViewModel(localizationManager: LocalizationManager.shared))
-        //let rootViewController = SearchingViewController(searchingViewModel: SearchingViewModel(localizationManager: LocalizationManager.shared))
+        let rootViewController = SearchingViewController(searchingViewModel: SearchingViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
 
@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
         
         //let rootViewController = VeganStoryViewController(veganStoryViewModel: VeganStoryViewModel(localizationManager: LocalizationManager.shared))
         
-        let rootViewController = TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
+        //let rootViewController = TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
         
         //let rootViewController = NicknameViewController(nicknameViewModel: NicknameViewModel(localizationManager: LocalizationManager.shared))
         

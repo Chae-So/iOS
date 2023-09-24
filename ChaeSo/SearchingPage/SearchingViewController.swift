@@ -25,7 +25,13 @@ class SearchingViewController: UIViewController {
         super.viewDidLoad()
 
         animationView.loopMode = .loop
-        animationView.play() 
+        animationView.play()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [self] in
+            animationView.pause()
+            let rootViewController = TabBarController(tabBarViewModel: TabBarViewModel(localizationManager: LocalizationManager.shared))
+            rootViewController.modalPresentationStyle = .fullScreen
+            present(rootViewController, animated: true)
+        }
         
         bind()
         attribute()

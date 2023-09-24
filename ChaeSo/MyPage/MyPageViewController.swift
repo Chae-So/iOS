@@ -2,6 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Then
 
 class MyPageViewController: UIViewController, UIScrollViewDelegate {
     
@@ -10,15 +11,20 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     var disposeBag = DisposeBag()
     var myPageviewModel: MyPageViewModel
     let bookmarkView = BookmarkView(bookmarkViewModel: BookmarkViewModel(localizationManager: LocalizationManager.shared))
-    
+
     // MARK: - UI Elements
     private lazy var titleLabel = UILabel()
     private lazy var leftButton = UIButton()
     private lazy var nicknameButton = UIButton()
     private lazy var plusButton = UIButton()
+    private lazy var editProfileButton = UIButton()
     private lazy var nicknameLabel = UILabel()
     private lazy var separateView = UIView()
     private lazy var separateSecondView = UIView()
+    
+    private lazy var alertTitle = UILabel()
+    private lazy var alertCancel = UILabel()
+    private lazy var alertLogout = UILabel()
     
     private var tableView = UITableView()
     
@@ -37,23 +43,11 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         
         bind()
         attribute()
         layout()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("마이페이지 뷰일어피어")
-        myPageviewModel.titleText
-            .subscribe { title in
-                print(title,123123123)
-            }
-            .disposed(by: disposeBag)
-    }
-    
     
     func bind(){
         
@@ -61,11 +55,31 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
+        myPageviewModel.editProfileText
+            .bind(to: editProfileButton.rx.title())
+            .disposed(by: disposeBag)
+        
+        myPageviewModel.alertTitleText
+            .bind(to: alertTitle.rx.text)
+            .disposed(by: disposeBag)
+        
+        myPageviewModel.alertCancelText
+            .bind(to: alertCancel.rx.text)
+            .disposed(by: disposeBag)
+        
+        myPageviewModel.alertLogoutText
+            .bind(to: alertLogout.rx.text)
+            .disposed(by: disposeBag)
+        
         plusButton.rx.tap
             .bind(to: myPageviewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
         
         nicknameButton.rx.tap
+            .bind(to: myPageviewModel.nicknameButtonTapped)
+            .disposed(by: disposeBag)
+        
+        editProfileButton.rx.tap
             .bind(to: myPageviewModel.nicknameButtonTapped)
             .disposed(by: disposeBag)
         
@@ -83,17 +97,15 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
             .bind(to: nicknameButton.rx.image(for: .normal))
             .disposed(by: disposeBag)
         
-        myPageviewModel.items
+        myPageviewModel.tabItems
             .bind(to: tableView.rx.items(cellIdentifier: "MyPageTableViewCell", cellType: MyPageTableViewCell.self)){ [weak self] (row, element, cell) in
                 
                 if let self = self, self.shouldShowSeparator(at: row) {
-                    cell.showSeparator()  // 구분뷰를 표시하는 함수
+                    cell.showSeparator()
                 } else {
-                    cell.hideSeparator()  // 구분뷰를 숨기는 함수
+                    cell.hideSeparator()
                 }
-                
-                cell.titleLabel.text = element.title
-                cell.iconImageView.image = element.icon
+                cell.titleLabel.text = element
             }
             .disposed(by: disposeBag)
         
@@ -117,9 +129,17 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
                 case 1:
                     self.showBookmarkView()
                     self.leftButton.isHidden = false
-                case 5:
+                case 3:
+                    let termsVC = TermsViewController(termsViewModel: TermsViewModel(localizationManager: LocalizationManager.shared))
+                    self.navigationController?.pushViewController(termsVC, animated: true)
+                case 4:
                     let languageSetViewController = LanguageSetViewController(languageSetViewModel: LanguageSetViewModel(localizationManager: LocalizationManager.shared))
-                    self.show(languageSetViewController, sender: nil)
+                    self.navigationController?.pushViewController(languageSetViewController, animated: true)
+                case 5:
+                    self.showAlert(title: self.alertTitle.text!, cancel: self.alertCancel.text!, logout: self.alertLogout.text!)
+                case 6:
+                    let withdrawVC = WithdrawViewController(withdrawViewModel: WithdrawViewModel(localizationManager: LocalizationManager.shared))
+                    self.navigationController?.pushViewController(withdrawVC, animated: true)
                 default:
                     break
                 }
@@ -138,7 +158,7 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func shouldShowSeparator(at index: Int) -> Bool {
-        return index == 1 || index == 5  
+        return index == 1 || index == 4
     }
     
     private func showBookmarkView() {
@@ -192,57 +212,75 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
         })
     }
 
-
+    private func showAlert(title: String, cancel: String, logout: String) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: cancel, style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let confirmAction = UIAlertAction(title: logout, style: .destructive, handler: nil)
+        
+        alertController.rx.action(of: confirmAction)
+            .subscribe(onNext: { [weak self] _ in
+                self?.myPageviewModel.logoutButtonTapped.onNext(())
+            })
+            .disposed(by: disposeBag)
+        
+        present(alertController, animated: true, completion: nil)
+    }
     
     func attribute(){
         view.backgroundColor = .white
         
-        //MARK: myChaesoLabel Attribute
-        titleLabel.font = UIFont(name: "Pretendard-Medium", size: 16)
-        //titleLabel.text = myPageviewModel.myChaesoText
+        titleLabel.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
         
-        leftButton.setImage(UIImage(named: "left"), for: .normal)
-        leftButton.isHidden = true
+        leftButton.do{
+            $0.setImage(UIImage(named: "left"), for: .normal)
+            $0.isHidden = true
+        }
+                
+        [separateView,separateSecondView]
+            .forEach{ $0.backgroundColor = UIColor(hexCode: "D9D9D9") }
+
         
-        //MARK: separateView Attribute
-        separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
-        
-        //MARK: separateView Attribute
-        separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
-        separateSecondView.backgroundColor = UIColor(hexCode: "D9D9D9")
-        
-        //MARK: nicknameButton Attribute
         //Todo: 닉네임 이미지 실제 유저 이미지로 교체
-        nicknameButton.setImage(UIImage(named: "userImage"), for: .normal)
-        nicknameButton.backgroundColor = .blue
-        nicknameButton.clipsToBounds = true
-        nicknameButton.layer.cornerRadius = 30*Constants.standardWidth
-        nicknameButton.adjustsImageWhenHighlighted = false
+        nicknameButton.do{
+            $0.setImage(UIImage(named: "userImage"), for: .normal)
+            $0.clipsToBounds = true
+            $0.layer.borderColor = UIColor(named: "gray10")?.cgColor
+            $0.layer.borderWidth = 1
+            $0.layer.cornerRadius = 60*Constants.standardHeight / 2
+        }
+
+        plusButton.do{
+            $0.setImage(UIImage(named: "plusButton"), for: .normal)
+            $0.backgroundColor = UIColor(named: "gray10")
+            $0.layer.cornerRadius = 9*Constants.standardHeight
+        }
         
-        //MARK: plusButton Attribute
-        plusButton.setImage(UIImage(named: "plusButton"), for: .normal)
-        plusButton.backgroundColor = UIColor(named: "gray10")
-        plusButton.layer.cornerRadius = 9*Constants.standardHeight //(plusButton.frame.height*Constants.standardHeight) / 2
-        plusButton.adjustsImageWhenHighlighted = false
-        
-        //MARK: nicknameLabel Attribute
-        nicknameLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        nicknameLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20*Constants.standartFont)
         //ToDo: 닉네임 실제걸로 변경
         nicknameLabel.text = "씩씩한 시금치님"
         
+        editProfileButton.do{
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 13)
+            $0.setTitleColor(UIColor(named: "gray20"), for: .normal)
+            $0.setUnderline()
+        }
         
-        tableView.tableFooterView = UIView()
-        tableView.isScrollEnabled = false
-        tableView.separatorStyle = .singleLine
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20*Constants.standardWidth, bottom: 0, right: 20*Constants.standardWidth)
-        tableView.separatorColor = UIColor(hexCode: "D9D9D9")
-        tableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: "MyPageTableViewCell")
-        
+        tableView.do{
+            $0.tableFooterView = UIView()
+            $0.isScrollEnabled = false
+            $0.separatorStyle = .singleLine
+            $0.separatorInset = UIEdgeInsets(top: 0, left: 20*Constants.standardWidth, bottom: 0, right: 20*Constants.standardWidth)
+            $0.separatorColor = UIColor(hexCode: "D9D9D9")
+            $0.register(MyPageTableViewCell.self, forCellReuseIdentifier: "MyPageTableViewCell")
+        }
         
     }
     
     func layout(){
-        [titleLabel,leftButton,separateView,nicknameButton,plusButton,nicknameLabel,separateSecondView,tableView,bookmarkView]
+        [titleLabel,leftButton,separateView,nicknameButton,plusButton,nicknameLabel,editProfileButton,separateSecondView,tableView,bookmarkView]
             .forEach { UIView in
                 view.addSubview(UIView)
             }
@@ -269,31 +307,37 @@ class MyPageViewController: UIViewController, UIScrollViewDelegate {
         }
         
         nicknameButton.snp.makeConstraints { make in
-            make.width.equalTo(60*Constants.standardWidth)
+            make.width.equalTo(60*Constants.standardHeight)
             make.height.equalTo(60*Constants.standardHeight)
             make.leading.equalToSuperview().offset(20*Constants.standardWidth)
             make.top.equalToSuperview().offset(104*Constants.standardHeight)
         }
         
         plusButton.snp.makeConstraints { make in
-            make.width.equalTo(18*Constants.standardWidth)
+            make.width.equalTo(18*Constants.standardHeight)
             make.height.equalTo(18*Constants.standardHeight)
             make.leading.equalTo(nicknameButton.snp.leading).offset(42*Constants.standardWidth)
             make.top.equalTo(nicknameButton.snp.top).offset(42*Constants.standardHeight)
         }
         
         nicknameLabel.snp.makeConstraints { make in
-            //make.width.equalTo(60*Constants.standardWidth)
             make.height.equalTo(24*Constants.standardHeight)
             make.leading.equalToSuperview().offset(94*Constants.standardWidth)
             make.top.equalToSuperview().offset(122*Constants.standardHeight)
+        }
+        
+        editProfileButton.snp.makeConstraints { make in
+            make.width.equalTo(70*Constants.standardWidth)
+            make.height.equalTo(22*Constants.standardHeight)
+            make.leading.equalToSuperview().offset(16*Constants.standardWidth)
+            make.top.equalTo(nicknameButton.snp.bottom).offset(8*Constants.standardHeight)
         }
         
         separateSecondView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.height.equalTo(5*Constants.standardHeight)
             make.leading.equalToSuperview()
-            make.top.equalTo(nicknameButton.snp.bottom).offset(15*Constants.standardHeight)
+            make.top.equalTo(editProfileButton.snp.bottom).offset(16*Constants.standardHeight)
         }
 
         tableView.snp.makeConstraints { make in

@@ -54,8 +54,8 @@
 "Looking for a good restaurant near you" = "Looking for a good restaurant near you";
 
 //MARK: TabBar
-"map" = "map";
-"myPage" = "myPage";
+"Map" = "Map";
+"My Page" = "My Page";
 
 //MARK: CommunityPage
 "CheasoLog" = "CheasoLog";
@@ -100,15 +100,16 @@
 
 //MARK: MyPage
 "My Chaeso" = "My Chaeso";
-"My Story" = "My Story";
-"Bookmark" = "Bookmark";
-"Like" = "Like";
-"Announcement" = "Announcement";
-"Inquiry" = "Inquiry";
-"Terms & Policy" = "Terms & Policy";
-"Setting" = "Setting";
-"Log Out" = "Log Out";
-"Withdrawal" = "Withdrawal";
+"edit profile" = "edit profile";
+"my post" = "my post";
+"bookmark" = "bookmark";
+"notification" = "notification";
+"terms of service" = "terms of service";
+"language setting" = "setting";
+"logout" = "logout";
+"withdraw" = "withdraw";
+
+
 
 //MARK: BookmarkView
 "Place" = "Place";
@@ -122,3 +123,244 @@
 "언어 설정" = "Language Set";
 "한국어" = "Korean";
 "영어" = "English";
+
+//MARK: TermsPage
+"privacy policy" = "privacy policy";
+"Location-based service terms and conditions" = "Location-based service terms and conditions";
+
+//MARK: logoutAlert
+"Would you like to logout?" = "Would you like to logout?";
+"cancel" = "cancel";
+
+//MARK: Withdraw
+"Are you sure you want to delete the account?" = "Are you sure you want to delete the account?";
+"If you delete your account," = "If you delete your account,";
+"your profile and all your contents is deleted permanently immediately and cannot be recovered again." = "your profile and all your contents is deleted permanently immediately and cannot be recovered again.";
+
+
+
+
+//MARK: terms of service
+"pp" = "< Vegetables > (hereinafter referred to as \"Vegetables\") establishes and discloses its personal information processing policy in accordance with Article 30 of the \"Personal Information Protection Act\" to protect the personal information of the information subject and to swiftly and smoothly handle related grievances.
+
+Article 1 (Purpose of Processing Personal Information)
+Vegetables processes personal information for the following purposes. The processed personal information will not be used for purposes other than these, and if the purpose of use changes, we plan to take necessary measures such as obtaining separate consent in accordance with Article 18 of the \"Personal Information Protection Act\".
+
+Website Membership Registration and Management
+For the purpose of confirming the intention to join, identifying and authenticating oneself for membership services, maintaining and managing membership qualifications, preventing fraudulent use of services, checking the consent of legal representatives when processing personal information of children under 14, and various notifications and handling complaints.
+
+Provision of Goods or Services
+Personal information is processed for the purpose of providing services, content, and customized services.
+
+Use in Marketing and Advertising
+To provide event and advertising information, provide opportunities to participate, and provide services and advertising based on demographic characteristics.
+
+Article 2 (Processing and Retention Period of Personal Information)
+
+Vegetables processes and retains personal information within the retention and use period prescribed by laws or the retention and use period consented to by the information subject at the time of collecting personal information.
+
+Each personal information processing and retention period is as follows:
+
+Website Membership Registration and Management
+Personal information related to website membership registration and management is retained and used from the date of consent to collection and use until immediate destruction.
+Basis for Retention: Membership registration and management
+Related Laws: Records on display/advertising: 6 months
+Exceptions:
+Article 3 (Items of Personal Information Processed)
+
+Vegetables processes the following personal information items:
+Website Membership Registration and Management
+Mandatory items: Name, Login ID, Password, Password question and answer, Email
+Optional items: Name, Login ID, Password, Password question and answer, Access IP information, Access log, Service usage record
+Article 4 (Matters Concerning the Processing of Personal Information of Children Under 14)
+
+When collecting personal information from children under 14, the Personal Information Processor obtains the consent of their legal representative and collects only the minimum personal information necessary for the service.
+Mandatory items: Name of legal representative, Relationship, Contact information
+For the promotion related to the processing purpose, if the child's personal information is collected, separate consent is obtained from the legal representative.
+When collecting personal information from children under 14, the Personal Information Processor can request a minimum of information, such as the name and contact information of the legal representative, and confirms whether the legal representative has legally consented using one of the following methods:
+
+Article 5 (Matters Concerning the Provision of Personal Information to Third Parties)
+
+Vegetables processes personal information only within the scope specified in Article 1 (Purpose of Processing Personal Information) and provides personal information to third parties only with the consent of the information subject, special provisions of the law, or in cases corresponding to Articles 17 and 18 of the \"Personal Information Protection Act\".
+Vegetables provides personal information to third parties as follows:
+Vegetables
+Recipient of personal information: Vegetables
+Purpose of use by the recipient: Login ID, Password, Password question and answer, Access log, Service usage record
+Retention and use period by the recipient: Immediate destruction
+Article 6 (Matters Concerning the Consignment of Personal Information Processing)
+
+For smooth personal information processing tasks, Vegetables entrusts personal information processing tasks as follows:
+< >
+Trustee:
+Content of the consigned tasks:
+Consignment period:
+When concluding an entrustment contract, Vegetables specifies matters such as the prohibition of processing personal information for purposes other than the purpose of performing the consigned tasks, technical and administrative protection measures, restrictions on re-consignment, management and supervision of the trustee, compensation for damages, etc., in the contract or other documents in accordance with Article 26 of the \"Personal Information Protection Act\", and supervises the trustee to ensure the safe processing of personal information.
+If the content of the consignment task or the trustee changes, we will disclose it immediately through this personal information processing policy.
+
+Article 7 (Procedures and Methods for Destroying Personal Information)
+
+When personal information becomes unnecessary due to the expiration of the retention period, achievement of processing purposes, etc., Vegetables will immediately destroy the relevant personal information.
+If the retention period agreed upon by the information subject has expired or the processing purpose has been achieved, but the personal information must be retained continuously due to other laws, the personal information will be moved to a separate database (DB) or stored in a different location.
+Legal basis:
+Items of personal information to be retained: Account information, transaction date
+The procedures and methods for destroying personal information are as follows:
+Destruction Procedures
+Vegetables selects personal information for which a reason for destruction has occurred and destroys the personal information with the approval of Vegetables' personal information protection officer.
+Destruction Methods
+Electronic file format information uses a technical method that cannot reproduce records.
+Article 8 (Rights and Obligations of the Information Subject and Legal Representative, and Methods of Exercising Them)
+
+The information subject can exercise the rights of personal information access, correction, deletion, and processing suspension against Vegetables at any time.
+The exercise of rights as per paragraph 1 can be conducted in writing, email, fax, etc., in accordance with Article 41, Paragraph 1 of the Enforcement Regulations of the \"Personal Information Protection Act\", and Vegetables will take action without delay.
+The exercise of rights as per paragraph 1 can be done through a legal representative of the information subject or an agent such as a person delegated. In this case, a power of attorney must be submitted according to the form specified in the \"Personal Information Processing Policy (Notification No. 2020-7)\".
+Requests for access and processing suspension of personal information can be limited under Article 35, Paragraph 4, and Article 37, Paragraph 2 of the \"Personal Information Protection Act\".
+Despite the achievement of the processing purpose or the expiration of the retention period agreed upon, requests for correction and deletion of personal information cannot be made if the personal information is specified as a collection target in other laws.
+Vegetables verifies whether the person who made the request for access, correction, deletion, or processing suspension is the person in question or a legitimate representative.
+
+Article 9 (Measures to Ensure the Safety of Personal Information)
+Vegetables takes the following measures to ensure the safety of personal information:
+
+Restriction of Access to Personal Information
+Measures such as granting, changing, and revoking access rights to the personal information processing database system are taken to control access to personal information. An intrusion prevention system is used to control unauthorized access from the outside.
+Encryption of Personal Information
+The user's personal information, such as passwords, is encrypted and stored and managed so that only the user knows it. Important data is encrypted or locked using separate security features when being transmitted or stored.
+Article 10 (Matters Concerning the Installation, Operation, and Refusal of Automatic Personal Information Collection Devices)
+Vegetables does not use 'cookies' which store and retrieve user information.
+
+Article 11 (Matters Concerning the Collection, Use, Provision, and Refusal of Behavioral Information)
+The Personal Information Processor does not collect, use, or provide behavioral information for purposes such as online customized advertising.
+
+Article 12 (Matters Concerning the Processing of Pseudonymous Information)
+Vegetables processes pseudonymous information for the following purposes:
+
+Purpose of Processing Pseudonymous Information
+Directly writable
+Processing and Retention Period of Pseudonymous Information
+Directly writable
+... [The following sections are similarly translated as \"Directly writable\" in English.]
+Article 13 (Matters Concerning the Personal Information Protection Officer)
+
+Vegetables is responsible for the overall handling of personal information processing tasks and has designated the following personal information protection officer to handle complaints and damage remedies related to personal information processing.
+Personal Information Protection Officer
+Name:
+Position:
+Rank:
+Contact:
+Personal Information Protection Department
+Department Name:
+Person in Charge:
+Contact:
+When using the services (or business) of Vegetables, all inquiries, complaints, damage remedies, etc., related to personal information protection can be directed to the personal information protection officer and the department in charge. Vegetables will respond and handle them without delay.";
+
+
+"lt" = "Article 1 (Purpose)
+This agreement is intended to specify the rights, obligations, and other related matters of the members (referred to hereinafter as the 'Member') who have agreed to the service agreement of 'Vegetables' (hereinafter referred to as the 'Company') when using the web page provided by Vegetables and the 'Vegetables' mobile application (referring to the mobile application developed and operated by the company, hereinafter referred to as the 'Mobile App').
+
+Article 2 (Eligibility)
+The only members who can join the service are the actual owners of mobile phones capable of using location-based services.
+
+Article 3 (Service Registration)
+The company may refuse to accept a membership application for the following reasons:
+
+If applied under a false name or using someone else's identity
+If customer registration details are omitted or incorrectly submitted
+If the purpose of the application violates public order or morals
+Other circumstances where the company's application requirements are not met
+Article 4 (Service Termination)
+Members can request service termination through the procedure set by the company.
+
+Article 5 (Effectiveness and Modification of the Terms of Use)
+
+These terms become effective when a customer or personal location information subject registers as a member according to the procedures set by the company.
+If a customer or personal location information subject reads all of these terms online and clicks the \"Agree\" button, it is deemed that they have fully understood and agreed to the contents of these terms.
+If one does not agree to these terms, there may be some restrictions on various benefits and convenience offerings provided by the company based on personal location information.
+The company can revise these terms within the scope of related laws such as the \"Act on the Protection and Use of Location Information,\" \"Content Industry Promotion Act,\" \"Act on Consumer Protection in Electronic Commerce,\" \"Basic Consumer Act,\" and \"Act on the Regulation of Terms and Conditions.\"
+If the company revises the terms, it will specify the current and revised terms, the effective date of the revised terms, and the reason for the revision, and announce them on the company's web page and mobile app for a considerable period from 10 days before the effective date. However, if the revised terms impose new obligations on members or limit their rights, the company will announce them 30 days before the effective date and notify members electronically.
+Article 6 (Guidelines Outside the Agreement)
+These terms are applied fairly based on the principle of good faith and trust. For matters not specified in these terms, the related laws and sound trading practices will be followed.
+
+Article 7 (Service Contents)
+The services provided by the company are as follows:
+
+Geo Tagging for location-based content classification
+Providing product and service information of the company and its affiliates
+Providing services for life convenience, such as directions
+Article 8 (Service Fee)
+
+The company provides its services free of charge as a basic principle.
+Notwithstanding the previous clause, data communication fees incurred during wireless service use are separate, and the fees charged at this time are determined by the mobile carrier policy that the member has subscribed to.
+When posting content using Multimedia Messaging Service (MMS), the member bears the fee according to the fee policy of each mobile carrier.
+Article 9 (Notification of Service Content Changes, etc.)
+
+If the company changes or terminates the service content, it will send an email to the registered email address of the member, notifying the changes or termination one week in advance.
+In the case of the previous clause, when notifying an unspecified number of members, the company can notify the members by announcing it on the company's web page.
+Article 10 (Restriction and Suspension of Service Use)
+The company can restrict or suspend a member's use of the service for the following reasons:
+
+If the member intentionally or negligently interferes with the company's service operation
+Inevitable circumstances such as service equipment inspection, maintenance, or construction
+When a telecommunications service provider suspends the service under the Telecommunications Business Act
+National emergencies, service equipment malfunctions, or service usage surges causing service disruptions
+Other significant reasons making it difficult for the company to continue providing services
+If the company restricts or suspends the service use according to the previous clause, it will announce the fact on the internet or notify the customer. However, if the service is suspended for reasons beyond the company's control, it can notify the members afterward.
+Article 11 (Use or Provision of Personal Location Information)
+
+If the company wishes to provide a service using personal location information, it must obtain the consent of the subject of the personal location information for these terms.
+The company does not use the personal location information provided by the member for purposes other than service provision without the consent of the member. However, if requested by the customer in advance, the company can notify the contents to the communication terminal device (mobile phone, etc.) or email address designated by the customer.
+For the purpose of addressing complaints from other businesses or users, the company automatically records and retains the facts of location information use and provision, and retains this information for one year.
+If the company provides personal location information to a third party designated by the member, the company immediately notifies the member of the recipient, the date of provision, and the purpose of provision through the communication device that collected the location information. However, in the following cases, the company notifies the communication device or email address designated by the member in advance:
+If the communication device collecting personal location information does not have text, voice, or video reception functions
+If the member requests another method
+Article 12 (Retention Period and Use Period of Personal Location Information)
+
+If the company has used the member's personal location information, it will use the personal location information within the scope of the purpose agreed upon by the customer and retain it for customer service for one year after which it will be destroyed immediately.
+Notwithstanding the previous clause, if there is a duty and necessity to retain personal location information according to related laws, it will be retained accordingly.
+Article 13 (Rights of the Subject of Personal Location Information)
+
+Members can withdraw all or part of their consent to the provision of location-based services using personal location information and the provision of personal location information to third parties at any time. In this case, the company destroys the collected personal location information and the facts of location information use and provision.
+Members can request the company to temporarily suspend the collection, use, or provision of personal location information at any time.
+Members can request the company to view or notify the following materials, and if there is an error in the material, they can request its correction. In this case, the company cannot unjustly refuse the member's request.
+Facts of the member's location information use and provision
+The reason and content of the member's location information provided to the third party
+Members can exercise the rights of clauses 1 to 3 according to the procedure set by the company.
+Article 14 (Rights of Legal Representative)
+
+The company only provides services using personal location information to members under 14 years old when both the member and the member's legal representative have given their consent. In this case, the legal representative has all the rights of the member according to these terms, and the company regards the legal representative as the member.
+If the company wishes to use or provide the personal location information and facts of location information use and provision of members under 14 years old beyond the scope specified or notified in these terms to a third party, it must obtain the consent of both the member and the member's legal representative. However, the following cases are exceptions:
+When it is necessary to settle fees for services provided using location information and the facts of location information use and provision
+When providing processed data in a form that cannot identify a specific individual for statistical production, academic research, or market research
+Other cases with special regulations in related laws
+Article 15 (Compensation for Damages)
+
+If the company causes damage to the member by violating the provisions of Articles 15 to 26 of the Act on the Protection and Use of Location Information, the member can claim compensation from the company.
+If a member intentionally or negligently violates the provisions of these terms and causes damage to the company, the member must compensate the company for all damages.
+Article 16 (Disclaimer)
+
+The company is not liable for damages incurred by members in the following cases when it cannot provide services:
+In the case of natural disasters or equivalent force majeure
+In case of intentional disruption of the service by a third party
+In cases where there is a hindrance to using the service due to the member's fault
+Other cases where the company is not intentional or negligent
+The company does not guarantee the reliability and accuracy of the service, information, materials, facts, etc. posted on the service, and is not responsible for any damage caused to members by them.
+The company is not responsible for the loss of profits expected by the member when using the service and for any damage caused to the member by the data obtained through the service.
+Article 17 (Dispute Resolution)
+
+If there is a dispute related to location information and the parties cannot or do not discuss it, the company can request mediation from the Korea Communications Commission according to Article 28 of the Act on the Protection and Use of Location Information.
+If there is a dispute related to location information and the parties cannot or do not discuss it, the company or the customer can request mediation from the Personal Information Dispute Mediation Committee according to Article 43 of the Personal Information Protection Act.
+Article 18 (Company Contact)
+The company's name and address are as follows:
+
+Corporate name: Vegetables
+CEO:
+Location:
+Contact:
+Supplementary Provisions
+Article 1 (Effective Date)
+These terms are effective from September 1, 2023.
+Article 2 (Manager of Location Information)
+The location information manager is designated as follows as of September 1, 2023:
+
+Affiliation: Vegetables
+Name: Lee Ji-eun
+Position:
+Phone: 010-2392-8735";

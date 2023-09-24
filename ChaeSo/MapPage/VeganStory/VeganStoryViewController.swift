@@ -107,7 +107,7 @@ class VeganStoryViewController: UIViewController {
     }
     
     func layout(){
-        [veganStoryLabel,separateView,photoView,vsTabView]
+        [veganStoryLabel,leftButton,separateView,photoView,vsTabView]
             .forEach { UIView in
                 view.addSubview(UIView)
             }

@@ -98,7 +98,7 @@ class LoginViewModel: NSObject, ASAuthorizationControllerDelegate{
                     .disposed(by: disposeBag)
                 }
                 else {
-
+                    
                     // 카톡 없으면 -> 계정으로 로그인
                     UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
                         guard let self = self else {return}
@@ -112,7 +112,7 @@ class LoginViewModel: NSObject, ASAuthorizationControllerDelegate{
                             self.getKakaoUserInfo()
                             let testViewController = TestViewController()
                             self.goToTosViewController.accept(())
-                            // 관련 메소드 추가
+                            
                         }
                     }
                 }

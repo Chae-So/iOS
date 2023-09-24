@@ -13,6 +13,17 @@ extension UITextField {
     }
 }
 
+extension UIButton {
+    func setUnderline() {
+        guard let title = title(for: .normal) else { return }
+        let attributedString = NSMutableAttributedString(string: title)
+        attributedString.addAttribute(.underlineStyle,
+                                      value: NSUnderlineStyle.single.rawValue,
+                                      range: NSRange(location: 0, length: title.count)
+        )
+        setAttributedTitle(attributedString, for: .normal)
+    }
+}
 
 extension UIColor {
     convenience init(hexCode: String, alpha: CGFloat = 1.0) {
@@ -104,6 +115,28 @@ extension Reactive where Base: UITextField {
     public var placeholder: Binder<String?> {
         return Binder(self.base) { textField, placeholder in
             textField.placeholder = placeholder
+        }
+    }
+}
+
+extension Reactive where Base: UITabBarItem {
+    var title: Binder<String?> {
+        return Binder(self.base) { item, title in
+            item.title = title
+        }
+    }
+}
+
+extension Reactive where Base: UIAlertController {
+    func action(of alertAction: UIAlertAction) -> Observable<Void> {
+        return Observable.create { [weak base] observer in
+            let action = UIAlertAction(title: alertAction.title, style: alertAction.style) { _ in
+                observer.onNext(())
+                observer.onCompleted()
+            }
+            
+            base?.addAction(action)
+            return Disposables.create()
         }
     }
 }

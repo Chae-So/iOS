@@ -26,19 +26,40 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
+        
         let communityVC = CommunityViewController(communityViewModel: CommunityViewModel(localizationManager: LocalizationManager.shared))
+        let communityNavVC = UINavigationController(rootViewController: communityVC)
+        communityNavVC.isNavigationBarHidden = true
+        
         let mapVC = MapViewController(mapViewModel: MapViewModel(localizationManager: LocalizationManager.shared))
         let mapNavVC = UINavigationController(rootViewController: mapVC)
         mapNavVC.isNavigationBarHidden = true
-        let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
-        
-        communityVC.tabBarItem = UITabBarItem(title: tabBarViewModel.chaesoLogText, image: UIImage(named: "cheasoLog"), tag: 0)
-        mapVC.tabBarItem = UITabBarItem(title: tabBarViewModel.mapText, image: UIImage(named: "map"), tag: 1)
-        myPageVC.tabBarItem = UITabBarItem(title: tabBarViewModel.myPageText, image: UIImage(named: "myPage"), tag: 2)
-        
-        viewControllers = [communityVC, mapVC, myPageVC]
-        
 
+        
+        let myPageVC = MyPageViewController(myPageviewModel: MyPageViewModel(localizationManager: LocalizationManager.shared))
+        let myPageNavVC = UINavigationController(rootViewController: myPageVC)
+        myPageNavVC.isNavigationBarHidden = true
+        
+        communityVC.tabBarItem = UITabBarItem(title: tabBarViewModel.chaesoLogText.value, image: UIImage(named: "cheasoLog"), tag: 0)
+        mapNavVC.tabBarItem = UITabBarItem(title: tabBarViewModel.mapText.value, image: UIImage(named: "map"), tag: 1)
+        myPageNavVC.tabBarItem = UITabBarItem(title: tabBarViewModel.myPageText.value, image: UIImage(named: "myPage"), tag: 2)
+        
+        self.viewControllers = [communityNavVC, mapNavVC, myPageNavVC]
+
+        tabBarViewModel.chaesoLogText
+            .bind(to: communityNavVC.tabBarItem.rx.title)
+            .disposed(by: disposeBag)
+
+        tabBarViewModel.mapText
+            .bind(to: mapNavVC.tabBarItem.rx.title)
+            .disposed(by: disposeBag)
+
+        tabBarViewModel.myPageText
+            .bind(to: myPageNavVC.tabBarItem.rx.title)
+            .disposed(by: disposeBag)
+
+        
         rx.didSelect
             .map { $0.view.tag }
             .bind(to: tabBarViewModel.selectedIndex)
@@ -52,7 +73,6 @@ class TabBarController: UITabBarController {
         
     }
 }
-
 
 //#if DEBUG
 //import SwiftUI

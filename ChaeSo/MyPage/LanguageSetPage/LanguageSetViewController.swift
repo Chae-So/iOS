@@ -43,19 +43,6 @@ class LanguageSetViewController: UIViewController {
         layout()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        languageSetViewModel.titleText
-            .subscribe { title in
-                print("랭귀지셋타이틀",title)
-            }
-            .disposed(by: disposeBag)
-        languageSetViewModel.titleText
-            .bind(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
-    }
-    
-    
     func bind(){
         
         leftButton.rx.tap
@@ -65,6 +52,17 @@ class LanguageSetViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        languageSetViewModel.titleText
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        languageSetViewModel.koText
+            .bind(to: koButton.rx.title())
+            .disposed(by: disposeBag)
+        
+        languageSetViewModel.enText
+            .bind(to: enButton.rx.title())
+            .disposed(by: disposeBag)
         
         koButton.rx.tap
             .map { "ko" }
@@ -82,11 +80,11 @@ class LanguageSetViewController: UIViewController {
                 print(language)
                 if language == "ko"{
                     self.koButton.setImage(UIImage(named: "checkFill"), for: .normal)
-                    self.enButton.setImage(UIImage(named: "white"), for: .normal)
+                    self.enButton.setImage(UIImage(named: "check"), for: .normal)
                 }
                 else{
                     self.enButton.setImage(UIImage(named: "checkFill"), for: .normal)
-                    self.koButton.setImage(UIImage(named: "white"), for: .normal)
+                    self.koButton.setImage(UIImage(named: "check"), for: .normal)
                 }
             })
             .disposed(by: disposeBag)
@@ -101,8 +99,7 @@ class LanguageSetViewController: UIViewController {
         view.backgroundColor = UIColor(named: "sbgColor")
         
         titleLabel.do{
-            $0.font = UIFont(name: "Pretendard-Medium", size: 16)
-            //$0.text = languageSetViewModel.titleText
+            $0.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
         }
         
         leftButton.setImage(UIImage(named: "left"), for: .normal)
@@ -110,31 +107,25 @@ class LanguageSetViewController: UIViewController {
         separateView.backgroundColor = UIColor(hexCode: "D9D9D9")
         
         koButton.do{
-            $0.adjustsImageWhenHighlighted = false
             $0.backgroundColor = .white
-            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
-            $0.setTitle(languageSetViewModel.koText, for: .normal)
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
             $0.setTitleColor(.black, for: .normal)
             $0.semanticContentAttribute = .forceLeftToRight
             $0.sizeToFit()
             $0.layer.cornerRadius = 8 * Constants.standardHeight
             $0.contentHorizontalAlignment = .left
             $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 300, bottom: 0, right: -180)
-            //$0.titleEdgeInsets = UIEdgeInsets(top: 0, left: -40, bottom: 0, right: 250)
         }
         
         enButton.do{
-            $0.adjustsImageWhenHighlighted = false
             $0.backgroundColor = .white
-            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16)
-            $0.setTitle(languageSetViewModel.enText, for: .normal)
+            $0.titleLabel?.font = UIFont(name: "Pretendard-Medium", size: 16*Constants.standartFont)
             $0.setTitleColor(.black, for: .normal)
             $0.semanticContentAttribute = .forceLeftToRight
             $0.sizeToFit()
             $0.layer.cornerRadius = 8 * Constants.standardHeight
             $0.contentHorizontalAlignment = .left
             $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 300, bottom: 0, right: -180)
-            //$0.titleEdgeInsets = UIEdgeInsets(top: 0, left: -40, bottom: 0, right: 250)
         }
         
     }
@@ -146,7 +137,6 @@ class LanguageSetViewController: UIViewController {
             }
         
         titleLabel.snp.makeConstraints { make in
-            //make.width.equalTo(100*Constants.standardWidth)
             make.height.equalTo(19*Constants.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(54*Constants.standardHeight)
